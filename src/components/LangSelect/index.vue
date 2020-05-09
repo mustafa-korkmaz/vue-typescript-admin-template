@@ -12,10 +12,10 @@
     </div>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item
-        :disabled="language==='zh'"
-        command="zh"
+        :disabled="language==='tr'"
+        command="tr"
       >
-        中文
+        Türkçe
       </el-dropdown-item>
       <el-dropdown-item
         :disabled="language==='en'"
@@ -23,7 +23,7 @@
       >
         English
       </el-dropdown-item>
-      <el-dropdown-item
+      <!-- <el-dropdown-item
         :disabled="language==='es'"
         command="es"
       >
@@ -40,13 +40,7 @@
         command="ko"
       >
         한국어
-      </el-dropdown-item>
-      <el-dropdown-item
-        :disabled="language==='it'"
-        command="it"
-      >
-        Italiano
-      </el-dropdown-item>
+      </el-dropdown-item> -->
     </el-dropdown-menu>
   </el-dropdown>
 </template>
@@ -54,9 +48,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/modules/app'
-import settings from '../../settings'
+
 @Component({
-  name: 'Login'
+  name: 'LangSelect'
 })
 export default class extends Vue {
   get language() {
@@ -66,11 +60,11 @@ export default class extends Vue {
   private handleSetLanguage(lang: string) {
     this.$i18n.locale = lang
     AppModule.SetLanguage(lang)
-    document.documentElement.lang = lang
-    const title = this.$route.meta.title ? `${this.$t(`route.${this.$route.meta.title}`)} - ${settings.title}` : `${settings.title}`
-    document.title = title
+
+    const msg = this.$t('messages.languageModified')
+
     this.$message({
-      message: this.$t('components.changeLanguageTips').toString(),
+      message: msg.toString(),
       type: 'success'
     })
   }

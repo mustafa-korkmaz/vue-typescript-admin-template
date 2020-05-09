@@ -5,14 +5,14 @@ import { getLanguage } from '@/utils/cookies'
 
 // element-ui built-in lang
 import elementEnLocale from 'element-ui/lib/locale/lang/en'
-import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'
+import elementTrLocale from 'element-ui/lib/locale/lang/tr-TR'
 import elementEsLocale from 'element-ui/lib/locale/lang/es'
 import elementJaLocale from 'element-ui/lib/locale/lang/ja'
 import elementKoLocale from 'element-ui/lib/locale/lang/ko'
 
 // User defined lang
 import enLocale from './en'
-import zhLocale from './zh'
+import trLocale from './tr'
 import esLocale from './es'
 import jaLocale from './ja'
 import koLocale from './ko'
@@ -25,9 +25,9 @@ const messages = {
     ...enLocale,
     ...elementEnLocale
   },
-  zh: {
-    ...zhLocale,
-    ...elementZhLocale
+  tr: {
+    ...trLocale,
+    ...elementTrLocale
   },
   es: {
     ...esLocale,

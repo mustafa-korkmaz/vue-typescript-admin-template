@@ -16,13 +16,12 @@
         <error-log class="errLog-container right-menu-item hover-effect" />
         <screenfull class="right-menu-item hover-effect" />
         <el-tooltip
-          :content="$t('navbar.size')"
+          :content="$t('navbar.language')"
           effect="dark"
           placement="bottom"
         >
-          <size-select class="right-menu-item hover-effect" />
+          <lang-select class="right-menu-item hover-effect" />
         </el-tooltip>
-        <lang-select class="right-menu-item hover-effect" />
       </template>
       <el-dropdown
         class="avatar-container right-menu-item hover-effect"
@@ -130,7 +129,7 @@ export default class extends Vue {
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
   .hamburger-container {
     line-height: 46px;
@@ -138,11 +137,11 @@ export default class extends Vue {
     float: left;
     padding: 0 15px;
     cursor: pointer;
-    transition: background .3s;
-    -webkit-tap-highlight-color:transparent;
+    transition: background 0.3s;
+    -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, .025)
+      background: rgba(0, 0, 0, 0.025);
     }
   }
 
@@ -174,10 +173,10 @@ export default class extends Vue {
 
       &.hover-effect {
         cursor: pointer;
-        transition: background .3s;
+        transition: background 0.3s;
 
         &:hover {
-          background: rgba(0, 0, 0, .025)
+          background: rgba(0, 0, 0, 0.025);
         }
       }
     }

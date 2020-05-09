@@ -9,6 +9,7 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
+import adminSettingsRouter from './modules/admin-settings'
 
 Vue.use(VueRouter)
 
@@ -89,18 +90,23 @@ export const constantRoutes: RouteConfig[] = [
       }
     ]
   },
-  // {
-  //   path: '/documentation',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import(/* webpackChunkName: "documentation" */ '@/views/documentation/index.vue'),
-  //       name: 'Documentation',
-  //       meta: { title: 'documentation', icon: 'documentation', affix: true }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/customer',
+    component: Layout,
+    redirect: '/customer/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import(/* webpackChunkName: "guide" */ '@/views/customers/index.vue'),
+        name: 'Customer',
+        meta: {
+          title: 'customers',
+          icon: 'peoples',
+          noCache: true
+        }
+      }
+    ]
+  },
   {
     path: '/guide',
     component: Layout,
@@ -436,11 +442,12 @@ export const asyncRoutes: RouteConfig[] = [
     path: '*',
     redirect: '/404',
     meta: { hidden: true }
-  }
+  },
+  adminSettingsRouter
 ]
 
 const createRouter = () => new VueRouter({
-  // mode: 'history',  // Disabled due to Github Pages doesn't support this, enable this if you need.
+  mode: 'history',
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {
       return savedPosition

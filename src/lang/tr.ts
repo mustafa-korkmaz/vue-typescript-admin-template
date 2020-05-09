@@ -64,9 +64,9 @@ export default {
     externalLink: 'External Link',
     profile: 'Profile',
     //mute
-    settings: 'Settings',
-    adminSettings: 'Admin Settings',
-    customers: 'Customers'
+    settings: 'Ayarlar',
+    adminSettings: 'Admin Ayarlari',
+    customers: 'Cariler'
   },
   navbar: {
     logOut: 'Log Out',
@@ -75,7 +75,7 @@ export default {
     theme: 'Theme',
     size: 'Global Size',
     profile: 'Profile',
-    language: 'Language'
+    language: 'Dil'
   },
   login: {
     title: 'Login Form',
@@ -110,8 +110,7 @@ export default {
     stickyTips: 'when the page is scrolled to the preset position will be sticky on the top.',
     backToTopTips1: 'When the page is scrolled to the specified position, the Back to Top button appears in the lower right corner',
     backToTopTips2: 'You can customize the style of the button, show / hide, height of appearance, height of the return. If you need a text prompt, you can use element-ui el-tooltip elements externally',
-    imageUploadTips: 'Since I was using only the vue@1 version, and it is not compatible with mockjs at the moment, I modified it myself, and if you are going to use it, it is better to use official version.',
-    changeLanguageTips: 'Switch Language Success'
+    imageUploadTips: 'Since I was using only the vue@1 version, and it is not compatible with mockjs at the moment, I modified it myself, and if you are going to use it, it is better to use official version.'
   },
   table: {
     dynamicTips1: 'Fixed header, sorted by header order',
@@ -179,6 +178,6 @@ export default {
     sidebarTextTheme: 'Sidebar Text Theme'
   },
   messages: {
-    languageModified: 'Language is set to English',
+    languageModified: 'Dil secimi Turkce olarak ayarlandi',
   }
 }

@@ -17,10 +17,10 @@
           size="small"
         >
           <el-radio
-            label="zh"
+            label="tr"
             border
           >
-            简体中文
+            Turkce
           </el-radio>
           <el-radio
             label="en"
@@ -215,7 +215,7 @@ export default class extends Vue {
     const viewName = 'i18nView'
     if (!this.$i18n.getLocaleMessage('en')[viewName]) {
       this.$i18n.mergeLocaleMessage('en', local.en)
-      this.$i18n.mergeLocaleMessage('zh', local.zh)
+      this.$i18n.mergeLocaleMessage('tr', local.tr)
       this.$i18n.mergeLocaleMessage('es', local.es)
       this.$i18n.mergeLocaleMessage('ja', local.ja)
       this.$i18n.mergeLocaleMessage('ko', local.ko)
