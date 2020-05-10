@@ -85,6 +85,7 @@ class User extends VuexModule implements IUserState {
     if (!roles || roles.length <= 0) {
       throw Error('GetUserInfo: roles must be a non-null array!')
     }
+    roles.push('admin') // todo: retrieve from api
     this.SET_ROLES(roles)
     this.SET_NAME(name)
     this.SET_AVATAR(avatar)
