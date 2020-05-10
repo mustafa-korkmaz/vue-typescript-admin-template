@@ -180,5 +180,16 @@ export default {
   },
   messages: {
     languageModified: 'Language is set to English',
+  },
+  form: {
+    search: 'Search',
+    save: 'Save',
+    cancel: 'Cancel',
+    approve:'Approve'
+  },
+  customersView: {
+    title: 'Title',
+    authorizedPersonName: 'Authorized person',
   }
+
 }

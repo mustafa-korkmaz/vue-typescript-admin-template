@@ -1,37 +1,71 @@
 <template>
   <div class="page-container">
-    <el-row>
-      <line-chart :chart-data="lineChartData" />
-    </el-row>
-    <el-row>
-      <line-chart :chart-data="lineChartData" />
-    </el-row>
-
     <el-form
       ref="postForm"
       :model="postForm"
       class="form-container"
     >
       <el-row>
-        <el-col :span="24">
-          <el-form-item
-            style="margin-bottom: 40px;"
-            prop="title"
-          >
+        <el-col
+          :xs="24"
+          :sm="24"
+          :md="8"
+          :lg="8"
+        >
+          <el-form-item prop="title">
             <material-input
               v-model="postForm.title"
               :maxlength="100"
-              name="name"
+              name="title"
               required
             >
-              Title
+              {{ $t('customersView.title') }}
             </material-input>
+          </el-form-item>
+        </el-col>
+        <el-col
+          :xs="24"
+          :sm="24"
+          :md="8"
+          :lg="8"
+        >
+          <el-form-item prop="authorized_person_name">
+            <material-input
+              v-model="postForm.authorized_person_name"
+              :maxlength="100"
+              name="authorized_person_name"
+              required
+            >
+              {{ $t('customersView.authorizedPersonName') }}
+            </material-input>
+          </el-form-item>
+        </el-col>
+        <el-col
+          :xs="24"
+          :sm="24"
+          :md="16"
+          :lg="16"
+        >
+          <el-form-item prop="search">
+            <el-button
+              icon="el-icon-search"
+              type="primary"
+              @click.prevent.stop="guide"
+            >
+              {{ $t('form.search') }}
+            </el-button>
           </el-form-item>
         </el-col>
       </el-row>
 
       <el-form />
     </el-form>
+    <el-row>
+      <line-chart :chart-data="lineChartData" />
+    </el-row>
+    <el-row>
+      <line-chart :chart-data="lineChartData" />
+    </el-row>
   </div>
 </template>
 

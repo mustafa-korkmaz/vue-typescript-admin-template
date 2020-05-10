@@ -179,5 +179,15 @@ export default {
   },
   messages: {
     languageModified: 'Dil secimi Turkce olarak ayarlandi',
+  },
+  form: {
+    search: 'Ara',
+    save: 'Kaydet',
+    cancel: 'Vazgeç',
+    approve: 'Onayla'
+  },
+  customersView: {
+    title: 'Ünvan',
+    authorizedPersonName: 'Yetkili kişi',
   }
 }

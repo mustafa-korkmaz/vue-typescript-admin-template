@@ -165,4 +165,40 @@ aside {
     padding: 1rem 1rem 0;
     margin-bottom: 2rem;
   }
+
+}
+
+.el-form>.el-row>.el-col>.el-form-item {
+  margin-bottom: 40px;
+  button{
+    float: right;
+  }
+}
+
+/* For Mobile - xs */
+@media screen and (max-width: 767px) {}
+
+/* For Tablets - sm */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  // #app {
+  //   padding-left: 10vw;
+  //   padding-right: 10vw;
+  // }
+}
+
+/* For small laptops - md */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .el-form>.el-row>.el-col>.el-form-item {
+    margin-bottom: 40px;
+    padding-right: 1rem;
+  }
+}
+
+/* For laptops - lg */
+@media screen and (min-width: 1200px) {
+  .el-form>.el-row>.el-col>.el-form-item {
+    margin-bottom: 40px;
+    padding-right: 1rem;
+  }
+
 }
