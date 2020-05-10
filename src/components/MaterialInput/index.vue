@@ -243,7 +243,7 @@ $color-black: black;
 
 // Component:
 .material-input__component {
-  margin-top: 45px;
+  margin-top: 1.5rem;
   position: relative;
 
   * {

@@ -184,7 +184,8 @@ export default {
     search: 'Ara',
     save: 'Kaydet',
     cancel: 'Vazgeç',
-    approve: 'Onayla'
+    approve: 'Onayla',
+    create: 'Yeni'
   },
   customersView: {
     title: 'Ünvan',

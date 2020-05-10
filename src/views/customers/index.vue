@@ -46,14 +46,23 @@
           :md="16"
           :lg="16"
         >
-          <el-form-item prop="search">
-            <el-button
-              icon="el-icon-search"
-              type="primary"
-              @click.prevent.stop="guide"
-            >
-              {{ $t('form.search') }}
-            </el-button>
+          <el-form-item prop="create">
+            <el-button-group>
+              <el-button
+                icon="el-icon-circle-plus-outline"
+                type="success"
+                @click.prevent.stop="guide"
+              >
+                {{ $t('form.create') }}
+              </el-button>
+              <el-button
+                icon="el-icon-search"
+                type="primary"
+                @click.prevent.stop="guide"
+              >
+                {{ $t('form.search') }}
+              </el-button>
+            </el-button-group>
           </el-form-item>
         </el-col>
       </el-row>
@@ -106,17 +115,3 @@ export default class extends Vue {
   private postForm = Object.assign({}, defaultCustomer)
 }
 </script>
-
-<style lang="scss" scoped>
-.dashboard-editor-container {
-  padding: 1rem;
-  background-color: rgb(240, 242, 245);
-  position: relative;
-
-  .chart-wrapper {
-    background: #fff;
-    padding: 16px 16px 0;
-    margin-bottom: 32px;
-  }
-}
-</style>

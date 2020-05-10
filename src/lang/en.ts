@@ -185,7 +185,8 @@ export default {
     search: 'Search',
     save: 'Save',
     cancel: 'Cancel',
-    approve:'Approve'
+    approve:'Approve',
+    create:'Create'
   },
   customersView: {
     title: 'Title',
