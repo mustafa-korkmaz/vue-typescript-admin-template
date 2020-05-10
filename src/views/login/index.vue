@@ -140,7 +140,7 @@ export default class extends Vue {
 
   private loginForm = {
     username: 'admin',
-    password: '111111'
+    password: '123456'
   }
 
   private loginRules = {
@@ -191,22 +191,20 @@ export default class extends Vue {
   }
 
   private handleLogin() {
-    (this.$refs.loginForm as ElForm).validate(async(valid: boolean) => {
+    (this.$refs.loginForm as ElForm).validate((valid: boolean) => {
       if (valid) {
         this.loading = true
-        await UserModule.Login(this.loginForm)
-        this.$router.push({
-          path: this.redirect || '/',
-          query: this.otherQuery
-        }).catch(err => {
-          console.warn(err)
-        })
-        // Just to simulate the time of the request
-        setTimeout(() => {
-          this.loading = false
-        }, 0.5 * 1000)
-      } else {
-        return false
+
+        UserModule.Login(this.loginForm)
+          .then(() => {
+            this.$router.push({
+              path: this.redirect || '/',
+              query: this.otherQuery
+            })
+          })
+          .finally(() => {
+            this.loading = false
+          })
       }
     })
   }
@@ -226,8 +224,12 @@ export default class extends Vue {
 // References: https://www.zhangxinxu.com/wordpress/2018/01/css-caret-color-first-line/
 @supports (-webkit-mask: none) and (not (cater-color: $loginCursorColor)) {
   .login-container .el-input {
-    input { color: $loginCursorColor; }
-    input::first-line { color: $lightGray; }
+    input {
+      color: $loginCursorColor;
+    }
+    input::first-line {
+      color: $lightGray;
+    }
   }
 }
 
