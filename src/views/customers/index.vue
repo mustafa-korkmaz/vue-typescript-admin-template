@@ -46,23 +46,24 @@
           :md="16"
           :lg="16"
         >
-          <el-form-item prop="create">
-            <el-button-group>
-              <el-button
-                icon="el-icon-circle-plus-outline"
-                type="success"
-                @click.prevent.stop="guide"
-              >
-                {{ $t('form.create') }}
-              </el-button>
-              <el-button
-                icon="el-icon-search"
-                type="primary"
-                @click.prevent.stop="guide"
-              >
-                {{ $t('form.search') }}
-              </el-button>
-            </el-button-group>
+          <el-form-item
+            prop="create"
+            class="form-buttons"
+          >
+            <el-button
+              icon="el-icon-circle-plus-outline"
+              type="success"
+              @click.prevent.stop="guide"
+            >
+              {{ $t('form.create') }}
+            </el-button>
+            <el-button
+              icon="el-icon-search"
+              type="primary"
+              @click.prevent.stop="guide"
+            >
+              {{ $t('form.search') }}
+            </el-button>
           </el-form-item>
         </el-col>
       </el-row>

@@ -170,8 +170,13 @@ aside {
 
 .el-form>.el-row>.el-col>.el-form-item {
   margin-bottom: 40px;
-  .el-button-group{
+
+  .el-button-group {
     float: right;
+  }
+
+  &.form-buttons {
+    text-align: right;
   }
 }
 
