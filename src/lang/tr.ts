@@ -178,7 +178,7 @@ export default {
     sidebarTextTheme: 'Sidebar Text Theme'
   },
   messages: {
-    languageModified: 'Dil secimi Turkce olarak ayarlandi',
+    languageModified: 'Dil seçimi Türkçe olarak ayarlandı',
   },
   form: {
     search: 'Ara',
@@ -190,5 +190,17 @@ export default {
   customersView: {
     title: 'Ünvan',
     authorizedPersonName: 'Yetkili kişi',
+    phoneNumber: 'Telefon',
+    receivablesAmount: 'Alacak',
+    debtsAmount: 'Borç',
+    remainingBalance: 'Bakiye',
+    createdAt: 'Kayıt tarihi',
+    modifiedAt: 'Son işlem',
+    actions: 'İşlemler',
+    edit: 'Düzenle',
+    delete: 'Sil',
+    goToTransactions: 'Hesap hareketlerine git',
+    createCustomer: 'Yeni cari oluştur',
+    updateCustomer: 'Cari düzenle'
   }
 }

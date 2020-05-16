@@ -114,6 +114,7 @@
         @focus="handleFocus"
         @blur="handleBlur"
         @input="handleInput"
+        @keyup.enter="handleEnterPressed"
       >
       <span class="material-input-bar" />
       <label class="material-label">
@@ -186,6 +187,11 @@ export default class extends Vue {
   private handleFocus(event: FocusEvent) {
     this.focus = true
     this.$emit('focus', event)
+  }
+
+  private handleEnterPressed(event: KeyboardEvent) {
+    this.focus = true
+    this.$emit('enterPressed', event)
   }
 
   private handleBlur(event: FocusEvent) {

@@ -191,6 +191,18 @@ export default {
   customersView: {
     title: 'Title',
     authorizedPersonName: 'Authorized person',
+    phoneNumber: 'Phone',
+    receivablesAmount: 'Receivables',
+    debtsAmount: 'Debts',
+    remainingBalance: 'Balance',
+    createdAt: 'Created at',
+    modifiedAt: 'Modified at',
+    actions: 'Actions',
+    edit: 'Edit',
+    delete: 'Delete',
+    goToTransactions: 'Go to transactions',
+    createCustomer: 'Create customer',
+    updateCustomer: 'Edit customer'
   }
 
 }

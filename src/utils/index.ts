@@ -90,3 +90,15 @@ export const toggleClass = (ele: HTMLElement, className: string) => {
   }
   ele.className = classString
 }
+
+
+export const getPriceText = (price: number) => {
+
+  if (!price) {
+    return '0.00';
+  }
+
+  const number = price.toFixed(2);
+
+  return number.replace(',', '.');
+}

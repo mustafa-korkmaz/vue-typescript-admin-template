@@ -4,7 +4,7 @@ import { Message } from 'element-ui'
 
 const httpService = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL,
-  timeout: 5000 // request time out 5 secs
+  timeout: 10000 // request time out 10 secs
 })
 
 // request interceptor

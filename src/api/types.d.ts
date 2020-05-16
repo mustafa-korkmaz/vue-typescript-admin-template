@@ -46,7 +46,9 @@ export interface IUserData {
 export interface IPagedListQuery {
   offset: number
   limit: number
-  include_records_total: boolean
+  include_records_total: boolean,
+  sort_by: string | null
+  sort_type: string | null
 }
 
 export interface IApiResponse<T> {

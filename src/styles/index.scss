@@ -166,6 +166,11 @@ aside {
     margin-bottom: 2rem;
   }
 
+  .el-dialog__header {
+    border-bottom: 1px solid;
+    border-color: #dcdfe6;
+  }
+
 }
 
 .el-form>.el-row>.el-col>.el-form-item {

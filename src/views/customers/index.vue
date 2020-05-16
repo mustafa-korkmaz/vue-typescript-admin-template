@@ -14,10 +14,12 @@
         >
           <el-form-item prop="title">
             <material-input
+              id="title"
               v-model="postForm.title"
               :maxlength="100"
               name="title"
               required
+              @enterPressed="handleFilter"
             >
               {{ $t('customersView.title') }}
             </material-input>
@@ -31,10 +33,12 @@
         >
           <el-form-item prop="authorized_person_name">
             <material-input
+              id="authorized_person_name"
               v-model="postForm.authorized_person_name"
               :maxlength="100"
               name="authorized_person_name"
               required
+              @enterPressed="handleFilter"
             >
               {{ $t('customersView.authorizedPersonName') }}
             </material-input>
@@ -60,7 +64,7 @@
             <el-button
               icon="el-icon-search"
               type="primary"
-              @click.prevent.stop="guide"
+              @click="handleFilter"
             >
               {{ $t('form.search') }}
             </el-button>
@@ -73,7 +77,7 @@
     <el-row>
       <el-table
         :key="tableKey"
-        v-loading="listLoading"
+        v-loading="loading"
         :data="list"
         border
         fit
@@ -82,132 +86,105 @@
         @sort-change="sortChange"
       >
         <el-table-column
-          :label="$t('table.id')"
-          prop="id"
+          :label="$t('customersView.title')"
+          prop="title"
           sortable="custom"
-          align="center"
-          width="80"
-          :class-name="getSortClass('id')"
+          min-width="150px"
+          :class-name="getSortClass()"
         >
           <template slot-scope="{row}">
-            <span>{{ row.id }}</span>
+            <el-tooltip
+              :content="$t('customersView.goToTransactions')"
+              effect="dark"
+              placement="right"
+            >
+              <span
+                class="link-type"
+                @click="handleUpdate(row)"
+              >{{ row.title }}</span>
+            </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column
-          :label="$t('table.date')"
-          width="180px"
-          align="center"
-        >
-          <template slot-scope="{row}">
-            <span>{{ row.timestamp | parseTime }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('table.title')"
+          :label="$t('customersView.authorizedPersonName')"
           min-width="150px"
         >
           <template slot-scope="{row}">
-            <span
-              class="link-type"
-              @click="handleUpdate(row)"
-            >{{ row.title }}</span>
-            <el-tag>{{ row.type | typeFilter }}</el-tag>
+            <span>{{ row.authorized_person_name }}</span>
           </template>
         </el-table-column>
         <el-table-column
-          :label="$t('table.author')"
-          width="180px"
+          :label="$t('customersView.phoneNumber')"
+          width="150px"
           align="center"
         >
           <template slot-scope="{row}">
-            <span>{{ row.author }}</span>
+            <span>{{ row.phone_number }}</span>
           </template>
         </el-table-column>
         <el-table-column
-          v-if="showReviewer"
-          :label="$t('table.reviewer')"
-          width="110px"
+          :label="$t('customersView.debtsAmount')"
+          align="center"
+          width="100px"
+        >
+          <template
+            slot-scope="{row}"
+            text-align="right"
+          >
+            <span>{{ getPriceText(row.remaining_balance) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          :label="$t('customersView.receivablesAmount')"
+          align="center"
+          width="100px"
+        >
+          <template slot-scope="{row}">
+            <span>{{ getPriceText(row.remaining_balance) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          :label="$t('customersView.remainingBalance')"
+          align="center"
+          width="100px"
+        >
+          <template slot-scope="{row}">
+            <span>{{ getPriceText(row.remaining_balance) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          :label="$t('customersView.createdAt')"
+          width="150px"
           align="center"
         >
           <template slot-scope="{row}">
-            <span style="color:red;">{{ row.reviewer }}</span>
+            <span>{{ row.created_at_text }}</span>
           </template>
         </el-table-column>
         <el-table-column
-          :label="$t('table.importance')"
-          width="105px"
-        >
-          <template slot-scope="{row}">
-            <svg-icon
-              v-for="n in +row.importance"
-              :key="n"
-              name="star"
-              class="meta-item__icon"
-            />
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('table.readings')"
+          :label="$t('customersView.actions')"
           align="center"
-          width="95"
-        >
-          <template slot-scope="{row}">
-            <span
-              v-if="row.pageviews"
-              class="link-type"
-              @click="handleGetPageviews(row.pageviews)"
-            >{{ row.pageviews }}</span>
-            <span v-else>0</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('table.status')"
-          class-name="status-col"
-          width="100"
-        >
-          <template slot-scope="{row}">
-            <el-tag :type="row.status | articleStatusFilter">
-              {{ row.status }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('table.actions')"
-          align="center"
-          width="230"
+          width="150"
           class-name="fixed-width"
         >
           <template slot-scope="{row, $index}">
-            <el-button
-              type="primary"
-              size="mini"
-              @click="handleUpdate(row)"
-            >
-              {{ $t('table.edit') }}
-            </el-button>
-            <el-button
-              v-if="row.status!=='published'"
-              size="mini"
-              type="success"
-              @click="handleModifyStatus(row,'published')"
-            >
-              {{ $t('table.publish') }}
-            </el-button>
-            <el-button
-              v-if="row.status!=='draft'"
-              size="mini"
-              @click="handleModifyStatus(row,'draft')"
-            >
-              {{ $t('table.draft') }}
-            </el-button>
-            <el-button
-              v-if="row.status!=='deleted'"
-              size="mini"
-              type="danger"
-              @click="handleDelete(row, $index)"
-            >
-              {{ $t('table.delete') }}
-            </el-button>
+            <el-button-group>
+              <el-button
+                type="primary"
+                size="mini"
+                @click="handleUpdate(row)"
+              >
+                {{ $t('customersView.edit') }}
+              </el-button>
+              <el-button
+                v-if="row.status!=='deleted'"
+                size="mini"
+                type="danger"
+                @click="handleDelete(row, $index)"
+              >
+                {{ $t('customersView.delete') }}
+              </el-button>
+            </el-button-group>
           </template>
         </el-table-column>
       </el-table>
@@ -215,92 +192,142 @@
       <pagination
         v-show="total>0"
         :total="total"
-        :page.sync="listQuery.page"
-        :limit.sync="listQuery.limit"
+        :page.sync="page"
+        :limit.sync="query.limit"
         @pagination="getList"
       />
     </el-row>
-    <el-row>
-      <line-chart :chart-data="lineChartData" />
-    </el-row>
+    <el-dialog
+      :title="getDialogTitle()"
+      :visible.sync="dialogFormVisible"
+    >
+      <el-form
+        ref="dataForm"
+        :rules="rules"
+        :model="selectedCustomer"
+        label-position="left"
+        label-width="100px"
+        style="width: 400px; margin-left:50px;"
+      >
+        <!-- <el-form-item
+          :label="$t('table.type')"
+          prop="type"
+        >
+          <el-select
+            v-model="selectedCustomer.type"
+            class="filter-item"
+            placeholder="Please select"
+          >
+            <el-option
+              v-for="item in calendarTypeOptions"
+              :key="item.key"
+              :label="item.displayName"
+              :value="item.key"
+            />
+          </el-select>
+        </el-form-item> -->
+        <el-form-item
+          :label="$t('table.date')"
+          prop="timestamp"
+        >
+          <el-date-picker
+
+            type="datetime"
+            placeholder="Please pick a date"
+          />
+        </el-form-item>
+        <el-form-item
+          :label="$t('table.title')"
+          prop="title"
+        >
+          <el-input v-model="selectedCustomer.title" />
+        </el-form-item>
+        <!-- <el-form-item :label="$t('table.status')">
+          <el-select
+            v-model="tempArticleData.status"
+            class="filter-item"
+            placeholder="Please select"
+          >
+            <el-option
+              v-for="item in statusOptions"
+              :key="item"
+              :label="item"
+              :value="item"
+            />
+          </el-select>
+        </el-form-item> -->
+        <el-form-item :label="$t('table.remark')">
+          <el-input
+            v-model="selectedCustomer.authorized_person_name"
+            :autosize="{minRows: 2, maxRows: 4}"
+            type="textarea"
+            placeholder="Please input"
+          />
+        </el-form-item>
+      </el-form>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          @click="dialogFormVisible = false"
+        >
+          {{ $t('form.cancel') }}
+        </el-button>
+        <el-button
+          type="success"
+          icon="el-icon-check"
+          @click="editMode?updateData():createData()"
+        >
+          {{ $t('form.save') }}
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import LineChart from './components/LineChart.vue'
-import { defaultCustomer } from '@/api/customers/customer-service'
+import { defaultCustomer, getCustomers, defaultCustomerQuery } from '@/api/customers/customer-service'
+import { ICustomer } from '@/api/customers/types'
+import { getPriceText } from '@/utils/index'
 import MaterialInput from '@/components/MaterialInput/index.vue'
-import { getArticles, defaultArticleData } from '@/api/articles'
-import { IArticleData } from '@/api/types'
 import { cloneDeep } from 'lodash'
 import { Form } from 'element-ui'
 import Pagination from '@/components/Pagination/index.vue'
 
-const lineChartData = {
-  newVisitis: {
-    expectedData: [100, 120, 161, 134, 105, 160, 165],
-    actualData: [120, 82, 91, 154, 162, 140, 145]
-  },
-  messages: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
-    actualData: [180, 160, 151, 106, 145, 150, 130]
-  },
-  purchases: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130]
-  },
-  shoppings: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
-  }
-}
-
-const calendarTypeOptions = [
-  { key: 'CN', displayName: 'China' },
-  { key: 'US', displayName: 'USA' },
-  { key: 'JP', displayName: 'Japan' },
-  { key: 'EU', displayName: 'Eurozone' }
-]
-
 @Component({
   name: 'Customer',
   components: {
-    LineChart,
     MaterialInput,
     Pagination
   }
 })
 export default class extends Vue {
-  private lineChartData = lineChartData.newVisitis
   private postForm = Object.assign({}, defaultCustomer)
+  private query = Object.assign({}, defaultCustomerQuery)
+
   private tableKey = 0
-  private list: IArticleData[] = []
+  private list: ICustomer[] = []
   private total = 0
-  private listLoading = true
-  private listQuery = {
-    page: 1,
-    limit: 20,
-    importance: undefined,
-    title: undefined,
-    type: undefined,
-    sort: '+id'
+  private page = 1
+  private loading = true
+  private selectedCustomer = defaultCustomer
+  private editMode = false
+  private dialogFormVisible = false
+  private rules = {
+    // type: [{ required: true, message: 'type is required', trigger: 'change' }],
+    // timestamp: [{ required: true, message: 'timestamp is required', trigger: 'change' }],
+    title: [{ required: true, message: 'title is required', trigger: 'blur' }]
   }
 
-  private downloadLoading = false
-  private tempArticleData = defaultArticleData
+  private getPriceText = getPriceText
 
-  private importanceOptions = [1, 2, 3]
-  private calendarTypeOptions = calendarTypeOptions
   private sortOptions = [
     { label: 'ID Ascending', key: '+id' },
     { label: 'ID Descending', key: '-id' }
   ]
 
-  private statusOptions = ['published', 'draft', 'deleted']
-  private showReviewer = false
-  private dialogFormVisible = false
-  private dialogStatus = ''
   private textMap = {
     update: 'Edit',
     create: 'Create'
@@ -310,19 +337,28 @@ export default class extends Vue {
     this.getList()
   }
 
-  private async getList() {
-    this.listLoading = true
-    const { data } = await getArticles(this.listQuery)
-    this.list = data.items
-    this.total = data.total
-    // Just to simulate the time of the request
-    setTimeout(() => {
-      this.listLoading = false
-    }, 0.5 * 1000)
+  private getList() {
+    this.loading = true
+    this.query.offset = (this.page - 1) * this.query.limit
+    this.query.authorized_person_name = this.postForm.authorized_person_name
+    this.query.title = this.postForm.title
+
+    getCustomers(this.query)
+      .then(
+        (resp) => {
+          this.loading = false
+          this.list = resp.data.items
+          this.total = resp.data.records_total
+        },
+        (err) => {
+          console.error(err)
+          this.loading = false
+        }
+      )
   }
 
   private handleFilter() {
-    this.listQuery.page = 1
+    this.page = 1
     this.getList()
   }
 
@@ -336,35 +372,79 @@ export default class extends Vue {
 
   private sortChange(data: any) {
     const { prop, order } = data
-    if (prop === 'id') {
-      this.sortByID(order)
+
+    this.query.sort_by = data.prop
+    if (prop === 'title') {
+      this.sortByTitle(order)
     }
   }
 
-  private sortByID(order: string) {
-    if (order === 'ascending') {
-      this.listQuery.sort = '+id'
+  private sortByTitle(type: string) {
+    if (type === 'ascending') {
+      this.query.sort_type = 'asc'
     } else {
-      this.listQuery.sort = '-id'
+      this.query.sort_type = 'desc'
     }
     this.handleFilter()
   }
 
-  private getSortClass(key: string) {
-    const sort = this.listQuery.sort
-    return sort === `+${key}` ? 'ascending' : 'descending'
+  private getSortClass() {
+    const sort = this.query.sort_type
+    if (sort === null) {
+      return ''
+    }
+    return sort === 'asc' ? 'ascending' : 'descending'
   }
 
-  private resetTempArticleData() {
-    this.tempArticleData = cloneDeep(defaultArticleData)
+  private handleUpdate(row: any) {
+    this.selectedCustomer = Object.assign({}, row)
+    this.editMode = true
+    this.dialogFormVisible = true
+    console.log(this.dialogFormVisible)
+    this.$nextTick(() => {
+      (this.$refs.dataForm as Form).clearValidate()
+    })
   }
 
   private handleCreate() {
-    this.resetTempArticleData()
-    this.dialogStatus = 'create'
-    this.dialogFormVisible = true
+    this.editMode = false
     this.$nextTick(() => {
       (this.$refs.dataForm as Form).clearValidate()
+    })
+  }
+
+  private getDialogTitle() {
+    return this.editMode ? this.$t('customersView.updateCustomer')
+      : this.$t('customersView.createCustomer')
+  }
+
+  private createData() {
+    (this.$refs.dataForm as Form).validate(async(valid) => {
+      if (valid) {
+        this.list.unshift(this.selectedCustomer)
+        this.dialogFormVisible = false
+        this.$notify({
+          title: '成功',
+          message: '创建成功',
+          type: 'success',
+          duration: 2000
+        })
+      }
+    })
+  }
+
+  private updateData() {
+    (this.$refs.dataForm as Form).validate(async(valid) => {
+      if (valid) {
+        this.list.unshift(this.selectedCustomer)
+        this.dialogFormVisible = false
+        this.$notify({
+          title: '成功',
+          message: '创建成功',
+          type: 'success',
+          duration: 2000
+        })
+      }
     })
   }
 }
