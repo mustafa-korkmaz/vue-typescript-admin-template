@@ -288,6 +288,9 @@ export default class extends Vue {
 
   private getPriceText = getPriceText
 
+  // todo: dynamically set table columns width
+  // todo: toggle sort by title buttons
+
   created() {
     this.rules = {
       // type: [{ required: true, message: 'type is required', trigger: 'change' }],
