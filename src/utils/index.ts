@@ -102,3 +102,29 @@ export const getPriceText = (price: number) => {
 
   return number.replace(',', '.');
 }
+
+export const getDateStr= (date: Date)=> {
+
+  let monthText = '';
+  let dayText = '';
+
+  const _date = new Date(date);
+
+  const day = _date.getDate();
+  const month = _date.getMonth() + 1;
+  const yearText = _date.getFullYear().toString();
+
+  if (day < 10) {
+    dayText = '0' + day.toString();
+  } else {
+    dayText = day.toString();
+  }
+
+  if (month < 10) {
+    monthText = '0' + month.toString();
+  } else {
+    monthText = month.toString();
+  }
+
+  return dayText + '.' + monthText + '.' + yearText;
+}

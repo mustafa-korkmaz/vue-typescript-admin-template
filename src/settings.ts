@@ -8,6 +8,7 @@ interface ISettings {
   sidebarTextTheme: boolean // If true, will change active text color for sidebar based on theme
   devServerPort: number // Port number for webpack-dev-server
   mockServerPort: number // Port number for mock server
+  notificationDuration: number // notify message duration in miliseconds
 }
 
 // You can customize below settings :)
@@ -20,7 +21,8 @@ const settings: ISettings = {
   errorLog: ['production'],
   sidebarTextTheme: true,
   devServerPort: 9527,
-  mockServerPort: 9528
+  mockServerPort: 9528,
+  notificationDuration: 3000
 }
 
 export default settings

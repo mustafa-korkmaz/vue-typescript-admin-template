@@ -57,7 +57,7 @@
             <el-button
               icon="el-icon-circle-plus-outline"
               type="success"
-              @click.prevent.stop="guide"
+              @click="handleCreate"
             >
               {{ $t('form.create') }}
             </el-button>
@@ -167,7 +167,7 @@
           width="150"
           class-name="fixed-width"
         >
-          <template slot-scope="{row, $index}">
+          <template slot-scope="{row}">
             <el-button-group>
               <el-button
                 type="primary"
@@ -179,7 +179,7 @@
               <el-button
                 size="mini"
                 type="danger"
-                @click="handleDelete(row, $index)"
+                @click="handleDelete(row)"
               >
                 {{ $t('customersView.delete') }}
               </el-button>
@@ -204,7 +204,7 @@
         ref="dataForm"
         :rules="rules"
         :model="selectedCustomer"
-        label-position="left"
+        label-position="top"
         label-width="100px"
         style="width: 400px; margin-left:50px;"
       >
@@ -212,7 +212,10 @@
           :label="$t('customersView.title')"
           prop="title"
         >
-          <el-input v-model="selectedCustomer.title" />
+          <el-input
+            v-model="selectedCustomer.title"
+            :placeholder="$t('customersView.titlePlaceholder')"
+          />
         </el-form-item>
         <el-form-item
           :label="$t('customersView.authorizedPersonName')"
@@ -224,7 +227,10 @@
           :label="$t('customersView.phoneNumber')"
           prop="phone"
         >
-          <el-input v-model="selectedCustomer.phone_number" />
+          <el-input
+            v-model="selectedCustomer.phone_number"
+            type="number"
+          />
         </el-form-item>
       </el-form>
       <div
@@ -237,7 +243,7 @@
         <el-button
           type="success"
           icon="el-icon-check"
-          @click="editMode?updateData():createData()"
+          @click="editMode?updateCustomer():createCustomer()"
         >
           {{ $t('form.save') }}
         </el-button>
@@ -248,14 +254,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { defaultCustomer, getCustomers, defaultCustomerQuery } from '@/api/customers/customer-service'
+import * as service from '@/api/customers/customer-service'
 import { ICustomer } from '@/api/customers/types'
-import { getPriceText } from '@/utils/index'
+import { getPriceText, getDateStr } from '@/utils/index'
 import MaterialInput from '@/components/MaterialInput/index.vue'
-import { cloneDeep } from 'lodash'
 import { MessageBox, Form } from 'element-ui'
+import settings from '@/settings'
 
 import Pagination from '@/components/Pagination/index.vue'
+
+const { notificationDuration } = settings
 
 @Component({
   name: 'Customer',
@@ -265,15 +273,15 @@ import Pagination from '@/components/Pagination/index.vue'
   }
 })
 export default class extends Vue {
-  private postForm = Object.assign({}, defaultCustomer)
-  private query = Object.assign({}, defaultCustomerQuery)
+  private postForm = Object.assign({}, service.defaultCustomer)
+  private query = Object.assign({}, service.defaultCustomerQuery)
+  private selectedCustomer = Object.assign({}, service.defaultCustomer)
 
   private tableKey = 0
   private list: ICustomer[] = []
   private total = 0
   private page = 1
   private loading = true
-  private selectedCustomer = defaultCustomer
   private editMode = false
   private dialogFormVisible = false
   private rules = {}
@@ -299,7 +307,7 @@ export default class extends Vue {
     this.query.authorized_person_name = this.postForm.authorized_person_name
     this.query.title = this.postForm.title
 
-    getCustomers(this.query)
+    service.getCustomers(this.query)
       .then(
         (resp) => {
           this.loading = false
@@ -356,29 +364,30 @@ export default class extends Vue {
     this.selectedCustomer = Object.assign({}, row)
     this.editMode = true
     this.dialogFormVisible = true
-    console.log(this.dialogFormVisible)
     this.$nextTick(() => {
       (this.$refs.dataForm as Form).clearValidate()
     })
   }
 
-  private handleDelete(row: any) {
+  private handleDelete(row: ICustomer) {
     MessageBox.confirm(
-      '你已被登出，可以取消继续留在该页面，或者重新登录',
-      '确定登出',
+      this.$t('customersView.deleteCustomerWarning').toString(),
+      this.$t('messages.confirm').toString(),
       {
-        confirmButtonText: '重新登录',
-        cancelButtonText: '取消',
+        confirmButtonText: this.$t('form.delete').toString(),
+        cancelButtonText: this.$t('form.cancel').toString(),
         confirmButtonClass: 'el-button--danger',
         type: 'warning'
       }
     ).then(() => {
-      location.reload() // To prevent bugs from vue-router
+      this.deleteCustomer(row)
     })
   }
 
   private handleCreate() {
     this.editMode = false
+    this.dialogFormVisible = true
+    this.selectedCustomer = Object.assign({}, service.defaultCustomer)
     this.$nextTick(() => {
       (this.$refs.dataForm as Form).clearValidate()
     })
@@ -389,33 +398,84 @@ export default class extends Vue {
       : this.$t('customersView.createCustomer')
   }
 
-  private createData() {
+  private createCustomer() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
-        this.list.unshift(this.selectedCustomer)
-        this.dialogFormVisible = false
-        this.$notify({
-          title: '成功',
-          message: '创建成功',
-          type: 'success',
-          duration: 2000
-        })
+        service.createCustomer(this.selectedCustomer)
+          .then(
+            (resp) => {
+              this.loading = false
+              this.selectedCustomer.id = resp.data
+              this.selectedCustomer.created_at_text = getDateStr(new Date())
+              this.total += 1
+              this.list.unshift(this.selectedCustomer)
+              this.dialogFormVisible = false
+              this.$notify({
+                title: this.$t('messages.success').toString(),
+                message: this.$t('messages.saved').toString(),
+                type: 'success',
+                duration: notificationDuration
+              })
+            },
+            (err) => {
+              console.error(err)
+              this.loading = false
+            }
+          )
       }
     })
   }
 
-  private updateData() {
+  private updateCustomer() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
-        this.dialogFormVisible = false
-        this.$notify({
-          title: '成功',
-          message: '创建成功',
-          type: 'success',
-          duration: 2000
-        })
+        this.loading = true
+
+        service.updateCustomer(this.selectedCustomer)
+          .then(
+            () => {
+              this.loading = false
+              const index = this.list.findIndex(v => v.id === this.selectedCustomer.id)
+              this.list.splice(index, 1, this.selectedCustomer)
+              this.dialogFormVisible = false
+              this.$notify({
+                title: this.$t('messages.success').toString(),
+                message: this.$t('messages.saved').toString(),
+                type: 'success',
+                duration: notificationDuration
+              })
+            },
+            (err) => {
+              console.error(err)
+              this.loading = false
+            }
+          )
       }
     })
+  }
+
+  private deleteCustomer(customer: ICustomer) {
+    this.loading = true
+
+    service.deleteCustomer(customer.id)
+      .then(
+        () => {
+          this.loading = false
+          const index = this.list.findIndex(v => v.id === customer.id)
+          this.total -= 1
+          this.list.splice(index, 1)
+          this.$notify({
+            title: this.$t('messages.success').toString(),
+            message: this.$t('messages.deleted').toString(),
+            type: 'success',
+            duration: notificationDuration
+          })
+        },
+        (err) => {
+          console.error(err)
+          this.loading = false
+        }
+      )
   }
 }
 </script>

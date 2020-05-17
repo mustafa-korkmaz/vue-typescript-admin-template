@@ -179,13 +179,18 @@ export default {
   },
   messages: {
     languageModified: 'Dil seçimi Türkçe olarak ayarlandı',
+    success: 'İşlem başarılı',
+    confirm: 'Devam etmek istiyor musunuz?',
+    saved: 'Değişiklikler kaydedildi',
+    deleted: 'Kayıt silindi.'
   },
   form: {
     search: 'Ara',
     save: 'Kaydet',
     cancel: 'Vazgeç',
     approve: 'Onayla',
-    create: 'Yeni'
+    create: 'Yeni',
+    delete: 'Sil'
   },
   customersView: {
     title: 'Ünvan',
@@ -202,9 +207,13 @@ export default {
     goToTransactions: 'Hesap hareketlerine git',
     createCustomer: 'Yeni cari oluştur',
     updateCustomer: 'Cari düzenle',
-    titleRequired:'Ünvan alani zorunludur'
+    titleRequired: 'Ünvan alanı zorunludur',
+    deleteCustomerWarning: 'Cari bilgileri ve cariye bağlı hesap haraketleri kalıcı olarak silinecek',
+    titlePlaceholder: 'Şahıs ya da firma adi'
   },
   errorMessages: {
     USER_NOT_FOUND: 'Kullanıcı bulunamadı',
+    PHONE_NUMBER_FIELD_SHOULD_BE_MIN_10_MAX_12_CHARS: 'Telefon numarası en az 10 en çok 12 karakter olmalıdır',
+    AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Yetkili kişi adı en az 3 en çok 50 karakter olmalıdır'
   }
 }
