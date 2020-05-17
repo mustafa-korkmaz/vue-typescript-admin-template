@@ -1,9 +1,5 @@
 FROM node:lts-alpine
 
-RUN npm i -g npm
-
-RUN npm cache clean --force
-
 # install simple http server for serving static content
 RUN npm install -g http-server
 
@@ -11,15 +7,20 @@ RUN npm install -g http-server
 WORKDIR /app
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
+COPY package.json /app 
+COPY yarn.lock /app
+
+RUN apk add --no-cache git
+# RUN yarn --pure-lockfile
+
 
 # install project dependencies
-RUN npm install
+RUN yarn install
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
 # build app for production with minification
-RUN npm run build:prod
+RUN yarn run build:prod
 
 CMD [ "http-server", "dist" ]
