@@ -2,6 +2,8 @@ FROM node:lts-alpine
 
 RUN npm i -g npm
 
+RUN npm cache clean --force
+
 # install simple http server for serving static content
 RUN npm install -g http-server
 
