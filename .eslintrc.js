@@ -31,14 +31,13 @@ module.exports = {
     'vue/arrow-spacing': 'error',
     'vue/block-spacing': 'error',
     'vue/brace-style': 'error',
-    // 'vue/camelcase': 'error',
+    'vue/camelcase': 'error',
     'vue/comma-dangle': 'error',
     'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     'vue/eqeqeq': 'error',
     'vue/key-spacing': 'error',
     'vue/match-component-file-name': 'error',
     'vue/object-curly-spacing': 'error'
-    // 'camelcase': 'off',
   },
   overrides: [
     {

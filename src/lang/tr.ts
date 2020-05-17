@@ -201,6 +201,10 @@ export default {
     delete: 'Sil',
     goToTransactions: 'Hesap hareketlerine git',
     createCustomer: 'Yeni cari oluştur',
-    updateCustomer: 'Cari düzenle'
+    updateCustomer: 'Cari düzenle',
+    titleRequired:'Ünvan alani zorunludur'
+  },
+  errorMessages: {
+    USER_NOT_FOUND: 'Kullanıcı bulunamadı',
   }
 }

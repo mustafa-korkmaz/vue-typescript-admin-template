@@ -177,7 +177,6 @@
                 {{ $t('customersView.edit') }}
               </el-button>
               <el-button
-                v-if="row.status!=='deleted'"
                 size="mini"
                 type="danger"
                 @click="handleDelete(row, $index)"
@@ -209,69 +208,30 @@
         label-width="100px"
         style="width: 400px; margin-left:50px;"
       >
-        <!-- <el-form-item
-          :label="$t('table.type')"
-          prop="type"
-        >
-          <el-select
-            v-model="selectedCustomer.type"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option
-              v-for="item in calendarTypeOptions"
-              :key="item.key"
-              :label="item.displayName"
-              :value="item.key"
-            />
-          </el-select>
-        </el-form-item> -->
         <el-form-item
-          :label="$t('table.date')"
-          prop="timestamp"
-        >
-          <el-date-picker
-
-            type="datetime"
-            placeholder="Please pick a date"
-          />
-        </el-form-item>
-        <el-form-item
-          :label="$t('table.title')"
+          :label="$t('customersView.title')"
           prop="title"
         >
           <el-input v-model="selectedCustomer.title" />
         </el-form-item>
-        <!-- <el-form-item :label="$t('table.status')">
-          <el-select
-            v-model="tempArticleData.status"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option
-              v-for="item in statusOptions"
-              :key="item"
-              :label="item"
-              :value="item"
-            />
-          </el-select>
-        </el-form-item> -->
-        <el-form-item :label="$t('table.remark')">
-          <el-input
-            v-model="selectedCustomer.authorized_person_name"
-            :autosize="{minRows: 2, maxRows: 4}"
-            type="textarea"
-            placeholder="Please input"
-          />
+        <el-form-item
+          :label="$t('customersView.authorizedPersonName')"
+          prop="authorizedPerson"
+        >
+          <el-input v-model="selectedCustomer.authorized_person_name" />
+        </el-form-item>
+        <el-form-item
+          :label="$t('customersView.phoneNumber')"
+          prop="phone"
+        >
+          <el-input v-model="selectedCustomer.phone_number" />
         </el-form-item>
       </el-form>
       <div
         slot="footer"
         class="dialog-footer"
       >
-        <el-button
-          @click="dialogFormVisible = false"
-        >
+        <el-button @click="dialogFormVisible = false">
           {{ $t('form.cancel') }}
         </el-button>
         <el-button
@@ -293,7 +253,8 @@ import { ICustomer } from '@/api/customers/types'
 import { getPriceText } from '@/utils/index'
 import MaterialInput from '@/components/MaterialInput/index.vue'
 import { cloneDeep } from 'lodash'
-import { Form } from 'element-ui'
+import { MessageBox, Form } from 'element-ui'
+
 import Pagination from '@/components/Pagination/index.vue'
 
 @Component({
@@ -315,26 +276,21 @@ export default class extends Vue {
   private selectedCustomer = defaultCustomer
   private editMode = false
   private dialogFormVisible = false
-  private rules = {
-    // type: [{ required: true, message: 'type is required', trigger: 'change' }],
-    // timestamp: [{ required: true, message: 'timestamp is required', trigger: 'change' }],
-    title: [{ required: true, message: 'title is required', trigger: 'blur' }]
-  }
+  private rules = {}
 
   private getPriceText = getPriceText
 
-  private sortOptions = [
-    { label: 'ID Ascending', key: '+id' },
-    { label: 'ID Descending', key: '-id' }
-  ]
-
-  private textMap = {
-    update: 'Edit',
-    create: 'Create'
+  created() {
+    this.rules = {
+      // type: [{ required: true, message: 'type is required', trigger: 'change' }],
+      // timestamp: [{ required: true, message: 'timestamp is required', trigger: 'change' }],
+      title: [{ required: true, message: this.titleRequired, trigger: 'blur' }]
+    }
+    this.getList()
   }
 
-  created() {
-    this.getList()
+  get titleRequired() {
+    return this.$t('customersView.titleRequired')
   }
 
   private getList() {
@@ -406,6 +362,21 @@ export default class extends Vue {
     })
   }
 
+  private handleDelete(row: any) {
+    MessageBox.confirm(
+      '你已被登出，可以取消继续留在该页面，或者重新登录',
+      '确定登出',
+      {
+        confirmButtonText: '重新登录',
+        cancelButtonText: '取消',
+        confirmButtonClass: 'el-button--danger',
+        type: 'warning'
+      }
+    ).then(() => {
+      location.reload() // To prevent bugs from vue-router
+    })
+  }
+
   private handleCreate() {
     this.editMode = false
     this.$nextTick(() => {
@@ -436,7 +407,6 @@ export default class extends Vue {
   private updateData() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
-        this.list.unshift(this.selectedCustomer)
         this.dialogFormVisible = false
         this.$notify({
           title: '成功',

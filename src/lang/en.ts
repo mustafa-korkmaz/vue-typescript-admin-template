@@ -185,8 +185,8 @@ export default {
     search: 'Search',
     save: 'Save',
     cancel: 'Cancel',
-    approve:'Approve',
-    create:'Create'
+    approve: 'Approve',
+    create: 'Create'
   },
   customersView: {
     title: 'Title',
@@ -202,7 +202,10 @@ export default {
     delete: 'Delete',
     goToTransactions: 'Go to transactions',
     createCustomer: 'Create customer',
-    updateCustomer: 'Edit customer'
+    updateCustomer: 'Edit customer',
+    titleRequired:'Title field is required'
+  },
+  errorMessages: {
+    USER_NOT_FOUND: 'User not found',
   }
-
 }

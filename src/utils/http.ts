@@ -1,6 +1,7 @@
 import axios from "axios";
 import { UserModule } from '@/store/modules/user';
 import { Message } from 'element-ui'
+import i18n from '@/lang'
 
 const httpService = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL,
@@ -29,8 +30,10 @@ httpService.interceptors.response.use(
     return response.data
   },
   (error) => {
+
+    const m = i18n.t('errorMessages.' + error.response.data.error_code)
     Message({
-      message: error.response.data.error_code, // todo: translate error_code
+      message: m.toString(),
       type: 'error',
       duration: 3 * 1000
     })
