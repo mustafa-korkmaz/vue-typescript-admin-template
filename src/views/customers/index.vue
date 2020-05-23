@@ -79,7 +79,6 @@
         :key="tableKey"
         v-loading="loading"
         :data="list"
-        border
         fit
         highlight-current-row
         style="width: 100%;"
@@ -162,7 +161,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          :label="$t('customersView.actions')"
+          :label="$t('tableActions.name')"
           align="center"
           min-width="14"
           class-name="fixed-width"
@@ -174,14 +173,14 @@
                 size="mini"
                 @click="handleUpdate(row)"
               >
-                {{ $t('customersView.edit') }}
+                {{ $t('tableActions.edit') }}
               </el-button>
               <el-button
                 size="mini"
                 type="danger"
                 @click="handleDelete(row)"
               >
-                {{ $t('customersView.delete') }}
+                {{ $t('tableActions.delete') }}
               </el-button>
             </el-button-group>
           </template>
@@ -288,7 +287,6 @@ export default class extends Vue {
 
   private getPriceText = getPriceText
 
-  // todo: dynamically set table columns width
   // todo: toggle sort by title buttons
 
   created() {
@@ -327,14 +325,6 @@ export default class extends Vue {
   private handleFilter() {
     this.page = 1
     this.getList()
-  }
-
-  private handleModifyStatus(row: any, status: string) {
-    this.$message({
-      message: '操作成功',
-      type: 'success'
-    })
-    row.status = status
   }
 
   private sortChange(data: any) {

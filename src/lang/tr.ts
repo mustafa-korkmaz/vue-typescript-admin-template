@@ -193,6 +193,11 @@ export default {
     create: 'Yeni',
     delete: 'Sil'
   },
+  tableActions: {
+    name: 'İşlemler',
+    edit: 'Düzenle',
+    delete: 'Sil',
+  },
   customersView: {
     title: 'Ünvan',
     authorizedPersonName: 'Yetkili kişi',
@@ -202,15 +207,25 @@ export default {
     remainingBalance: 'Bakiye',
     createdAt: 'Kayıt tarihi',
     modifiedAt: 'Son işlem',
-    actions: 'İşlemler',
-    edit: 'Düzenle',
-    delete: 'Sil',
     goToTransactions: 'Hesap hareketlerine git',
     createCustomer: 'Yeni cari oluştur',
     updateCustomer: 'Cari düzenle',
     titleRequired: 'Ünvan alanı zorunludur',
     deleteCustomerWarning: 'Cari bilgileri ve cariye bağlı hesap haraketleri kalıcı olarak silinecek',
     titlePlaceholder: 'Şahıs ya da firma adi'
+  },
+  transactionTypes: {
+    name: 'İşlem tipi',
+    debtOrReceivable: 'A/B?',
+    debtOrReceivableTooltip:'Alacak/Borçlu',
+    order: 'Gösterim sırası',
+    actions: 'İşlemler',
+    nameRequired: 'İşlem tipi alanı zorunludur',
+    deleteParameterWarning: 'İşlem tipi kalıcı olarak silinecek',
+    updateTransactionType: 'İşlem tipi düzenle',
+    createTransactionType: 'İşlem tipi oluştur',
+    receivable: 'Alacak',
+    debt: 'Borç'
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz.',

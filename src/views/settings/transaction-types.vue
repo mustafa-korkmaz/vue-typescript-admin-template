@@ -6,12 +6,7 @@
       class="form-container"
     >
       <el-row>
-        <el-col
-          :xs="24"
-          :sm="24"
-          :md="8"
-          :lg="8"
-        >
+        <el-col :span="16">
           <el-form-item prop="name">
             <material-input
               id="name"
@@ -21,16 +16,11 @@
               required
               @enterPressed="handleFilter"
             >
-              {{ $t('customersView.title') }}
+              {{ $t('transactionTypes.name') }}
             </material-input>
           </el-form-item>
         </el-col>
-        <el-col
-          :xs="24"
-          :sm="24"
-          :md="16"
-          :lg="16"
-        >
+        <el-col :span="16">
           <el-form-item
             prop="create"
             class="form-buttons"
@@ -60,92 +50,53 @@
         :key="tableKey"
         v-loading="loading"
         :data="list"
-        border
         fit
         highlight-current-row
         style="width: 100%;"
-        @sort-change="sortChange"
       >
         <el-table-column
-          :label="$t('customersView.title')"
-          prop="title"
-          sortable="custom"
-          min-width="18"
-          :class-name="getSortClass()"
+          :label="$t('transactionTypes.name')"
+          min-width="40"
         >
           <template slot-scope="{row}">
+            <span>{{ getTransactionTypeText(row.name) }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column
+          min-width="20"
+          align="center"
+        >
+          <template slot="header">
             <el-tooltip
-              :content="$t('customersView.goToTransactions')"
+              :content="$t('transactionTypes.debtOrReceivableTooltip')"
               effect="dark"
               placement="right"
             >
-              <span
-                class="link-type"
-                @click="handleUpdate(row)"
-              >{{ row.title }}</span>
+              <span>{{ $t('transactionTypes.debtOrReceivable') }}</span>
             </el-tooltip>
           </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('customersView.authorizedPersonName')"
-          min-width="18"
-        >
           <template slot-scope="{row}">
-            <span>{{ row.authorized_person_name }}</span>
+            <span>{{ getTransactionTypeAccountingText(row.name) }}</span>
           </template>
         </el-table-column>
+
         <el-table-column
-          :label="$t('customersView.phoneNumber')"
-          min-width="8"
+          :label="$t('transactionTypes.order')"
           align="center"
-        >
-          <template slot-scope="{row}">
-            <span>{{ row.phone_number }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('customersView.debtsAmount')"
-          align="center"
-          min-width="8"
+          min-width="20"
         >
           <template
             slot-scope="{row}"
             text-align="right"
           >
-            <span>{{ getPriceText(row.remaining_balance) }}</span>
+            <span>{{ row.order }}</span>
           </template>
         </el-table-column>
         <el-table-column
-          :label="$t('customersView.receivablesAmount')"
+          :label="$t('tableActions.name')"
           align="center"
-          min-width="8"
-        >
-          <template slot-scope="{row}">
-            <span>{{ getPriceText(row.remaining_balance) }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('customersView.remainingBalance')"
-          align="center"
-          min-width="8"
-        >
-          <template slot-scope="{row}">
-            <span>{{ getPriceText(row.remaining_balance) }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('customersView.createdAt')"
-          min-width="8"
-          align="center"
-        >
-          <template slot-scope="{row}">
-            <span>{{ row.created_at_text }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('customersView.actions')"
-          align="center"
-          min-width="14"
+          min-width="20"
           class-name="fixed-width"
         >
           <template slot-scope="{row}">
@@ -155,14 +106,14 @@
                 size="mini"
                 @click="handleUpdate(row)"
               >
-                {{ $t('customersView.edit') }}
+                {{ $t('tableActions.edit') }}
               </el-button>
               <el-button
                 size="mini"
                 type="danger"
                 @click="handleDelete(row)"
               >
-                {{ $t('customersView.delete') }}
+                {{ $t('tableActions.delete') }}
               </el-button>
             </el-button-group>
           </template>
@@ -184,7 +135,7 @@
       <el-form
         ref="dataForm"
         :rules="rules"
-        :model="selectedCustomer"
+        :model="selectedParameter"
         label-position="top"
         label-width="100px"
         style="width: 400px; margin-left:50px;"
@@ -194,7 +145,7 @@
           prop="title"
         >
           <el-input
-            v-model="selectedCustomer.title"
+            v-model="selectedParameter.name"
             :placeholder="$t('customersView.titlePlaceholder')"
           />
         </el-form-item>
@@ -202,14 +153,14 @@
           :label="$t('customersView.authorizedPersonName')"
           prop="authorizedPerson"
         >
-          <el-input v-model="selectedCustomer.authorized_person_name" />
+          <el-input v-model="selectedParameter.authorized_person_name" />
         </el-form-item>
         <el-form-item
           :label="$t('customersView.phoneNumber')"
           prop="phone"
         >
           <el-input
-            v-model="selectedCustomer.phone_number"
+            v-model="selectedParameter.phone_number"
             type="number"
           />
         </el-form-item>
@@ -224,7 +175,7 @@
         <el-button
           type="success"
           icon="el-icon-check"
-          @click="editMode?updateCustomer():createCustomer()"
+          @click="editMode?updateParameter():createParameter()"
         >
           {{ $t('form.save') }}
         </el-button>
@@ -235,31 +186,31 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import * as service from '@/api/customers/customer-service'
-import { ICustomer } from '@/api/customers/types'
-import { getPriceText, getDateStr } from '@/utils/index'
+import * as service from '@/api/parameters/parameter-service'
+import { getPriceText } from '@/utils/index'
 import MaterialInput from '@/components/MaterialInput/index.vue'
 import { MessageBox, Form } from 'element-ui'
 import settings from '@/settings'
 
 import Pagination from '@/components/Pagination/index.vue'
+import { IParameter } from '../../api/parameters/types'
 
 const { notificationDuration } = settings
 
 @Component({
-  name: 'Customer',
+  name: 'Parameter',
   components: {
     MaterialInput,
     Pagination
   }
 })
 export default class extends Vue {
-  private postForm = Object.assign({}, service.defaultCustomer)
-  private query = Object.assign({}, service.defaultCustomerQuery)
-  private selectedCustomer = Object.assign({}, service.defaultCustomer)
+  private postForm = Object.assign({}, service.defaultParameter)
+  private query = Object.assign({}, service.defaultParameterQuery)
+  private selectedParameter = Object.assign({}, service.defaultParameter)
 
   private tableKey = 0
-  private list: ICustomer[] = []
+  private list: IParameter[] = []
   private total = 0
   private page = 1
   private loading = true
@@ -269,29 +220,27 @@ export default class extends Vue {
 
   private getPriceText = getPriceText
 
-  // todo: dynamically set table columns width
   // todo: toggle sort by title buttons
 
   created() {
     this.rules = {
       // type: [{ required: true, message: 'type is required', trigger: 'change' }],
       // timestamp: [{ required: true, message: 'timestamp is required', trigger: 'change' }],
-      title: [{ required: true, message: this.titleRequired, trigger: 'blur' }]
+      name: [{ required: true, message: this.titleRequired, trigger: 'blur' }]
     }
     this.getList()
   }
 
   get titleRequired() {
-    return this.$t('customersView.titleRequired')
+    return this.$t('transactionTypes.nameRequired')
   }
 
   private getList() {
     this.loading = true
     this.query.offset = (this.page - 1) * this.query.limit
-    this.query.authorized_person_name = this.postForm.authorized_person_name
-    this.query.title = this.postForm.title
+    this.query.name = this.postForm.name
 
-    service.getCustomers(this.query)
+    service.getParameters(this.query)
       .then(
         (resp) => {
           this.loading = false
@@ -310,42 +259,8 @@ export default class extends Vue {
     this.getList()
   }
 
-  private handleModifyStatus(row: any, status: string) {
-    this.$message({
-      message: '操作成功',
-      type: 'success'
-    })
-    row.status = status
-  }
-
-  private sortChange(data: any) {
-    const { prop, order } = data
-
-    this.query.sort_by = data.prop
-    if (prop === 'title') {
-      this.sortByTitle(order)
-    }
-  }
-
-  private sortByTitle(type: string) {
-    if (type === 'ascending') {
-      this.query.sort_type = 'asc'
-    } else {
-      this.query.sort_type = 'desc'
-    }
-    this.handleFilter()
-  }
-
-  private getSortClass() {
-    const sort = this.query.sort_type
-    if (sort === null) {
-      return ''
-    }
-    return sort === 'asc' ? 'ascending' : 'descending'
-  }
-
   private handleUpdate(row: any) {
-    this.selectedCustomer = Object.assign({}, row)
+    this.selectedParameter = Object.assign({}, row)
     this.editMode = true
     this.dialogFormVisible = true
     this.$nextTick(() => {
@@ -353,9 +268,9 @@ export default class extends Vue {
     })
   }
 
-  private handleDelete(row: ICustomer) {
+  private handleDelete(row: IParameter) {
     MessageBox.confirm(
-      this.$t('customersView.deleteCustomerWarning').toString(),
+      this.$t('transactionTypes.deleteParameterWarning').toString(),
       this.$t('messages.confirm').toString(),
       {
         confirmButtonText: this.$t('form.delete').toString(),
@@ -364,35 +279,34 @@ export default class extends Vue {
         type: 'warning'
       }
     ).then(() => {
-      this.deleteCustomer(row)
+      this.deleteParameter(row)
     })
   }
 
   private handleCreate() {
     this.editMode = false
     this.dialogFormVisible = true
-    this.selectedCustomer = Object.assign({}, service.defaultCustomer)
+    this.selectedParameter = Object.assign({}, service.defaultParameter)
     this.$nextTick(() => {
       (this.$refs.dataForm as Form).clearValidate()
     })
   }
 
   private getDialogTitle() {
-    return this.editMode ? this.$t('customersView.updateCustomer')
-      : this.$t('customersView.createCustomer')
+    return this.editMode ? this.$t('transactionTypes.updateTransactionType')
+      : this.$t('transactionTypes.createTransactionType')
   }
 
-  private createCustomer() {
+  private createParameter() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
-        service.createCustomer(this.selectedCustomer)
+        service.createParameter(this.selectedParameter)
           .then(
             (resp) => {
               this.loading = false
-              this.selectedCustomer.id = resp.data
-              this.selectedCustomer.created_at_text = getDateStr(new Date())
+              this.selectedParameter.id = resp.data
               this.total += 1
-              this.list.unshift(this.selectedCustomer)
+              this.list.unshift(this.selectedParameter)
               this.dialogFormVisible = false
               this.$notify({
                 title: this.$t('messages.success').toString(),
@@ -410,17 +324,17 @@ export default class extends Vue {
     })
   }
 
-  private updateCustomer() {
+  private updateParameter() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
         this.loading = true
 
-        service.updateCustomer(this.selectedCustomer)
+        service.updateParameter(this.selectedParameter)
           .then(
             () => {
               this.loading = false
-              const index = this.list.findIndex(v => v.id === this.selectedCustomer.id)
-              this.list.splice(index, 1, this.selectedCustomer)
+              const index = this.list.findIndex(v => v.id === this.selectedParameter.id)
+              this.list.splice(index, 1, this.selectedParameter)
               this.dialogFormVisible = false
               this.$notify({
                 title: this.$t('messages.success').toString(),
@@ -438,14 +352,14 @@ export default class extends Vue {
     })
   }
 
-  private deleteCustomer(customer: ICustomer) {
+  private deleteParameter(p: IParameter) {
     this.loading = true
 
-    service.deleteCustomer(customer.id)
+    service.deleteParameter(p.id)
       .then(
         () => {
           this.loading = false
-          const index = this.list.findIndex(v => v.id === customer.id)
+          const index = this.list.findIndex(v => v.id === p.id)
           this.total -= 1
           this.list.splice(index, 1)
           this.$notify({
@@ -460,6 +374,19 @@ export default class extends Vue {
           this.loading = false
         }
       )
+  }
+
+  private getTransactionTypeText(name: string) {
+    return name.substring(2) // for B-Payment take Payment
+  }
+
+  private getTransactionTypeAccountingText(name: string) {
+    const type = name.substring(0, 1) // for B-Payment take Borc or Debt
+    if (type === 'A') {
+      return this.$t('transactionTypes.receivable')
+    }
+
+    return this.$t('transactionTypes.debt')
   }
 }
 </script>

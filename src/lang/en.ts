@@ -194,6 +194,11 @@ export default {
     create: 'Create',
     delete: 'Delete'
   },
+  tableActions: {
+    name: 'Actions',
+    edit: 'Edit',
+    delete: 'Delete',
+  },
   customersView: {
     title: 'Title',
     authorizedPersonName: 'Authorized person',
@@ -203,15 +208,25 @@ export default {
     remainingBalance: 'Balance',
     createdAt: 'Created at',
     modifiedAt: 'Modified at',
-    actions: 'Actions',
-    edit: 'Edit',
-    delete: 'Delete',
     goToTransactions: 'Go to transactions',
     createCustomer: 'Create customer',
     updateCustomer: 'Edit customer',
     titleRequired: 'Title field is required',
     deleteCustomerWarning: 'Customer information and transactions will be deleted permanantly',
     titlePlaceholder: 'Owner or company name'
+  },
+  transactionTypes: {
+    name: 'Name',
+    debtOrReceivable: 'D/R?',
+    debtOrReceivableTooltip:'Debtor/Receivable',
+    order: 'Display order',
+    actions: 'Actions',
+    nameRequired: 'Name field is required',
+    deleteParameterWarning: 'Transaction type will be deleted permanantly',
+    updateTransactionType: 'Edit transaction type',
+    createTransactionType: 'Create transaction type',
+    receivable: 'Receivable',
+    debt: 'Debt'
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page.',
