@@ -33,6 +33,19 @@ httpService.interceptors.response.use(
     return response.data
   },
   (error) => {
+    if (error.response.status === 401) {
+      Message({
+        message: i18n.t('errorMessages.sessionTimeOut').toString(),
+        type: 'warning',
+        duration: notificationDuration
+      })
+      setTimeout(() => {
+        UserModule.LogOut();
+      }, notificationDuration)
+
+      return
+    }
+
     const m = i18n.t('errorMessages.' + error.response.data.error_code)
     Message({
       message: m.toString(),

@@ -64,9 +64,10 @@ export default {
     externalLink: 'External Link',
     profile: 'Profile',
     // mute
-    settings: 'Ayarlar',
     adminSettings: 'Admin Ayarlari',
-    customers: 'Cariler'
+    customers: 'Cariler',
+    settings: 'Ayarlar',
+    transactionTypes: 'İşlem Tipleri'
   },
   navbar: {
     logOut: 'Log Out',
@@ -212,6 +213,7 @@ export default {
     titlePlaceholder: 'Şahıs ya da firma adi'
   },
   errorMessages: {
+    sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz.',
     USER_NOT_FOUND: 'Kullanıcı bulunamadı',
     PHONE_NUMBER_FIELD_SHOULD_BE_MIN_10_MAX_12_CHARS: 'Telefon numarası en az 10 en çok 12 karakter olmalıdır',
     AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Yetkili kişi adı en az 3 en çok 50 karakter olmalıdır'

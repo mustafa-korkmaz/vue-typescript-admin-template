@@ -10,6 +10,7 @@ import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
 import adminSettingsRouter from './modules/admin-settings'
+import settingsRouter from './modules/settings'
 
 Vue.use(VueRouter)
 
@@ -107,6 +108,7 @@ export const constantRoutes: RouteConfig[] = [
       }
     ]
   },
+  settingsRouter,
   {
     path: '/guide',
     component: Layout,
@@ -149,6 +151,7 @@ export const constantRoutes: RouteConfig[] = [
  * the routes that need to be dynamically loaded based on user roles
 */
 export const asyncRoutes: RouteConfig[] = [
+  adminSettingsRouter,
   {
     path: '/permission',
     component: Layout,
@@ -443,7 +446,6 @@ export const asyncRoutes: RouteConfig[] = [
     redirect: '/404',
     meta: { hidden: true }
   },
-  adminSettingsRouter
 ]
 
 const createRouter = () => new VueRouter({

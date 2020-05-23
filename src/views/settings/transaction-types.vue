@@ -12,35 +12,16 @@
           :md="8"
           :lg="8"
         >
-          <el-form-item prop="title">
+          <el-form-item prop="name">
             <material-input
-              id="title"
+              id="name"
               v-model="postForm.title"
               :maxlength="100"
-              name="title"
+              name="name"
               required
               @enterPressed="handleFilter"
             >
               {{ $t('customersView.title') }}
-            </material-input>
-          </el-form-item>
-        </el-col>
-        <el-col
-          :xs="24"
-          :sm="24"
-          :md="8"
-          :lg="8"
-        >
-          <el-form-item prop="authorized_person_name">
-            <material-input
-              id="authorized_person_name"
-              v-model="postForm.authorized_person_name"
-              :maxlength="100"
-              name="authorized_person_name"
-              required
-              @enterPressed="handleFilter"
-            >
-              {{ $t('customersView.authorizedPersonName') }}
             </material-input>
           </el-form-item>
         </el-col>
