@@ -51,7 +51,7 @@ export function updateCustomer(customer: ICustomer) {
     phone_number: customer.phone_number === '' ? null : customer.phone_number
   }
   return httpService.request<any, IApiResponse<any>>({
-    url: 'customers/' + customer.id,
+    url: `customers/${customer.id}`,
     data,
     method: 'put'
   })
@@ -59,7 +59,7 @@ export function updateCustomer(customer: ICustomer) {
 
 export function deleteCustomer(id: number) {
   return httpService.request<any, IApiResponse<any>>({
-    url: 'customers/' + id,
+    url: `customers/${id}`,
     method: 'delete'
   })
 }
