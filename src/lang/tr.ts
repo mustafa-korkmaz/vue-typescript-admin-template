@@ -63,7 +63,7 @@ export default {
     i18n: 'I18n',
     externalLink: 'External Link',
     profile: 'Profile',
-    //mute
+    // mute
     settings: 'Ayarlar',
     adminSettings: 'Admin Ayarlari',
     customers: 'Cariler'

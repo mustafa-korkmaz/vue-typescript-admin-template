@@ -1,8 +1,8 @@
-import axios from "axios";
-import { UserModule } from '@/store/modules/user';
+import axios from 'axios'
+import { UserModule } from '@/store/modules/user'
 import { Message } from 'element-ui'
 import i18n from '@/lang'
-import settings from '@/settings';
+import settings from '@/settings'
 
 const { notificationDuration } = settings
 
@@ -16,7 +16,7 @@ httpService.interceptors.request.use(
   (config) => {
     // Add X-Access-Token header to every request, you can add other custom headers here
     if (UserModule.token) {
-      config.headers['Authorization'] = 'Bearer ' + UserModule.token
+      config.headers.Authorization = 'Bearer ' + UserModule.token
     }
     return config
   },
@@ -33,7 +33,6 @@ httpService.interceptors.response.use(
     return response.data
   },
   (error) => {
-
     const m = i18n.t('errorMessages.' + error.response.data.error_code)
     Message({
       message: m.toString(),
@@ -43,4 +42,4 @@ httpService.interceptors.response.use(
     return Promise.reject(error)
   })
 
-export default httpService;
+export default httpService

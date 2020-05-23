@@ -63,7 +63,7 @@ export default {
     i18n: 'I18n',
     externalLink: 'External Link',
     profile: 'Profile',
-    //mute
+    // mute
     settings: 'Settings',
     adminSettings: 'Admin Settings',
     customers: 'Customers'
@@ -209,12 +209,12 @@ export default {
     createCustomer: 'Create customer',
     updateCustomer: 'Edit customer',
     titleRequired: 'Title field is required',
-    deleteCustomerWarning:'Customer information and transactions will be deleted permanantly',
+    deleteCustomerWarning: 'Customer information and transactions will be deleted permanantly',
     titlePlaceholder: 'Owner or company name'
   },
   errorMessages: {
     USER_NOT_FOUND: 'User not found',
     PHONE_NUMBER_FIELD_SHOULD_BE_MIN_10_MAX_12_CHARS: 'Phone number should contain between 10 and 12 chars',
-    AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS:'Authorized person name should contain between 3 and 50 chars'
+    AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Authorized person name should contain between 3 and 50 chars'
   }
 }

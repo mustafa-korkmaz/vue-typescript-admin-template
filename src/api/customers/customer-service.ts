@@ -23,7 +23,6 @@ export const defaultCustomerQuery: ICustomerQuery = {
   sort_type: null
 }
 
-
 export function getCustomers(params: ICustomerQuery) {
   return httpService.request<ICustomerQuery, IApiResponse<IPagedList<ICustomer>>>({
     url: 'customers',
@@ -35,8 +34,8 @@ export function getCustomers(params: ICustomerQuery) {
 export function createCustomer(customer: ICustomer) {
   const data = {
     title: customer.title,
-    authorized_person_name: customer.authorized_person_name === "" ? null : customer.authorized_person_name,
-    phone_number: customer.phone_number === "" ? null : customer.phone_number,
+    authorized_person_name: customer.authorized_person_name === '' ? null : customer.authorized_person_name,
+    phone_number: customer.phone_number === '' ? null : customer.phone_number
   }
   return httpService.request<any, IApiResponse<number>>({
     url: 'customers',
@@ -48,8 +47,8 @@ export function createCustomer(customer: ICustomer) {
 export function updateCustomer(customer: ICustomer) {
   const data = {
     title: customer.title,
-    authorized_person_name: customer.authorized_person_name === "" ? null : customer.authorized_person_name,
-    phone_number: customer.phone_number === "" ? null : customer.phone_number,
+    authorized_person_name: customer.authorized_person_name === '' ? null : customer.authorized_person_name,
+    phone_number: customer.phone_number === '' ? null : customer.phone_number
   }
   return httpService.request<any, IApiResponse<any>>({
     url: 'customers/' + customer.id,

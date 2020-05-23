@@ -91,40 +91,37 @@ export const toggleClass = (ele: HTMLElement, className: string) => {
   ele.className = classString
 }
 
-
 export const getPriceText = (price: number) => {
-
   if (!price) {
-    return '0.00';
+    return '0.00'
   }
 
-  const number = price.toFixed(2);
+  const number = price.toFixed(2)
 
-  return number.replace(',', '.');
+  return number.replace(',', '.')
 }
 
-export const getDateStr= (date: Date)=> {
+export const getDateStr = (date: Date) => {
+  let monthText = ''
+  let dayText = ''
 
-  let monthText = '';
-  let dayText = '';
+  const _date = new Date(date)
 
-  const _date = new Date(date);
-
-  const day = _date.getDate();
-  const month = _date.getMonth() + 1;
-  const yearText = _date.getFullYear().toString();
+  const day = _date.getDate()
+  const month = _date.getMonth() + 1
+  const yearText = _date.getFullYear().toString()
 
   if (day < 10) {
-    dayText = '0' + day.toString();
+    dayText = '0' + day.toString()
   } else {
-    dayText = day.toString();
+    dayText = day.toString()
   }
 
   if (month < 10) {
-    monthText = '0' + month.toString();
+    monthText = '0' + month.toString()
   } else {
-    monthText = month.toString();
+    monthText = month.toString()
   }
 
-  return dayText + '.' + monthText + '.' + yearText;
+  return dayText + '.' + monthText + '.' + yearText
 }

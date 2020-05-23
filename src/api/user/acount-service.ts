@@ -16,7 +16,7 @@ export function login(email: string, password: string) {
   }
 
   return httpService.request<any, IApiResponse<IUser>>({
-    url: `account/token`,
+    url: 'account/token',
     data,
     method: 'post'
   })
@@ -31,7 +31,7 @@ export function register(email: string, name: string, password: string) {
   }
 
   return httpService.request<any, IApiResponse<IUser>>({
-    url: `account/register`,
+    url: 'account/register',
     data,
     method: 'post'
   })
@@ -44,7 +44,7 @@ export function remindPassword(email: string) {
   }
 
   return httpService.request<any, IApiResponse<any>>({
-    url: `account/TODO`,
+    url: 'account/TODO',
     data,
     method: 'post'
   })
