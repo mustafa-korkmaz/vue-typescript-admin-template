@@ -191,7 +191,8 @@ export default {
     cancel: 'Vazgeç',
     approve: 'Onayla',
     create: 'Yeni',
-    delete: 'Sil'
+    delete: 'Sil',
+    select: 'Seçiniz'
   },
   tableActions: {
     name: 'İşlemler',
@@ -216,11 +217,15 @@ export default {
   },
   transactionTypes: {
     name: 'İşlem tipi',
+    namePlaceholder: 'Fatura, çek, vb.',
     debtOrReceivable: 'A/B?',
-    debtOrReceivableTooltip:'Alacak/Borçlu',
+    debtOrReceivableTooltip: 'Alacak/Borçlu',
     order: 'Gösterim sırası',
+    orderLabelTooltip: 'Alfabetik sıralama için 0 giriniz',
     actions: 'İşlemler',
     nameRequired: 'İşlem tipi alanı zorunludur',
+    debtOrReceivableRequired: 'Alacak/Borçlu alanı zorunludur',
+    orderRequired: 'Gösterim sırası alanı zorunludur',
     deleteParameterWarning: 'İşlem tipi kalıcı olarak silinecek',
     updateTransactionType: 'İşlem tipi düzenle',
     createTransactionType: 'İşlem tipi oluştur',

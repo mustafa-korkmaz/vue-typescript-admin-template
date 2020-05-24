@@ -10,7 +10,7 @@
           <el-form-item prop="name">
             <material-input
               id="name"
-              v-model="postForm.title"
+              v-model="postForm.name"
               :maxlength="100"
               name="name"
               required
@@ -18,6 +18,16 @@
             >
               {{ $t('transactionTypes.name') }}
             </material-input>
+          </el-form-item>
+        </el-col>
+        <el-col style="display:none">
+          <el-form-item prop="">
+            <material-input
+              id="order"
+              v-model="postForm.order"
+              :maxlength="100"
+              name="order"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="16">
@@ -138,29 +148,47 @@
         :model="selectedParameter"
         label-position="top"
         label-width="100px"
-        style="width: 400px; margin-left:50px;"
+        class="single-item"
       >
         <el-form-item
-          :label="$t('customersView.title')"
-          prop="title"
+          :label="$t('transactionTypes.name')"
+          prop="name"
         >
           <el-input
             v-model="selectedParameter.name"
-            :placeholder="$t('customersView.titlePlaceholder')"
+            :placeholder="$t('transactionTypes.namePlaceholder')"
           />
         </el-form-item>
         <el-form-item
-          :label="$t('customersView.authorizedPersonName')"
-          prop="authorizedPerson"
+          :label="$t('transactionTypes.debtOrReceivableTooltip')"
+          prop="transactionType"
         >
-          <el-input v-model="selectedParameter.authorized_person_name" />
+          <el-select
+            v-model="transactionType"
+            filterable
+            clearable
+            :placeholder="$t('form.select')"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
         </el-form-item>
-        <el-form-item
-          :label="$t('customersView.phoneNumber')"
-          prop="phone"
-        >
+        <el-form-item prop="order">
+          <label slot="label">
+            <el-tooltip
+              :content="$t('transactionTypes.orderLabelTooltip')"
+              effect="dark"
+              placement="right"
+            >
+              <span>{{ $t('transactionTypes.order') }}</span>
+            </el-tooltip>
+          </label>
           <el-input
-            v-model="selectedParameter.phone_number"
+            v-model="selectedParameter.order"
             type="number"
           />
         </el-form-item>
@@ -191,7 +219,6 @@ import { getPriceText } from '@/utils/index'
 import MaterialInput from '@/components/MaterialInput/index.vue'
 import { MessageBox, Form } from 'element-ui'
 import settings from '@/settings'
-
 import Pagination from '@/components/Pagination/index.vue'
 import { IParameter } from '../../api/parameters/types'
 
@@ -217,15 +244,15 @@ export default class extends Vue {
   private editMode = false
   private dialogFormVisible = false
   private rules = {}
-
+  private transactionType = ''
   private getPriceText = getPriceText
 
   // todo: toggle sort by title buttons
 
   created() {
     this.rules = {
-      // type: [{ required: true, message: 'type is required', trigger: 'change' }],
-      // timestamp: [{ required: true, message: 'timestamp is required', trigger: 'change' }],
+      order: [{ type: 'number', required: true, message: this.orderRequired, trigger: 'change' }],
+      transactionType: [{ required: true, message: this.debtOrReceivableRequired, trigger: 'change' }],
       name: [{ required: true, message: this.titleRequired, trigger: 'blur' }]
     }
     this.getList()
@@ -233,6 +260,24 @@ export default class extends Vue {
 
   get titleRequired() {
     return this.$t('transactionTypes.nameRequired')
+  }
+
+  get debtOrReceivableRequired() {
+    return this.$t('transactionTypes.debtOrReceivableRequired')
+  }
+
+  get orderRequired() {
+    return this.$t('transactionTypes.orderRequired')
+  }
+
+  get options() {
+    return [{
+      value: 'A',
+      label: this.$t('transactionTypes.receivable')
+    }, {
+      value: 'B',
+      label: this.$t('transactionTypes.debt')
+    }]
   }
 
   private getList() {

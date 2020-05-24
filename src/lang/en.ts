@@ -192,7 +192,8 @@ export default {
     cancel: 'Cancel',
     approve: 'Approve',
     create: 'Create',
-    delete: 'Delete'
+    delete: 'Delete',
+    select: 'Select'
   },
   tableActions: {
     name: 'Actions',
@@ -217,11 +218,15 @@ export default {
   },
   transactionTypes: {
     name: 'Name',
+    namePlaceholder: 'Invoice, bill, etc.',
     debtOrReceivable: 'D/R?',
-    debtOrReceivableTooltip:'Debtor/Receivable',
+    debtOrReceivableTooltip: 'Debtor/Receivable',
     order: 'Display order',
+    orderLabelTooltip: 'Pass 0 if you want alphabetically',
     actions: 'Actions',
     nameRequired: 'Name field is required',
+    debtOrReceivableRequired: 'Debtor/Receivable field is required',
+    orderRequired: 'Display order field is required',
     deleteParameterWarning: 'Transaction type will be deleted permanantly',
     updateTransactionType: 'Edit transaction type',
     createTransactionType: 'Create transaction type',

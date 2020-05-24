@@ -92,9 +92,9 @@ export const constantRoutes: RouteConfig[] = [
     ]
   },
   {
-    path: '/customer',
+    path: '/customers',
     component: Layout,
-    redirect: '/customer/index',
+    redirect: '/customers/index',
     children: [
       {
         path: 'index',

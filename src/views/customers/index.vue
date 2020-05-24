@@ -205,7 +205,7 @@
         :model="selectedCustomer"
         label-position="top"
         label-width="100px"
-        style="width: 400px; margin-left:50px;"
+        class="single-item"
       >
         <el-form-item
           :label="$t('customersView.title')"
