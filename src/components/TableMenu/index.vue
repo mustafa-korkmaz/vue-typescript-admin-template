@@ -1,40 +1,58 @@
 <template>
-  <div>
-    <el-dropdown
-      trigger="click"
-      class="table-menu"
-      @command="handleSelection"
+  <el-row
+    :gutter="5"
+    style="margin-bottom:0;padding-top:0"
+  >
+    <el-col :span="23">
+      <el-select
+        v-if="columnSelectionOptionActivated"
+        v-model="selectedOptionalColumns"
+        multiple
+        collapse-tags
+        class="column-selection"
+        :placeholder="$t('table.selectColumns')"
+        @change="optionalColumnsChanged"
+      />
+    </el-col>
+    <el-col
+      :span="1"
+      style="float:right;width:0"
     >
-      <div>
-        <el-tooltip
-          placement="left"
-          class="table-menu"
-          :content="$t('table.menu')"
-        >
-          <div>
-            <i class="el-icon-more icon" />
-          </div>
-        </el-tooltip>
-        <!-- <i class="el-icon-more icon" /> -->
-      </div>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item
-          command="excel"
-          icon="el-icon-download"
-        >
-          {{ $t('table.exportToExcel') }}
-        </el-dropdown-item>
-        <el-dropdown-item
-          v-if="activateColumnSelectionOption"
-          divided
-          :icon="columnSelectionOptionActivated ? 'el-icon-remove-outline':'el-icon-circle-plus-outline'"
-          command="toggle-select-columns"
-        >
-          {{ toggleColumnSelectionText }}
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-  </div>
+      <el-dropdown
+        trigger="click"
+        @command="handleSelection"
+      >
+        <div>
+          <el-tooltip
+            placement="left"
+            class="table-menu"
+            :content="$t('table.menu')"
+          >
+            <div>
+              <i class="el-icon-more icon" />
+            </div>
+          </el-tooltip>
+          <!-- <i class="el-icon-more icon" /> -->
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item
+            command="excel"
+            icon="el-icon-download"
+          >
+            {{ $t('table.exportToExcel') }}
+          </el-dropdown-item>
+          <el-dropdown-item
+            v-if="activateColumnSelectionOption"
+            divided
+            :icon="columnSelectionOptionActivated ? 'el-icon-remove-outline':'el-icon-circle-plus-outline'"
+            command="toggle-select-columns"
+          >
+            {{ toggleColumnSelectionText }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </el-col>
+  </el-row>
 </template>
 
 <script lang="ts">
@@ -63,26 +81,23 @@ export default class extends Vue {
       case 'toggle-select-columns':
         // handle column selection
         this.columnSelectionOptionActivated = !this.columnSelectionOptionActivated
-        this.$emit('toggleColumnSelection', this.columnSelectionOptionActivated)
         break
     }
-
-    this.$message({
-      message: cmd,
-      type: 'success'
-    })
   }
 }
 </script>
 
 <style scoped>
-.table-menu {
-  float: right;
-}
 
 .el-icon-more.icon {
   cursor: pointer;
   transform: rotate(90deg);
   color: #5a5e66;
+  float: right;
+}
+
+.column-selection{
+  width:20%;
+  float:right;
 }
 </style>

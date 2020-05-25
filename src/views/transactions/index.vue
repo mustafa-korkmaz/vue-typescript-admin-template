@@ -51,7 +51,7 @@
     </el-form>
     <el-row>
       <el-select
-        v-if="optionalColumnSelectionActivated"
+        v-if="false"
         v-model="selectedOptionalColumns"
         multiple
         collapse-tags
@@ -68,7 +68,6 @@
       </el-select>
       <table-menu
         :activate-column-selection-option="true"
-        @toggleColumnSelection="toggleColumnSelection"
       />
       <el-table
         :key="tableKey"
@@ -331,7 +330,6 @@ export default class extends Vue {
   private dialogFormVisible = false
   private rules = {}
   private getPriceText = getPriceText
-  private optionalColumnSelectionActivated = false
   private selectedOptionalColumns: string[] = ['accountingType']
   private selectableOptionalColumns = {
     desc: false,
@@ -544,10 +542,6 @@ export default class extends Vue {
     this.selectableOptionalColumns.desc = this.selectedOptionalColumns.find(p => p === 'description') !== undefined
     this.selectableOptionalColumns.modifiedAt = this.selectedOptionalColumns.find(p => p === 'modifiedAt') !== undefined
     this.selectableOptionalColumns.accountingType = this.selectedOptionalColumns.find(p => p === 'accountingType') !== undefined
-  }
-
-  private toggleColumnSelection(val: boolean) {
-    this.optionalColumnSelectionActivated = val
   }
 }
 </script>
