@@ -22,25 +22,8 @@
         </el-col>
         <el-col :span="8">
           <el-form-item
-            v-if="optionalColumnSelectionActivated"
             prop="optionalColumns"
-          >
-            <el-select
-              v-model="selectedOptionalColumns"
-              multiple
-              collapse-tags
-              :placeholder="$t('table.selectColumns')"
-              style="width:75%"
-              @change="optionalColumnsChanged"
-            >
-              <el-option
-                v-for="item in optionalColumns"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </el-form-item>
+          />
         </el-col>
         <el-col :span="8">
           <el-form-item
@@ -67,6 +50,22 @@
       <el-form />
     </el-form>
     <el-row>
+      <el-select
+        v-if="optionalColumnSelectionActivated"
+        v-model="selectedOptionalColumns"
+        multiple
+        collapse-tags
+        :placeholder="$t('table.selectColumns')"
+        style="width:25%"
+        @change="optionalColumnsChanged"
+      >
+        <el-option
+          v-for="item in optionalColumns"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
       <table-menu
         :activate-column-selection-option="true"
         @toggleColumnSelection="toggleColumnSelection"
