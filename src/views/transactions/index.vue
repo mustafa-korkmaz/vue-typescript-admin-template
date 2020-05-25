@@ -16,7 +16,7 @@
               required
               @enterPressed="handleFilter"
             >
-              {{ $t('transactionTypes.name') }}
+              {{ $t('transactionTypesView.name') }}
             </material-input>
           </el-form-item>
         </el-col>
@@ -65,25 +65,40 @@
         style="width: 100%;"
       >
         <el-table-column
-          :label="$t('transactionTypes.name')"
-          min-width="40"
+          :label="$t('transactionsView.customer')"
+          min-width="16"
         >
           <template slot-scope="{row}">
             <span>{{ row.name }}</span>
           </template>
         </el-table-column>
-
         <el-table-column
-          min-width="20"
+          :label="$t('transactionsView.type')"
+          min-width="10"
+        >
+          <template slot-scope="{row}">
+            <span>{{ row.name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          :label="$t('transactionsView.description')"
+          min-width="16"
+        >
+          <template slot-scope="{row}">
+            <span>{{ row.name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          min-width="8"
           align="center"
         >
           <template slot="header">
             <el-tooltip
-              :content="$t('transactionTypes.debtOrReceivableTooltip')"
+              :content="$t('transactionTypesView.debtOrReceivableTooltip')"
               effect="dark"
               placement="right"
             >
-              <span>{{ $t('transactionTypes.debtOrReceivable') }}</span>
+              <span>{{ $t('transactionTypesView.debtOrReceivable') }}</span>
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
@@ -92,9 +107,9 @@
         </el-table-column>
 
         <el-table-column
-          :label="$t('transactionTypes.order')"
+          :label="$t('transactionsView.amount')"
           align="center"
-          min-width="20"
+          min-width="8"
         >
           <template
             slot-scope="{row}"
@@ -104,9 +119,60 @@
           </template>
         </el-table-column>
         <el-table-column
+          min-width="10"
+          align="center"
+        >
+          <template slot="header">
+            <el-tooltip
+              :content="$t('transactionsView.dateTextTooltip')"
+              effect="dark"
+              placement="right"
+            >
+              <span>{{ $t('transactionsView.dateText') }}</span>
+            </el-tooltip>
+          </template>
+          <template slot-scope="{row}">
+            <span>{{ getTransactionTypeAccountingText(row.parameter_type_id) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          min-width="10"
+          align="center"
+        >
+          <template slot="header">
+            <el-tooltip
+              :content="$t('table.createdAtTooltip')"
+              effect="dark"
+              placement="right"
+            >
+              <span>{{ $t('table.createdAt') }}</span>
+            </el-tooltip>
+          </template>
+          <template slot-scope="{row}">
+            <span>{{ getTransactionTypeAccountingText(row.parameter_type_id) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          min-width="10"
+          align="center"
+        >
+          <template slot="header">
+            <el-tooltip
+              :content="$t('table.modifiedAtTooltip')"
+              effect="dark"
+              placement="right"
+            >
+              <span>{{ $t('table.modifiedAt') }}</span>
+            </el-tooltip>
+          </template>
+          <template slot-scope="{row}">
+            <span>{{ getTransactionTypeAccountingText(row.parameter_type_id) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
           :label="$t('tableActions.name')"
           align="center"
-          min-width="20"
+          min-width="12"
           class-name="fixed-width"
         >
           <template slot-scope="{row}">
@@ -151,16 +217,16 @@
         class="single-item"
       >
         <el-form-item
-          :label="$t('transactionTypes.name')"
+          :label="$t('transactionTypesView.name')"
           prop="name"
         >
           <el-input
             v-model="selectedParameter.name"
-            :placeholder="$t('transactionTypes.namePlaceholder')"
+            :placeholder="$t('transactionTypesView.namePlaceholder')"
           />
         </el-form-item>
         <el-form-item
-          :label="$t('transactionTypes.debtOrReceivableTooltip')"
+          :label="$t('transactionTypesView.debtOrReceivableTooltip')"
           prop="parameter_type_id"
         >
           <el-select
@@ -180,11 +246,11 @@
         <el-form-item prop="order">
           <label slot="label">
             <el-tooltip
-              :content="$t('transactionTypes.orderLabelTooltip')"
+              :content="$t('transactionTypesView.orderLabelTooltip')"
               effect="dark"
               placement="right"
             >
-              <span>{{ $t('transactionTypes.order') }}</span>
+              <span>{{ $t('transactionTypesView.order') }}</span>
             </el-tooltip>
           </label>
           <el-input
@@ -259,24 +325,24 @@ export default class extends Vue {
   }
 
   get titleRequired() {
-    return this.$t('transactionTypes.nameRequired')
+    return this.$t('transactionTypesView.nameRequired')
   }
 
   get debtOrReceivableRequired() {
-    return this.$t('transactionTypes.debtOrReceivableRequired')
+    return this.$t('transactionTypesView.debtOrReceivableRequired')
   }
 
   get orderRequired() {
-    return this.$t('transactionTypes.orderRequired')
+    return this.$t('transactionTypesView.orderRequired')
   }
 
   get options() {
     return [{
       value: ParameterTypeId.TransactionType_Receivable,
-      label: this.$t('transactionTypes.receivable')
+      label: this.$t('transactionTypesView.receivable')
     }, {
       value: ParameterTypeId.TransactionType_Debt,
-      label: this.$t('transactionTypes.debt')
+      label: this.$t('transactionTypesView.debt')
     }]
   }
 
@@ -315,7 +381,7 @@ export default class extends Vue {
 
   private handleDelete(row: IParameter) {
     MessageBox.confirm(
-      this.$t('transactionTypes.deleteParameterWarning').toString(),
+      this.$t('transactionTypesView.deleteParameterWarning').toString(),
       this.$t('messages.confirm').toString(),
       {
         confirmButtonText: this.$t('form.delete').toString(),
@@ -338,8 +404,8 @@ export default class extends Vue {
   }
 
   private getDialogTitle() {
-    return this.editMode ? this.$t('transactionTypes.updateTransactionType')
-      : this.$t('transactionTypes.createTransactionType')
+    return this.editMode ? this.$t('transactionTypesView.updateTransactionType')
+      : this.$t('transactionTypesView.createTransactionType')
   }
 
   private createParameter() {
@@ -427,9 +493,9 @@ export default class extends Vue {
   private getTransactionTypeAccountingText(parameterTypeId: ParameterTypeId) {
     switch (parameterTypeId) {
       case ParameterTypeId.TransactionType_Receivable:
-        return this.$t('transactionTypes.receivable')
+        return this.$t('transactionTypesView.receivable')
       case ParameterTypeId.TransactionType_Debt:
-        return this.$t('transactionTypes.debt')
+        return this.$t('transactionTypesView.debt')
     }
   }
 }

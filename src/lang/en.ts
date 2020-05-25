@@ -66,7 +66,7 @@ export default {
     // mute
     adminSettings: 'Admin Settings',
     customers: 'Customers',
-    transactions:'Transactions',
+    transactions: 'Transactions',
     settings: 'Settings',
     transactionTypes: 'Transaction Types'
   },
@@ -139,7 +139,11 @@ export default {
     draft: 'Draft',
     delete: 'Delete',
     cancel: 'Cancel',
-    confirm: 'Confirm'
+    confirm: 'Confirm',
+    createdAt: 'Created at',
+    createdAtTooltip: 'Created date',
+    modifiedAt: 'Modified at',
+    modifiedAtTooltip: 'Last modified date'
   },
   example: {
     warning: 'Creating and editing pages cannot be cached by keep-alive because keep-alive\'s \'include\' currently does not support caching based on routes, so now it\'s cached based on component name. If you want to achieve a similar caching effect, you can use a browser caching scheme such as localStorage. Or don\'t use keep-alive\'s \'include\' to cache all pages directly. See details'
@@ -217,7 +221,7 @@ export default {
     deleteCustomerWarning: 'Customer information and transactions will be deleted permanantly',
     titlePlaceholder: 'Owner or company name'
   },
-  transactionTypes: {
+  transactionTypesView: {
     name: 'Name',
     namePlaceholder: 'Invoice, bill, etc.',
     debtOrReceivable: 'D/R?',
@@ -234,6 +238,14 @@ export default {
     receivable: 'Receivable',
     debt: 'Debt'
   },
+  transactionsView: {
+    customer: 'Customer',
+    type: 'Type',
+    amount: 'Amount',
+    dateText: 'Date',
+    description: 'Description',
+    dateTextTooltip: 'Transaction date'
+  },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page.',
     USER_NOT_FOUND: 'User not found',
@@ -241,6 +253,6 @@ export default {
     AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Authorized person name should contain between 3 and 50 chars',
     UNEXPECTED_ERROR: 'Something went wrong, please try again later',
     PARAMETER_NAME_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Name should be min 3 max 100 chars',
-    PARAMETER_NAME_FIELD_IS_REQUIRED:'Name field is required'
+    PARAMETER_NAME_FIELD_IS_REQUIRED: 'Name field is required'
   }
 }
