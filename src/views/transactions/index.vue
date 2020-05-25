@@ -21,7 +21,10 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item prop="optionalColumns">
+          <el-form-item
+            v-if="optionalColumnSelectionActivated"
+            prop="optionalColumns"
+          >
             <el-select
               v-model="selectedOptionalColumns"
               multiple
@@ -61,10 +64,13 @@
           </el-form-item>
         </el-col>
       </el-row>
-
       <el-form />
     </el-form>
     <el-row>
+      <table-menu
+        :activate-column-selection-option="true"
+        @toggleColumnSelection="toggleColumnSelection"
+      />
       <el-table
         :key="tableKey"
         v-loading="loading"
@@ -298,6 +304,7 @@ import MaterialInput from '@/components/MaterialInput/index.vue'
 import { MessageBox, Form } from 'element-ui'
 import settings from '@/settings'
 import Pagination from '@/components/Pagination/index.vue'
+import TableMenu from '@/components/TableMenu/index.vue'
 import { IParameter } from '@/api/parameters/types'
 import { ParameterTypeId } from '@/utils/enums'
 
@@ -307,7 +314,8 @@ const { notificationDuration } = settings
   name: 'Parameter',
   components: {
     MaterialInput,
-    Pagination
+    Pagination,
+    TableMenu
   }
 })
 export default class extends Vue {
@@ -324,6 +332,7 @@ export default class extends Vue {
   private dialogFormVisible = false
   private rules = {}
   private getPriceText = getPriceText
+  private optionalColumnSelectionActivated = false
   private selectedOptionalColumns: string[] = ['accountingType']
   private selectableOptionalColumns = {
     desc: false,
@@ -536,6 +545,10 @@ export default class extends Vue {
     this.selectableOptionalColumns.desc = this.selectedOptionalColumns.find(p => p === 'description') !== undefined
     this.selectableOptionalColumns.modifiedAt = this.selectedOptionalColumns.find(p => p === 'modifiedAt') !== undefined
     this.selectableOptionalColumns.accountingType = this.selectedOptionalColumns.find(p => p === 'accountingType') !== undefined
+  }
+
+  private toggleColumnSelection(val: boolean) {
+    this.optionalColumnSelectionActivated = val
   }
 }
 </script>
