@@ -69,7 +69,7 @@
           min-width="40"
         >
           <template slot-scope="{row}">
-            <span>{{ getTransactionTypeText(row.name) }}</span>
+            <span>{{ row.name }}</span>
           </template>
         </el-table-column>
 
@@ -87,7 +87,7 @@
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
-            <span>{{ getTransactionTypeAccountingText(row.name) }}</span>
+            <span>{{ getTransactionTypeAccountingText(row.parameter_type_id) }}</span>
           </template>
         </el-table-column>
 
@@ -161,13 +161,13 @@
         </el-form-item>
         <el-form-item
           :label="$t('transactionTypes.debtOrReceivableTooltip')"
-          prop="transactionType"
+          prop="parameter_type_id"
         >
           <el-select
-            v-model="transactionType"
-            filterable
+            v-model="selectedParameter.parameter_type_id"
             clearable
             :placeholder="$t('form.select')"
+            :disabled="editMode"
           >
             <el-option
               v-for="item in options"
@@ -220,7 +220,8 @@ import MaterialInput from '@/components/MaterialInput/index.vue'
 import { MessageBox, Form } from 'element-ui'
 import settings from '@/settings'
 import Pagination from '@/components/Pagination/index.vue'
-import { IParameter } from '../../api/parameters/types'
+import { IParameter } from '@/api/parameters/types'
+import { ParameterTypeId } from '@/utils/enums'
 
 const { notificationDuration } = settings
 
@@ -234,7 +235,7 @@ const { notificationDuration } = settings
 export default class extends Vue {
   private postForm = Object.assign({}, service.defaultParameter)
   private query = Object.assign({}, service.defaultParameterQuery)
-  private selectedParameter = Object.assign({}, service.defaultParameter)
+  private selectedParameter = Object.assign({}, { ...service.defaultParameter, transactionType: '' })
 
   private tableKey = 0
   private list: IParameter[] = []
@@ -244,15 +245,14 @@ export default class extends Vue {
   private editMode = false
   private dialogFormVisible = false
   private rules = {}
-  private transactionType = ''
   private getPriceText = getPriceText
 
   // todo: toggle sort by title buttons
 
   created() {
     this.rules = {
-      order: [{ type: 'number', required: true, message: this.orderRequired, trigger: 'change' }],
-      transactionType: [{ required: true, message: this.debtOrReceivableRequired, trigger: 'change' }],
+      order: [{ required: true, message: this.orderRequired, trigger: 'change' }],
+      parameter_type_id: [{ required: true, message: this.debtOrReceivableRequired, trigger: 'change' }],
       name: [{ required: true, message: this.titleRequired, trigger: 'blur' }]
     }
     this.getList()
@@ -272,10 +272,10 @@ export default class extends Vue {
 
   get options() {
     return [{
-      value: 'A',
+      value: ParameterTypeId.TransactionType_Receivable,
       label: this.$t('transactionTypes.receivable')
     }, {
-      value: 'B',
+      value: ParameterTypeId.TransactionType_Debt,
       label: this.$t('transactionTypes.debt')
     }]
   }
@@ -331,7 +331,7 @@ export default class extends Vue {
   private handleCreate() {
     this.editMode = false
     this.dialogFormVisible = true
-    this.selectedParameter = Object.assign({}, service.defaultParameter)
+    this.selectedParameter = Object.assign({}, { ...service.defaultParameter, transactionType: '' })
     this.$nextTick(() => {
       (this.$refs.dataForm as Form).clearValidate()
     })
@@ -345,6 +345,7 @@ export default class extends Vue {
   private createParameter() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
+        this.loading = true
         service.createParameter(this.selectedParameter)
           .then(
             (resp) => {
@@ -365,6 +366,8 @@ export default class extends Vue {
               this.loading = false
             }
           )
+      } else {
+        console.log('no valid')
       }
     })
   }
@@ -373,7 +376,7 @@ export default class extends Vue {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
         this.loading = true
-
+        console.log(this.selectedParameter)
         service.updateParameter(this.selectedParameter)
           .then(
             () => {
@@ -421,17 +424,13 @@ export default class extends Vue {
       )
   }
 
-  private getTransactionTypeText(name: string) {
-    return name.substring(2) // for B-Payment take Payment
-  }
-
-  private getTransactionTypeAccountingText(name: string) {
-    const type = name.substring(0, 1) // for B-Payment take Borc or Debt
-    if (type === 'A') {
-      return this.$t('transactionTypes.receivable')
+  private getTransactionTypeAccountingText(parameterTypeId: ParameterTypeId) {
+    switch (parameterTypeId) {
+      case ParameterTypeId.TransactionType_Receivable:
+        return this.$t('transactionTypes.receivable')
+      case ParameterTypeId.TransactionType_Debt:
+        return this.$t('transactionTypes.debt')
     }
-
-    return this.$t('transactionTypes.debt')
   }
 }
 </script>

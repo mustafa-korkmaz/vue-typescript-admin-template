@@ -237,6 +237,9 @@ export default {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page.',
     USER_NOT_FOUND: 'User not found',
     PHONE_NUMBER_FIELD_SHOULD_BE_MIN_10_MAX_12_CHARS: 'Phone number should contain between 10 and 12 chars',
-    AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Authorized person name should contain between 3 and 50 chars'
+    AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Authorized person name should contain between 3 and 50 chars',
+    UNEXPECTED_ERROR: 'Something went wrong, please try again later',
+    PARAMETER_NAME_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Name should be min 3 max 100 chars',
+    PARAMETER_NAME_FIELD_IS_REQUIRED:'Name field is required'
   }
 }

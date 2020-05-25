@@ -6,7 +6,7 @@ export const defaultParameter: IParameter = {
   id: 0,
   name: '',
   order: 0,
-  parameter_type_id: 0
+  parameter_type_id: null
 }
 
 export const defaultParameterQuery: IParameterQuery = {
@@ -41,7 +41,7 @@ export function createParameter(parameter: IParameter) {
 
 export function updateParameter(parameter: IParameter) {
   const data = {
-    title: parameter.name,
+    name: parameter.name,
     parameter_type_id: parameter.parameter_type_id,
     order: parameter.order
   }

@@ -1,3 +1,5 @@
+import { ResponseCode } from "@/utils/enums";
+
 export interface IArticleData {
   id: number
   status: string
@@ -52,7 +54,7 @@ export interface IPagedListQuery {
 }
 
 export interface IApiResponse<T> {
-  response_code: ResponseType
+  response_code: ResponseCode
   error_code: string
   type_text: string
   data: T
@@ -63,10 +65,4 @@ export interface IPagedList<T> {
   records_total: number
 }
 
-export enum ResponseCode {
-  InternalError = -3,
-  ValidationError = -2,
-  Fail = -1,
-  Success = 0,
-  Warning = 1
-}
+
