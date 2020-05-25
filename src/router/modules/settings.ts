@@ -7,7 +7,7 @@ const settingsRouter: RouteConfig = {
   redirect: '/settings',
   meta: {
     title: 'settings',
-    icon: 'settings',
+    icon: 'settings2',
     alwaysShow: true
   },
   children: [

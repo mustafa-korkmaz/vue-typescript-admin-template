@@ -66,6 +66,7 @@ export default {
     // mute
     adminSettings: 'Admin Settings',
     customers: 'Customers',
+    transactions:'Transactions',
     settings: 'Settings',
     transactionTypes: 'Transaction Types'
   },

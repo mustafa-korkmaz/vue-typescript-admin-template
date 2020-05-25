@@ -108,6 +108,23 @@ export const constantRoutes: RouteConfig[] = [
       }
     ]
   },
+  {
+    path: '/transaction',
+    component: Layout,
+    redirect: '/transactions/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import(/* webpackChunkName: "guide" */ '@/views/transactions/index.vue'),
+        name: 'Transaction',
+        meta: {
+          title: 'transactions',
+          icon: 'wallet',
+          noCache: true
+        }
+      }
+    ]
+  },
   settingsRouter,
   {
     path: '/profile',
