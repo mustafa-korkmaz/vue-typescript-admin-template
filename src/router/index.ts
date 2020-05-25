@@ -110,23 +110,6 @@ export const constantRoutes: RouteConfig[] = [
   },
   settingsRouter,
   {
-    path: '/guide',
-    component: Layout,
-    redirect: '/guide/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import(/* webpackChunkName: "guide" */ '@/views/guide/index.vue'),
-        name: 'Guide',
-        meta: {
-          title: 'guide',
-          icon: 'guide',
-          noCache: true
-        }
-      }
-    ]
-  },
-  {
     path: '/profile',
     component: Layout,
     redirect: '/profile/index',
@@ -151,7 +134,14 @@ export const constantRoutes: RouteConfig[] = [
  * the routes that need to be dynamically loaded based on user roles
 */
 export const asyncRoutes: RouteConfig[] = [
-  adminSettingsRouter,
+  adminSettingsRouter
+]
+
+/**
+ * testAsyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+*/
+export const testAsyncRoutes: RouteConfig[] = [
   {
     path: '/permission',
     component: Layout,
@@ -213,6 +203,23 @@ export const asyncRoutes: RouteConfig[] = [
   chartsRouter,
   nestedRouter,
   tableRouter,
+  {
+    path: '/guide',
+    component: Layout,
+    redirect: '/guide/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import(/* webpackChunkName: "guide" */ '@/views/guide/index.vue'),
+        name: 'Guide',
+        meta: {
+          title: 'guide',
+          icon: 'guide',
+          noCache: true
+        }
+      }
+    ]
+  },
   {
     path: '/example',
     component: Layout,

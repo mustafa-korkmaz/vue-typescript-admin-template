@@ -1,6 +1,6 @@
 import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
 import { RouteConfig } from 'vue-router'
-import { asyncRoutes, constantRoutes } from '@/router'
+import { asyncRoutes, constantRoutes, testAsyncRoutes } from '@/router'
 import store from '@/store'
 
 const hasPermission = (roles: string[], route: RouteConfig) => {
@@ -18,6 +18,20 @@ export const filterAsyncRoutes = (routes: RouteConfig[], roles: string[]) => {
     if (hasPermission(roles, r)) {
       if (r.children) {
         r.children = filterAsyncRoutes(r.children, roles)
+      }
+      res.push(r)
+    }
+  })
+  return res
+}
+
+export const filterTestAsyncRoutes = (routes: RouteConfig[], roles: string[]) => {
+  const res: RouteConfig[] = []
+  routes.forEach(route => {
+    const r = { ...route }
+    if (hasPermission(roles, r)) {
+      if (r.children) {
+        r.children = filterTestAsyncRoutes(r.children, roles)
       }
       res.push(r)
     }
@@ -44,10 +58,18 @@ class Permission extends VuexModule implements IPermissionState {
   @Action
   public GenerateRoutes(roles: string[]) {
     let accessedRoutes
-    if (roles.includes('admin')) {
-      accessedRoutes = asyncRoutes
+    let routes
+
+    if (process.env.VUE_APP_SHOW_ALL_ROUTES === 'true') {
+      routes = asyncRoutes.concat(testAsyncRoutes)
     } else {
-      accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+      routes = asyncRoutes
+    }
+
+    if (roles.includes('admin')) {
+      accessedRoutes = routes
+    } else {
+      accessedRoutes = filterAsyncRoutes(routes, roles)
     }
     this.SET_ROUTES(accessedRoutes)
   }
