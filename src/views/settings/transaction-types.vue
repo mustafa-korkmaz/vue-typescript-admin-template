@@ -13,7 +13,6 @@
               v-model="postForm.name"
               :maxlength="100"
               name="name"
-              required
               @enterPressed="handleFilter"
             >
               {{ $t('transactionTypesView.name') }}

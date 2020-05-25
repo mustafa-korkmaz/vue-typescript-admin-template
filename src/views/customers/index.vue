@@ -18,7 +18,6 @@
               v-model="postForm.title"
               :maxlength="100"
               name="title"
-              required
               @enterPressed="handleFilter"
             >
               {{ $t('customersView.title') }}
@@ -37,7 +36,6 @@
               v-model="postForm.authorized_person_name"
               :maxlength="100"
               name="authorized_person_name"
-              required
               @enterPressed="handleFilter"
             >
               {{ $t('customersView.authorizedPersonName') }}

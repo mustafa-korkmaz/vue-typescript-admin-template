@@ -6,31 +6,40 @@
       class="form-container"
     >
       <el-row>
-        <el-col :span="16">
+        <el-col :span="24">
           <el-form-item prop="name">
             <material-input
               id="name"
               v-model="postForm.name"
               :maxlength="100"
               name="name"
-              required
+              style="width:50%"
               @enterPressed="handleFilter"
             >
               {{ $t('transactionTypesView.name') }}
             </material-input>
           </el-form-item>
         </el-col>
-        <el-col style="display:none">
-          <el-form-item prop="">
-            <material-input
-              id="order"
-              v-model="postForm.order"
-              :maxlength="100"
-              name="order"
-            />
+        <el-col :span="8">
+          <el-form-item prop="optionalColumns">
+            <el-select
+              v-model="selectedOptionalColumns"
+              multiple
+              collapse-tags
+              :placeholder="$t('table.selectColumns')"
+              style="width:75%"
+              @change="optionalColumnsChanged"
+            >
+              <el-option
+                v-for="item in optionalColumns"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="16">
+        <el-col :span="8">
           <el-form-item
             prop="create"
             class="form-buttons"
@@ -81,6 +90,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          v-if="selectableOptionalColumns.desc"
           :label="$t('transactionsView.description')"
           min-width="16"
         >
@@ -89,6 +99,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          v-if="selectableOptionalColumns.accountingType"
           min-width="8"
           align="center"
         >
@@ -102,7 +113,7 @@
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
-            <span>{{ getTransactionTypeAccountingText(row.parameter_type_id) }}</span>
+            <span>{{ getAccountingTypeText(row.parameter_type_id) }}</span>
           </template>
         </el-table-column>
 
@@ -132,7 +143,7 @@
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
-            <span>{{ getTransactionTypeAccountingText(row.parameter_type_id) }}</span>
+            <span>{{ getAccountingTypeText(row.parameter_type_id) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -149,10 +160,11 @@
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
-            <span>{{ getTransactionTypeAccountingText(row.parameter_type_id) }}</span>
+            <span>{{ getAccountingTypeText(row.parameter_type_id) }}</span>
           </template>
         </el-table-column>
         <el-table-column
+          v-if="selectableOptionalColumns.modifiedAt"
           min-width="10"
           align="center"
         >
@@ -166,7 +178,7 @@
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
-            <span>{{ getTransactionTypeAccountingText(row.parameter_type_id) }}</span>
+            <span>{{ getAccountingTypeText(row.parameter_type_id) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -301,7 +313,7 @@ const { notificationDuration } = settings
 export default class extends Vue {
   private postForm = Object.assign({}, service.defaultParameter)
   private query = Object.assign({}, service.defaultParameterQuery)
-  private selectedParameter = Object.assign({}, { ...service.defaultParameter, transactionType: '' })
+  private selectedParameter = Object.assign({}, service.defaultParameter)
 
   private tableKey = 0
   private list: IParameter[] = []
@@ -312,6 +324,12 @@ export default class extends Vue {
   private dialogFormVisible = false
   private rules = {}
   private getPriceText = getPriceText
+  private selectedOptionalColumns: string[] = ['accountingType']
+  private selectableOptionalColumns = {
+    desc: false,
+    modifiedAt: false,
+    accountingType: true
+  }
 
   // todo: toggle sort by title buttons
 
@@ -343,6 +361,19 @@ export default class extends Vue {
     }, {
       value: ParameterTypeId.TransactionType_Debt,
       label: this.$t('transactionTypesView.debt')
+    }]
+  }
+
+  get optionalColumns() {
+    return [{
+      value: 'description',
+      label: 'Description'
+    }, {
+      value: 'modifiedAt',
+      label: 'ModifiedAt'
+    }, {
+      value: 'accountingType',
+      label: 'Accounting'
     }]
   }
 
@@ -490,13 +521,21 @@ export default class extends Vue {
       )
   }
 
-  private getTransactionTypeAccountingText(parameterTypeId: ParameterTypeId) {
+  private getAccountingTypeText(parameterTypeId: ParameterTypeId) {
     switch (parameterTypeId) {
       case ParameterTypeId.TransactionType_Receivable:
         return this.$t('transactionTypesView.receivable')
       case ParameterTypeId.TransactionType_Debt:
         return this.$t('transactionTypesView.debt')
     }
+  }
+
+  private optionalColumnsChanged() {
+    this.tableKey = this.tableKey + 1
+
+    this.selectableOptionalColumns.desc = this.selectedOptionalColumns.find(p => p === 'description') !== undefined
+    this.selectableOptionalColumns.modifiedAt = this.selectedOptionalColumns.find(p => p === 'modifiedAt') !== undefined
+    this.selectableOptionalColumns.accountingType = this.selectedOptionalColumns.find(p => p === 'accountingType') !== undefined
   }
 }
 </script>
