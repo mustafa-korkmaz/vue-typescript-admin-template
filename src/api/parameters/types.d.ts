@@ -1,5 +1,5 @@
 import { IPagedListQuery } from '../types'
-import { ParameterTypeId } from '@/utils/enums';
+import { ParameterTypeId } from '@/utils/enums'
 
 export interface IParameter {
     id: number
@@ -11,4 +11,3 @@ export interface IParameter {
 export interface IParameterQuery extends IPagedListQuery {
     name: string | null
 }
-

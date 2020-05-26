@@ -144,11 +144,11 @@ export default {
     createdAtTooltip: 'Created date',
     modifiedAt: 'Modified at',
     modifiedAtTooltip: 'Last modified date',
-    selectColumns:'Select columns',
+    selectColumns: 'Select columns',
     menu: 'Table menu',
-    showColumnSelectionOptions:'Show column selector',
-    hideColumnSelectionOptions:'Hide column selector',
-    exportToExcel:'Export to Excel'
+    showColumnSelectionOptions: 'Show column selector',
+    hideColumnSelectionOptions: 'Hide column selector',
+    exportToExcel: 'Export to Excel'
   },
   example: {
     warning: 'Creating and editing pages cannot be cached by keep-alive because keep-alive\'s \'include\' currently does not support caching based on routes, so now it\'s cached based on component name. If you want to achieve a similar caching effect, you can use a browser caching scheme such as localStorage. Or don\'t use keep-alive\'s \'include\' to cache all pages directly. See details'
@@ -208,7 +208,7 @@ export default {
   tableActions: {
     name: 'Actions',
     edit: 'Edit',
-    delete: 'Delete',
+    delete: 'Delete'
   },
   customersView: {
     title: 'Title',

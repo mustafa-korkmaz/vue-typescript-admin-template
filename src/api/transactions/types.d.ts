@@ -1,6 +1,6 @@
 import { IPagedListQuery } from '../types'
-import { ICustomer } from '../customers/types';
-import { IParameter } from '../parameters/types';
+import { ICustomer } from '../customers/types'
+import { IParameter } from '../parameters/types'
 
 export interface ITransaction {
     id: number
@@ -18,4 +18,3 @@ export interface ITransactionQuery extends IPagedListQuery {
     customer_id: number | null
     is_debt: boolean | null
 }
-

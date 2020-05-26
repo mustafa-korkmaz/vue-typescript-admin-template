@@ -469,7 +469,7 @@ export const testAsyncRoutes: RouteConfig[] = [
     path: '*',
     redirect: '/404',
     meta: { hidden: true }
-  },
+  }
 ]
 
 const createRouter = () => new VueRouter({

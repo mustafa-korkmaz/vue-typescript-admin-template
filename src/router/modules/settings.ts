@@ -16,7 +16,7 @@ const settingsRouter: RouteConfig = {
       component: () => import(/* webpackChunkName: "settings-transaction-types" */ '@/views/settings/transaction-types.vue'),
       name: 'TransactionTypes',
       meta: {
-        title: 'transactionTypes',
+        title: 'transactionTypes'
       }
     }
   ]

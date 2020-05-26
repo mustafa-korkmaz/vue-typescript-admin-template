@@ -1,4 +1,4 @@
-import { ResponseCode } from "@/utils/enums";
+import { ResponseCode } from '@/utils/enums'
 
 export interface IArticleData {
   id: number
@@ -64,5 +64,3 @@ export interface IPagedList<T> {
   items: T[]
   records_total: number
 }
-
-

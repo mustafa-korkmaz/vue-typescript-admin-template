@@ -40,7 +40,7 @@ httpService.interceptors.response.use(
         duration: notificationDuration
       })
       setTimeout(() => {
-        UserModule.LogOut();
+        UserModule.LogOut()
       }, notificationDuration)
 
       return
