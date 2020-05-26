@@ -258,6 +258,7 @@ export default {
     AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Authorized person name should contain between 3 and 50 chars',
     UNEXPECTED_ERROR: 'Something went wrong, please try again later',
     PARAMETER_NAME_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Name should be min 3 max 100 chars',
-    PARAMETER_NAME_FIELD_IS_REQUIRED: 'Name field is required'
+    PARAMETER_NAME_FIELD_IS_REQUIRED: 'Name field is required',
+    CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId should be an integer'
   }
 }

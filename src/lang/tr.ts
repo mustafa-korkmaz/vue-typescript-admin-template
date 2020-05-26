@@ -257,6 +257,7 @@ export default {
     AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Yetkili kişi adı en az 3 en çok 50 karakter olmalıdır',
     UNEXPECTED_ERROR: 'Uygulamada beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz.',
     PARAMETER_NAME_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Ad en az 3 en çok 100 karakter olmalıdır',
-    PARAMETER_NAME_FIELD_IS_REQUIRED: 'Ad alanı zorunludur'
+    PARAMETER_NAME_FIELD_IS_REQUIRED: 'Ad alanı zorunludur',
+    CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId tam sayı olmalıdır'
   }
 }

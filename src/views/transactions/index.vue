@@ -10,7 +10,7 @@
           <el-form-item prop="name">
             <material-input
               id="name"
-              v-model="postForm.name"
+              v-model="postForm.description"
               :maxlength="100"
               name="name"
               style="width:50%"
@@ -227,7 +227,7 @@
       <el-form
         ref="dataForm"
         :rules="rules"
-        :model="selectedParameter"
+        :model="selectedTransaction"
         label-position="top"
         label-width="100px"
         class="single-item"
@@ -237,7 +237,7 @@
           prop="name"
         >
           <el-input
-            v-model="selectedParameter.name"
+            v-model="selectedTransaction.description"
             :placeholder="$t('transactionTypesView.namePlaceholder')"
           />
         </el-form-item>
@@ -246,7 +246,7 @@
           prop="parameter_type_id"
         >
           <el-select
-            v-model="selectedParameter.parameter_type_id"
+            v-model="selectedTransaction.type.id"
             clearable
             :placeholder="$t('form.select')"
             :disabled="editMode"
@@ -270,7 +270,7 @@
             </el-tooltip>
           </label>
           <el-input
-            v-model="selectedParameter.order"
+            v-model="selectedTransaction.amount"
             type="number"
           />
         </el-form-item>
@@ -285,7 +285,7 @@
         <el-button
           type="success"
           icon="el-icon-check"
-          @click="editMode?updateParameter():createParameter()"
+          @click="editMode?updateTransaction():createTransaction()"
         >
           {{ $t('form.save') }}
         </el-button>
@@ -296,15 +296,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import * as service from '@/api/parameters/parameter-service'
+import * as service from '@/api/transactions/transaction-service'
 import { getPriceText } from '@/utils/index'
 import MaterialInput from '@/components/MaterialInput/index.vue'
 import { MessageBox, Form } from 'element-ui'
 import settings from '@/settings'
 import Pagination from '@/components/Pagination/index.vue'
 import TableMenu from '@/components/TableMenu/index.vue'
-import { IParameter } from '@/api/parameters/types'
 import { ParameterTypeId } from '@/utils/enums'
+import { ITransaction } from '../../api/transactions/types'
 
 const { notificationDuration } = settings
 
@@ -317,12 +317,12 @@ const { notificationDuration } = settings
   }
 })
 export default class extends Vue {
-  private postForm = Object.assign({}, service.defaultParameter)
-  private query = Object.assign({}, service.defaultParameterQuery)
-  private selectedParameter = Object.assign({}, service.defaultParameter)
+  private postForm = Object.assign({}, service.defaultTransaction)
+  private query = Object.assign({}, service.defaultTransactionQuery)
+  private selectedTransaction = Object.assign({}, service.defaultTransaction)
 
   private tableKey = 0
-  private list: IParameter[] = []
+  private list: ITransaction[] = []
   private total = 0
   private page = 1
   private loading = true
@@ -386,9 +386,10 @@ export default class extends Vue {
   private getList() {
     this.loading = true
     this.query.offset = (this.page - 1) * this.query.limit
-    this.query.name = this.postForm.name
+    this.query.customer_id = this.postForm.customer.id > 0 ? this.postForm.customer.id : null
+    this.query.is_debt = this.postForm.is_debt
 
-    service.getParameters(this.query)
+    service.getTransactions(this.query)
       .then(
         (resp) => {
           this.loading = false
@@ -408,7 +409,7 @@ export default class extends Vue {
   }
 
   private handleUpdate(row: any) {
-    this.selectedParameter = Object.assign({}, row)
+    this.selectedTransaction = Object.assign({}, row)
     this.editMode = true
     this.dialogFormVisible = true
     this.$nextTick(() => {
@@ -416,7 +417,7 @@ export default class extends Vue {
     })
   }
 
-  private handleDelete(row: IParameter) {
+  private handleDelete(row: ITransaction) {
     MessageBox.confirm(
       this.$t('transactionTypesView.deleteParameterWarning').toString(),
       this.$t('messages.confirm').toString(),
@@ -427,14 +428,14 @@ export default class extends Vue {
         type: 'warning'
       }
     ).then(() => {
-      this.deleteParameter(row)
+      this.deleteTransaction(row)
     })
   }
 
   private handleCreate() {
     this.editMode = false
     this.dialogFormVisible = true
-    this.selectedParameter = Object.assign({}, { ...service.defaultParameter, transactionType: '' })
+    this.selectedTransaction = Object.assign({}, service.defaultTransaction)
     this.$nextTick(() => {
       (this.$refs.dataForm as Form).clearValidate()
     })
@@ -445,17 +446,17 @@ export default class extends Vue {
       : this.$t('transactionTypesView.createTransactionType')
   }
 
-  private createParameter() {
+  private createTransaction() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
         this.loading = true
-        service.createParameter(this.selectedParameter)
+        service.createTransaction(this.selectedTransaction)
           .then(
             (resp) => {
               this.loading = false
-              this.selectedParameter.id = resp.data
+              this.selectedTransaction.id = resp.data
               this.total += 1
-              this.list.unshift(this.selectedParameter)
+              this.list.unshift(this.selectedTransaction)
               this.dialogFormVisible = false
               this.$notify({
                 title: this.$t('messages.success').toString(),
@@ -475,17 +476,16 @@ export default class extends Vue {
     })
   }
 
-  private updateParameter() {
+  private updateTransaction() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
         this.loading = true
-        console.log(this.selectedParameter)
-        service.updateParameter(this.selectedParameter)
+        service.updateTransaction(this.selectedTransaction)
           .then(
             () => {
               this.loading = false
-              const index = this.list.findIndex(v => v.id === this.selectedParameter.id)
-              this.list.splice(index, 1, this.selectedParameter)
+              const index = this.list.findIndex(v => v.id === this.selectedTransaction.id)
+              this.list.splice(index, 1, this.selectedTransaction)
               this.dialogFormVisible = false
               this.$notify({
                 title: this.$t('messages.success').toString(),
@@ -503,14 +503,14 @@ export default class extends Vue {
     })
   }
 
-  private deleteParameter(p: IParameter) {
+  private deleteTransaction(txn: ITransaction) {
     this.loading = true
 
-    service.deleteParameter(p.id)
+    service.deleteTransaction(txn.id)
       .then(
         () => {
           this.loading = false
-          const index = this.list.findIndex(v => v.id === p.id)
+          const index = this.list.findIndex(v => v.id === txn.id)
           this.total -= 1
           this.list.splice(index, 1)
           this.$notify({

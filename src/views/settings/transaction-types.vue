@@ -234,7 +234,7 @@ const { notificationDuration } = settings
 export default class extends Vue {
   private postForm = Object.assign({}, service.defaultParameter)
   private query = Object.assign({}, service.defaultParameterQuery)
-  private selectedParameter = Object.assign({}, { ...service.defaultParameter, transactionType: '' })
+  private selectedParameter = Object.assign({}, service.defaultParameter)
 
   private tableKey = 0
   private list: IParameter[] = []
@@ -365,8 +365,6 @@ export default class extends Vue {
               this.loading = false
             }
           )
-      } else {
-        console.log('no valid')
       }
     })
   }
@@ -375,7 +373,6 @@ export default class extends Vue {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
         this.loading = true
-        console.log(this.selectedParameter)
         service.updateParameter(this.selectedParameter)
           .then(
             () => {
