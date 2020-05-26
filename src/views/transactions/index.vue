@@ -50,24 +50,10 @@
       <el-form />
     </el-form>
     <el-row>
-      <el-select
-        v-if="false"
-        v-model="selectedOptionalColumns"
-        multiple
-        collapse-tags
-        :placeholder="$t('table.selectColumns')"
-        style="width:25%"
-        @change="optionalColumnsChanged"
-      >
-        <el-option
-          v-for="item in optionalColumns"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
       <table-menu
         :activate-column-selection-option="true"
+        :column-selection-options="optionalColumns"
+        @optionalColumnsChanged="optionalColumnsChanged"
       />
       <el-table
         :key="tableKey"
@@ -330,7 +316,6 @@ export default class extends Vue {
   private dialogFormVisible = false
   private rules = {}
   private getPriceText = getPriceText
-  private selectedOptionalColumns: string[] = ['accountingType']
   private selectableOptionalColumns = {
     desc: false,
     modifiedAt: false,
@@ -373,13 +358,13 @@ export default class extends Vue {
   get optionalColumns() {
     return [{
       value: 'description',
-      label: 'Description'
+      label: this.$t('transactionsView.description')
     }, {
       value: 'modifiedAt',
-      label: 'ModifiedAt'
+      label: this.$t('table.modifiedAt')
     }, {
       value: 'accountingType',
-      label: 'Accounting'
+      label: this.$t('transactionTypesView.debtOrReceivable')
     }]
   }
 
@@ -536,12 +521,12 @@ export default class extends Vue {
     }
   }
 
-  private optionalColumnsChanged() {
+  private optionalColumnsChanged(selectedOptionalColumns: string[]) {
     this.tableKey = this.tableKey + 1
 
-    this.selectableOptionalColumns.desc = this.selectedOptionalColumns.find(p => p === 'description') !== undefined
-    this.selectableOptionalColumns.modifiedAt = this.selectedOptionalColumns.find(p => p === 'modifiedAt') !== undefined
-    this.selectableOptionalColumns.accountingType = this.selectedOptionalColumns.find(p => p === 'accountingType') !== undefined
+    this.selectableOptionalColumns.desc = selectedOptionalColumns.find(p => p === 'description') !== undefined
+    this.selectableOptionalColumns.modifiedAt = selectedOptionalColumns.find(p => p === 'modifiedAt') !== undefined
+    this.selectableOptionalColumns.accountingType = selectedOptionalColumns.find(p => p === 'accountingType') !== undefined
   }
 }
 </script>

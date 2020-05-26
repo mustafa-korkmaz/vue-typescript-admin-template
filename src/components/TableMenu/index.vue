@@ -12,7 +12,14 @@
         class="column-selection"
         :placeholder="$t('table.selectColumns')"
         @change="optionalColumnsChanged"
-      />
+      >
+        <el-option
+          v-for="item in columnSelectionOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
     </el-col>
     <el-col
       :span="1"
@@ -58,13 +65,20 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
+interface IOption {
+  value: any
+  label: string
+}
+
 @Component({
   name: 'TableMenu'
 })
 export default class extends Vue {
   @Prop({ default: false }) private activateColumnSelectionOption!: boolean
+  @Prop({ default: [] }) private columnSelectionOptions!: IOption[]
 
   private columnSelectionOptionActivated = false
+  private selectedOptionalColumns: string[] = []
 
   get toggleColumnSelectionText() {
     if (this.columnSelectionOptionActivated) {
@@ -84,11 +98,14 @@ export default class extends Vue {
         break
     }
   }
+
+  private optionalColumnsChanged() {
+    this.$emit('optionalColumnsChanged', this.selectedOptionalColumns)
+  }
 }
 </script>
 
 <style scoped>
-
 .el-icon-more.icon {
   cursor: pointer;
   transform: rotate(90deg);
@@ -96,8 +113,8 @@ export default class extends Vue {
   float: right;
 }
 
-.column-selection{
-  width:20%;
-  float:right;
+.column-selection {
+  width: 20%;
+  float: right;
 }
 </style>
