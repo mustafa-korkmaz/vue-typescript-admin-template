@@ -20,6 +20,7 @@ export const defaultTransactionQuery: ITransactionQuery = {
   offset: 0,
   limit: 10,
   customer_id: null,
+  type_id: null,
   is_debt: null,
   include_records_total: true,
   sort_by: null,

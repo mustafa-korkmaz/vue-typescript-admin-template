@@ -229,8 +229,8 @@ export default {
   transactionTypesView: {
     name: 'Name',
     namePlaceholder: 'Invoice, bill, etc.',
-    debtOrReceivable: 'D/R?',
-    debtOrReceivableTooltip: 'Debt/Receivable',
+    debtOrReceivable: 'R/D?',
+    debtOrReceivableTooltip: 'Receivable/Debt',
     order: 'Display order',
     orderLabelTooltip: 'Pass 0 if you want alphabetically',
     actions: 'Actions',
@@ -244,6 +244,7 @@ export default {
     debt: 'Debt'
   },
   transactionsView: {
+    transactionType:'Transaction type',
     customer: 'Customer',
     type: 'Type',
     amount: 'Amount',

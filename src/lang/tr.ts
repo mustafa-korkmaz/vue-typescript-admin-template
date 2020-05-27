@@ -229,12 +229,12 @@ export default {
     name: 'İşlem adı',
     namePlaceholder: 'Fatura, çek, vb.',
     debtOrReceivable: 'A/B?',
-    debtOrReceivableTooltip: 'Alacak/Borçlu',
+    debtOrReceivableTooltip: 'Alacak/Borç',
     order: 'Gösterim sırası',
     orderLabelTooltip: 'Alfabetik sıralama için 0 giriniz',
     actions: 'İşlemler',
-    nameRequired: 'İşlem tipi alanı zorunludur',
-    debtOrReceivableRequired: 'Alacak/Borçlu alanı zorunludur',
+    nameRequired: 'İşlem adı alanı zorunludur',
+    debtOrReceivableRequired: 'Alacak/Borç alanı zorunludur',
     orderRequired: 'Gösterim sırası alanı zorunludur',
     deleteParameterWarning: 'İşlem tipi kalıcı olarak silinecek',
     updateTransactionType: 'İşlem tipi düzenle',
@@ -243,6 +243,7 @@ export default {
     debt: 'Borç'
   },
   transactionsView: {
+    transactionType:'İşlem tipi',
     customer: 'Cari',
     type: 'İşlem tipi',
     amount: 'Tutar',

@@ -2,30 +2,89 @@
   <div class="page-container">
     <el-form
       ref="postForm"
-      :model="postForm"
       class="form-container"
+      label-position="top"
     >
       <el-row>
-        <el-col :span="24">
-          <el-form-item prop="name">
-            <material-input
-              id="name"
-              v-model="postForm.description"
-              :maxlength="100"
-              name="name"
-              style="width:50%"
-              @enterPressed="handleFilter"
+        <el-col
+          :xs="24"
+          :sm="24"
+          :md="8"
+          :lg="8"
+        >
+          <el-form-item
+            :label="$t('transactionsView.customer')"
+            prop="customer.id"
+          >
+            <el-select
+              v-model="selectedCustomerId"
+              clearable
+              :placeholder="$t('form.select')"
+              style="width:100%"
             >
-              {{ $t('transactionTypesView.name') }}
-            </material-input>
+              <el-option
+                v-for="customer in customerList"
+                :key="customer.id"
+                :label="customer.title"
+                :value="customer.id"
+              />
+            </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col
+          :xs="24"
+          :sm="24"
+          :md="4"
+          :lg="4"
+        >
           <el-form-item
-            prop="optionalColumns"
-          />
+            :label="$t('transactionsView.transactionType')"
+            prop="parameter_id"
+          >
+            <el-select
+              v-model="selectedTransactionTypeId"
+              clearable
+              :placeholder="$t('form.select')"
+            >
+              <el-option
+                v-for="parameter in parameterList"
+                :key="parameter.id"
+                :label="parameter.name"
+                :value="parameter.id"
+              />
+            </el-select>
+          </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col
+          :xs="24"
+          :sm="24"
+          :md="4"
+          :lg="4"
+        >
+          <el-form-item
+            :label="$t('transactionTypesView.debtOrReceivableTooltip')"
+            prop="is_debt"
+          >
+            <el-select
+              v-model="isDebt"
+              clearable
+              :placeholder="$t('form.select')"
+            >
+              <el-option
+                v-for="o in options"
+                :key="o.value"
+                :label="o.label"
+                :value="o.value"
+              />
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col
+          :xs="24"
+          :sm="24"
+          :md="16"
+          :lg="16"
+        >
           <el-form-item
             prop="create"
             class="form-buttons"
@@ -283,6 +342,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import * as service from '@/api/transactions/transaction-service'
+import { getCustomers, defaultCustomerQuery } from '@/api/customers/customer-service'
 import { getPriceText } from '@/utils/index'
 import MaterialInput from '@/components/MaterialInput/index.vue'
 import { MessageBox, Form } from 'element-ui'
@@ -291,11 +351,14 @@ import Pagination from '@/components/Pagination/index.vue'
 import TableMenu from '@/components/TableMenu/index.vue'
 import { ParameterTypeId } from '@/utils/enums'
 import { ITransaction } from '../../api/transactions/types'
+import { ICustomer } from '../../api/customers/types'
+import { getParameters, defaultParameterQuery } from '../../api/parameters/parameter-service'
+import { IParameter } from '../../api/parameters/types'
 
-const { notificationDuration } = settings
+const { notificationDuration, maxQueryLimit } = settings
 
 @Component({
-  name: 'Parameter',
+  name: 'Transaction',
   components: {
     MaterialInput,
     Pagination,
@@ -303,10 +366,13 @@ const { notificationDuration } = settings
   }
 })
 export default class extends Vue {
-  private postForm = Object.assign({}, service.defaultTransaction)
   private query = Object.assign({}, service.defaultTransactionQuery)
   private selectedTransaction = Object.assign({}, service.defaultTransaction)
-
+  private selectedCustomerId: number | null = null
+  private selectedTransactionTypeId: number | null = null
+  private isDebt: boolean | null = null
+  private customerList: ICustomer[] = []
+  private parameterList: IParameter[] = []
   private tableKey = 0
   private list: ITransaction[] = []
   private total = 0
@@ -322,15 +388,14 @@ export default class extends Vue {
     accountingType: true
   }
 
-  // todo: toggle sort by title buttons
-
   created() {
     this.rules = {
       order: [{ required: true, message: this.orderRequired, trigger: 'change' }],
       parameter_type_id: [{ required: true, message: this.debtOrReceivableRequired, trigger: 'change' }],
       name: [{ required: true, message: this.titleRequired, trigger: 'blur' }]
     }
-    this.getList()
+
+    this.setPage()
   }
 
   get titleRequired() {
@@ -347,10 +412,10 @@ export default class extends Vue {
 
   get options() {
     return [{
-      value: ParameterTypeId.TransactionType_Receivable,
+      value: false,
       label: this.$t('transactionTypesView.receivable')
     }, {
-      value: ParameterTypeId.TransactionType_Debt,
+      value: true,
       label: this.$t('transactionTypesView.debt')
     }]
   }
@@ -371,8 +436,9 @@ export default class extends Vue {
   private getList() {
     this.loading = true
     this.query.offset = (this.page - 1) * this.query.limit
-    this.query.customer_id = this.postForm.customer.id > 0 ? this.postForm.customer.id : null
-    this.query.is_debt = this.postForm.is_debt
+    this.query.customer_id = this.selectedCustomerId
+    this.query.type_id = this.selectedTransactionTypeId
+    this.query.is_debt = this.isDebt
 
     service.getTransactions(this.query)
       .then(
@@ -527,6 +593,35 @@ export default class extends Vue {
     this.selectableOptionalColumns.desc = selectedOptionalColumns.find(p => p === 'description') !== undefined
     this.selectableOptionalColumns.modifiedAt = selectedOptionalColumns.find(p => p === 'modifiedAt') !== undefined
     this.selectableOptionalColumns.accountingType = selectedOptionalColumns.find(p => p === 'accountingType') !== undefined
+  }
+
+  private setPage() {
+    this.loading = true
+    this.query.offset = 0
+    this.query.customer_id = null
+    this.query.is_debt = null
+
+    const customerQuery = defaultCustomerQuery
+    customerQuery.limit = maxQueryLimit
+
+    const parameterQuery = defaultParameterQuery
+    parameterQuery.limit = maxQueryLimit
+
+    const txnPromise = service.getTransactions(this.query)
+    const txnTypesPromise = getParameters(parameterQuery)
+    const customerPromise = getCustomers(customerQuery)
+
+    Promise.all([txnPromise, txnTypesPromise, customerPromise]).then((values) => {
+      this.loading = false
+      this.list = values[0].data.items
+      this.total = values[0].data.records_total
+      this.parameterList = values[1].data.items
+      this.customerList = values[2].data.items
+    },
+    (err) => {
+      console.error(err)
+      this.loading = false
+    })
   }
 }
 </script>

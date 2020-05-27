@@ -9,6 +9,7 @@ interface ISettings {
   devServerPort: number // Port number for webpack-dev-server
   mockServerPort: number // Port number for mock server
   notificationDuration: number // notify message duration in miliseconds
+  maxQueryLimit: number
 }
 
 // You can customize below settings :)
@@ -22,7 +23,8 @@ const settings: ISettings = {
   sidebarTextTheme: true,
   devServerPort: 9527,
   mockServerPort: 9528,
-  notificationDuration: 3000
+  notificationDuration: 3000,
+  maxQueryLimit: 1000
 }
 
 export default settings

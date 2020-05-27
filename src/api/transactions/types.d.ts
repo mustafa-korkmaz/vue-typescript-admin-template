@@ -16,5 +16,6 @@ export interface ITransaction {
 
 export interface ITransactionQuery extends IPagedListQuery {
     customer_id: number | null
+    type_id: number | null
     is_debt: boolean | null
 }
