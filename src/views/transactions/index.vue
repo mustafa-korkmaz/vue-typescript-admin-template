@@ -603,9 +603,11 @@ export default class extends Vue {
 
     const customerQuery = defaultCustomerQuery
     customerQuery.limit = maxQueryLimit
+    customerQuery.include_records_total = false
 
     const parameterQuery = defaultParameterQuery
     parameterQuery.limit = maxQueryLimit
+    parameterQuery.include_records_total = false
 
     const txnPromise = service.getTransactions(this.query)
     const txnTypesPromise = getParameters(parameterQuery)
