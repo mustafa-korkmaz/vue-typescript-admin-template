@@ -3,7 +3,7 @@ import { IApiResponse, IPagedList } from '../types'
 import { IParameter, IParameterQuery } from './types'
 
 export const defaultParameter: IParameter = {
-  id: 0,
+  id: null,
   name: '',
   order: 0,
   parameter_type_id: null

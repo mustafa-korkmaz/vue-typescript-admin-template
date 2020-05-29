@@ -275,50 +275,110 @@
         :model="selectedTransaction"
         label-position="top"
         label-width="100px"
-        class="single-item"
       >
-        <el-form-item
-          :label="$t('transactionTypesView.name')"
-          prop="name"
-        >
-          <el-input
-            v-model="selectedTransaction.description"
-            :placeholder="$t('transactionTypesView.namePlaceholder')"
-          />
-        </el-form-item>
-        <el-form-item
-          :label="$t('transactionTypesView.debtOrReceivableTooltip')"
-          prop="parameter_type_id"
-        >
-          <el-select
-            v-model="selectedTransaction.type.id"
-            clearable
-            :placeholder="$t('form.select')"
-            :disabled="editMode"
+        <el-row>
+          <el-col
+            :xs="24"
+            :sm="24"
+            :md="12"
+            :lg="12"
           >
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item prop="order">
-          <label slot="label">
-            <el-tooltip
-              :content="$t('transactionTypesView.orderLabelTooltip')"
-              effect="dark"
-              placement="right"
+            <el-form-item
+              :label="$t('transactionsView.customer')"
+              prop="customer_id"
             >
-              <span>{{ $t('transactionTypesView.order') }}</span>
-            </el-tooltip>
-          </label>
-          <el-input
-            v-model="selectedTransaction.amount"
-            type="number"
-          />
-        </el-form-item>
+              <el-select
+                v-model="selectedTransaction.customer.id"
+                clearable
+                :placeholder="$t('form.select')"
+                style="width:100%"
+              >
+                <el-option
+                  v-for="customer in customerList"
+                  :key="customer.id"
+                  :label="customer.title"
+                  :value="customer.id"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col
+            :xs="24"
+            :sm="24"
+            :md="8"
+            :lg="8"
+          >
+            <el-form-item
+              :label="$t('transactionsView.transactionType')"
+              prop="parameter_id"
+            >
+              <el-select
+                v-model="selectedTransaction.type.id"
+                clearable
+                :placeholder="$t('form.select')"
+                style="width:100%"
+              >
+                <el-option
+                  v-for="parameter in parameterList"
+                  :key="parameter.id"
+                  :label="parameter.name"
+                  :value="parameter.id"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col
+            :xs="24"
+            :sm="24"
+            :md="10"
+            :lg="10"
+          >
+            <el-form-item
+              :label="$t('transactionsView.amount')"
+              prop="amount"
+            >
+              <el-input
+                v-model="selectedTransaction.amount"
+                type="number"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col
+            :xs="24"
+            :sm="24"
+            :md="10"
+            :lg="10"
+          >
+            <el-form-item
+              :label="$t('transactionsView.amount')"
+              prop="amount"
+            >
+              <el-input
+                v-model="selectedTransaction.amount"
+                type="number"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col
+            :xs="24"
+            :sm="24"
+            :md="10"
+            :lg="10"
+          >
+            <el-form-item
+              :label="$t('transactionsView.amount')"
+              prop="amount"
+            >
+              <el-input
+                v-model="selectedTransaction.amount"
+                type="number"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div
         slot="footer"
@@ -390,24 +450,24 @@ export default class extends Vue {
 
   created() {
     this.rules = {
-      order: [{ required: true, message: this.orderRequired, trigger: 'change' }],
-      parameter_type_id: [{ required: true, message: this.debtOrReceivableRequired, trigger: 'change' }],
-      name: [{ required: true, message: this.titleRequired, trigger: 'blur' }]
+      amount: [{ required: true, message: this.amountRequired, trigger: 'change' }],
+      parameter_id: [{ required: true, message: this.transactionTypeRequired, trigger: 'change' }],
+      customer_id: [{ required: true, message: this.customerRequired, trigger: 'change' }]
     }
 
     this.setPage()
   }
 
-  get titleRequired() {
-    return this.$t('transactionTypesView.nameRequired')
+  get customerRequired() {
+    return this.$t('transactionsView.customerRequired')
   }
 
-  get debtOrReceivableRequired() {
-    return this.$t('transactionTypesView.debtOrReceivableRequired')
+  get transactionTypeRequired() {
+    return this.$t('transactionsView.transactionTypeRequired')
   }
 
-  get orderRequired() {
-    return this.$t('transactionTypesView.orderRequired')
+  get amountRequired() {
+    return this.$t('transactionsView.amountRequired')
   }
 
   get options() {
@@ -493,8 +553,8 @@ export default class extends Vue {
   }
 
   private getDialogTitle() {
-    return this.editMode ? this.$t('transactionTypesView.updateTransactionType')
-      : this.$t('transactionTypesView.createTransactionType')
+    return this.editMode ? this.$t('transactionsView.updateTransaction')
+      : this.$t('transactionsView.createTransaction')
   }
 
   private createTransaction() {

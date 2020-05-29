@@ -249,7 +249,12 @@ export default {
     amount: 'Tutar',
     dateText: 'Tarih',
     description: 'Açıklama',
-    dateTextTooltip: 'İşlem tarihi'
+    dateTextTooltip: 'İşlem tarihi',    
+    createTransaction: 'Hesap hareketi oluştur',
+    updateTransaction: 'Hesap hareketi düzenle',
+    customerRequired:'Cari alanı zorunludur',
+    transactionTypeRequired: 'Transaction type field is required',
+    amountRequired:'Tutar alanı zorunludur'
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz.',
@@ -259,6 +264,7 @@ export default {
     UNEXPECTED_ERROR: 'Uygulamada beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz.',
     PARAMETER_NAME_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Ad en az 3 en çok 100 karakter olmalıdır',
     PARAMETER_NAME_FIELD_IS_REQUIRED: 'Ad alanı zorunludur',
-    CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId tam sayı olmalıdır'
+    CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId tam sayı olmalıdır',
+    USERNAME_OR_PASSWORD_INCORRECT:'Kullanıcı adı ya da şifre hatalı'
   }
 }

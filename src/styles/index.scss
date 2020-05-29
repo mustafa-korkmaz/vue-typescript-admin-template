@@ -173,9 +173,20 @@ aside {
 
 }
 
-.el-dialog__body>.el-form.single-item {
-  margin-left: 3em;
-  width: 55%;
+.el-dialog__body {
+  padding-bottom: 5px;
+  .el-form {
+    margin-left: 2em;
+
+    .el-form-item.single {
+      width: 55%;
+    }
+
+    .el-row {
+      margin-bottom: 0;
+      padding: 0;
+    }
+  }
 }
 
 .el-form>.el-row>.el-col>.el-form-item {

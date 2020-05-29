@@ -3,7 +3,7 @@ import { IApiResponse, IPagedList } from '../types'
 import { ICustomer, ICustomerQuery } from './types'
 
 export const defaultCustomer: ICustomer = {
-  id: 0,
+  id: null,
   authorized_person_name: '',
   title: '',
   phone_number: '',

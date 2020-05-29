@@ -2,7 +2,7 @@ import { IPagedListQuery } from '../types'
 import { ParameterTypeId } from '@/utils/enums'
 
 export interface IParameter {
-    id: number
+    id: number | null
     name: string
     parameter_type_id: ParameterTypeId | null
     order: number

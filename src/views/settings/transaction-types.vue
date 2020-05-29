@@ -147,11 +147,11 @@
         :model="selectedParameter"
         label-position="top"
         label-width="100px"
-        class="single-item"
       >
         <el-form-item
           :label="$t('transactionTypesView.name')"
           prop="name"
+          class="single"
         >
           <el-input
             v-model="selectedParameter.name"
@@ -161,6 +161,7 @@
         <el-form-item
           :label="$t('transactionTypesView.debtOrReceivableTooltip')"
           prop="parameter_type_id"
+          class="single"
         >
           <el-select
             v-model="selectedParameter.parameter_type_id"
@@ -176,7 +177,10 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item prop="order">
+        <el-form-item
+          prop="order"
+          class="single"
+        >
           <label slot="label">
             <el-tooltip
               :content="$t('transactionTypesView.orderLabelTooltip')"
@@ -398,6 +402,11 @@ export default class extends Vue {
 
   private deleteParameter(p: IParameter) {
     this.loading = true
+
+    if (p.id === null) {
+      console.error('parameter id cannot be null')
+      return
+    }
 
     service.deleteParameter(p.id)
       .then(

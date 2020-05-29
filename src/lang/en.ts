@@ -244,13 +244,18 @@ export default {
     debt: 'Debt'
   },
   transactionsView: {
-    transactionType:'Transaction type',
+    transactionType: 'Transaction type',
     customer: 'Customer',
     type: 'Type',
     amount: 'Amount',
     dateText: 'Date',
     description: 'Description',
-    dateTextTooltip: 'Transaction date'
+    dateTextTooltip: 'Transaction date',
+    createTransaction: 'Create transaction',
+    updateTransaction: 'Update transaction',
+    customerRequired: 'Customer field is required',
+    transactionTypeRequired: 'Transaction type field is required',
+    amountRequired:'Amount field is required'
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page.',
@@ -260,6 +265,7 @@ export default {
     UNEXPECTED_ERROR: 'Something went wrong, please try again later',
     PARAMETER_NAME_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Name should be min 3 max 100 chars',
     PARAMETER_NAME_FIELD_IS_REQUIRED: 'Name field is required',
-    CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId should be an integer'
+    CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId should be an integer',
+    USERNAME_OR_PASSWORD_INCORRECT: 'Username or password is incorrect'
   }
 }

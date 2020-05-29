@@ -1,8 +1,8 @@
 import { IPagedListQuery } from '../types'
 
 export interface ICustomer {
+    id: number | null
     authorized_person_name: string
-    id: number
     title: string
     phone_number: string
     created_at_text: string
