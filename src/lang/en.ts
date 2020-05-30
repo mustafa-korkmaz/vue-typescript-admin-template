@@ -255,7 +255,7 @@ export default {
     updateTransaction: 'Update transaction',
     customerRequired: 'Customer field is required',
     transactionTypeRequired: 'Transaction type field is required',
-    amountRequired:'Amount field is required'
+    amountRequired: 'Amount field is required'
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page.',

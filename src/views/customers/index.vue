@@ -204,33 +204,45 @@
         label-position="top"
         label-width="100px"
       >
-        <el-form-item
-          :label="$t('customersView.title')"
-          prop="title"
-          class="single"
-        >
-          <el-input
-            v-model="selectedCustomer.title"
-            :placeholder="$t('customersView.titlePlaceholder')"
-          />
-        </el-form-item>
-        <el-form-item
-          :label="$t('customersView.authorizedPersonName')"
-          prop="authorizedPerson"
-          class="single"
-        >
-          <el-input v-model="selectedCustomer.authorized_person_name" />
-        </el-form-item>
-        <el-form-item
-          :label="$t('customersView.phoneNumber')"
-          prop="phone"
-          class="single"
-        >
-          <el-input
-            v-model="selectedCustomer.phone_number"
-            type="number"
-          />
-        </el-form-item>
+        <el-row>
+          <el-col
+            :span="24"
+          >
+            <el-form-item
+              :label="$t('customersView.title')"
+              prop="title"
+              class="single"
+            >
+              <el-input
+                v-model="selectedCustomer.title"
+                :placeholder="$t('customersView.titlePlaceholder')"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col
+            :span="24"
+          >
+            <el-form-item
+              :label="$t('customersView.authorizedPersonName')"
+              prop="authorizedPerson"
+              class="single"
+            >
+              <el-input v-model="selectedCustomer.authorized_person_name" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item
+              :label="$t('customersView.phoneNumber')"
+              prop="phone"
+              class="single"
+            >
+              <el-input
+                v-model="selectedCustomer.phone_number"
+                type="number"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div
         slot="footer"

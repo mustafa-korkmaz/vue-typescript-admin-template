@@ -148,53 +148,61 @@
         label-position="top"
         label-width="100px"
       >
-        <el-form-item
-          :label="$t('transactionTypesView.name')"
-          prop="name"
-          class="single"
-        >
-          <el-input
-            v-model="selectedParameter.name"
-            :placeholder="$t('transactionTypesView.namePlaceholder')"
-          />
-        </el-form-item>
-        <el-form-item
-          :label="$t('transactionTypesView.debtOrReceivableTooltip')"
-          prop="parameter_type_id"
-          class="single"
-        >
-          <el-select
-            v-model="selectedParameter.parameter_type_id"
-            clearable
-            :placeholder="$t('form.select')"
-            :disabled="editMode"
-          >
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          prop="order"
-          class="single"
-        >
-          <label slot="label">
-            <el-tooltip
-              :content="$t('transactionTypesView.orderLabelTooltip')"
-              effect="dark"
-              placement="right"
+        <el-row>
+          <el-col :span="24">
+            <el-form-item
+              :label="$t('transactionTypesView.name')"
+              prop="name"
+              class="single"
             >
-              <span>{{ $t('transactionTypesView.order') }}</span>
-            </el-tooltip>
-          </label>
-          <el-input
-            v-model="selectedParameter.order"
-            type="number"
-          />
-        </el-form-item>
+              <el-input
+                v-model="selectedParameter.name"
+                :placeholder="$t('transactionTypesView.namePlaceholder')"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item
+              :label="$t('transactionTypesView.debtOrReceivableTooltip')"
+              prop="parameter_type_id"
+              class="single"
+            >
+              <el-select
+                v-model="selectedParameter.parameter_type_id"
+                clearable
+                :placeholder="$t('form.select')"
+                :disabled="editMode"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item
+              prop="order"
+              class="single"
+            >
+              <label slot="label">
+                <el-tooltip
+                  :content="$t('transactionTypesView.orderLabelTooltip')"
+                  effect="dark"
+                  placement="right"
+                >
+                  <span>{{ $t('transactionTypesView.order') }}</span>
+                </el-tooltip>
+              </label>
+              <el-input
+                v-model="selectedParameter.order"
+                type="number"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div
         slot="footer"
