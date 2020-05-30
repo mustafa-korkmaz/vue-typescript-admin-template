@@ -6,14 +6,17 @@ import { defaultCustomer } from '../customers/customer-service'
 
 export const defaultTransaction: ITransaction = {
   id: 0,
-  description: '',
-  amount: 0,
+  description: null,
+  amount: null,
   type: defaultParameter,
+  type_id: null,
   customer: defaultCustomer,
+  customer_id: null,
   is_debt: null,
+  date: null,
   date_text: null,
-  created_at_text: null,
-  modified_at_text: null
+  created_at: null,
+  modified_at: null
 }
 
 export const defaultTransactionQuery: ITransactionQuery = {
@@ -37,11 +40,11 @@ export function getTransactions(params: ITransactionQuery) {
 
 export function createTransaction(txn: ITransaction) {
   const data = {
-    customer_id: txn.customer.id,
-    type_id: txn.type.id,
+    customer_id: txn.customer_id,
+    type_id: txn.type_id,
     amount: txn.amount,
     description: txn.description,
-    date_ext: txn.date_text
+    date_text: txn.date_text
   }
   return httpService.request<any, IApiResponse<number>>({
     url: 'transactions',
@@ -52,10 +55,10 @@ export function createTransaction(txn: ITransaction) {
 
 export function updateTransaction(txn: ITransaction) {
   const data = {
-    type_id: txn.type.id,
+    type_id: txn.type_id,
     amount: txn.amount,
     description: txn.description,
-    date_ext: txn.date_text
+    date_text: txn.date_text
   }
   return httpService.request<any, IApiResponse<any>>({
     url: `transactions/${txn.id}`,

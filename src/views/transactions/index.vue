@@ -127,7 +127,7 @@
           min-width="16"
         >
           <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
+            <span>{{ row.customer.title }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -135,7 +135,7 @@
           min-width="10"
         >
           <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
+            <span>{{ row.type.name }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -144,7 +144,7 @@
           min-width="16"
         >
           <template slot-scope="{row}">
-            <span>{{ row.name }}</span>
+            <span>{{ row.description }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -162,20 +162,20 @@
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
-            <span>{{ getAccountingTypeText(row.parameter_type_id) }}</span>
+            <span>{{ getAccountingTypeText(row.type.parameter_type_id) }}</span>
           </template>
         </el-table-column>
 
         <el-table-column
           :label="$t('transactionsView.amount')"
-          align="center"
           min-width="8"
+          align="right"
         >
           <template
             slot-scope="{row}"
             text-align="right"
           >
-            <span>{{ row.order }}</span>
+            <span>{{ getPriceText(row.amount) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -184,15 +184,15 @@
         >
           <template slot="header">
             <el-tooltip
-              :content="$t('transactionsView.dateTextTooltip')"
+              :content="$t('transactionsView.dateTooltip')"
               effect="dark"
               placement="right"
             >
-              <span>{{ $t('transactionsView.dateText') }}</span>
+              <span>{{ $t('transactionsView.date') }}</span>
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
-            <span>{{ getAccountingTypeText(row.parameter_type_id) }}</span>
+            <span>{{ getDateStr(row.date) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -209,7 +209,7 @@
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
-            <span>{{ getAccountingTypeText(row.parameter_type_id) }}</span>
+            <span>{{ getDatetimeStr(row.created_at) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -227,7 +227,7 @@
             </el-tooltip>
           </template>
           <template slot-scope="{row}">
-            <span>{{ getAccountingTypeText(row.parameter_type_id) }}</span>
+            <span>{{ getDatetimeStr(row.modified_at) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -288,10 +288,11 @@
               prop="customer_id"
             >
               <el-select
-                v-model="selectedTransaction.customer.id"
+                v-model="selectedTransaction.customer_id"
                 clearable
                 :placeholder="$t('form.select')"
                 style="width:100%"
+                :disabled="editMode"
               >
                 <el-option
                   v-for="customer in customerList"
@@ -310,10 +311,10 @@
           >
             <el-form-item
               :label="$t('transactionsView.transactionType')"
-              prop="parameter_id"
+              prop="type_id"
             >
               <el-select
-                v-model="selectedTransaction.type.id"
+                v-model="selectedTransaction.type_id"
                 clearable
                 :placeholder="$t('form.select')"
                 style="width:100%"
@@ -333,8 +334,8 @@
           <el-col
             :xs="24"
             :sm="24"
-            :md="10"
-            :lg="10"
+            :md="12"
+            :lg="12"
           >
             <el-form-item
               :label="$t('transactionsView.amount')"
@@ -343,6 +344,7 @@
               <el-input
                 v-model="selectedTransaction.amount"
                 type="number"
+                :placeholder="$t('transactionsView.amountPlaceholder')"
               />
             </el-form-item>
           </el-col>
@@ -353,28 +355,34 @@
             :lg="10"
           >
             <el-form-item
-              :label="$t('transactionsView.amount')"
-              prop="amount"
+              :label="$t('transactionsView.dateTooltip')"
+              prop="date"
             >
-              <el-input
-                v-model="selectedTransaction.amount"
-                type="number"
-              />
+              <el-date-picker
+                v-model="selectedTransaction.date"
+                type="date"
+                :placeholder="$t('form.selectDate')"
+                :format="dateFormat"
+              >
+                />
+              </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col
             :xs="24"
             :sm="24"
-            :md="10"
-            :lg="10"
+            :md="20"
+            :lg="20"
           >
             <el-form-item
-              :label="$t('transactionsView.amount')"
-              prop="amount"
+              :label="$t('transactionsView.description')"
+              prop="description"
             >
               <el-input
-                v-model="selectedTransaction.amount"
-                type="number"
+                v-model="selectedTransaction.description"
+                type="textarea"
+                :rows="2"
+                :placeholder="$t('transactionsView.descriptionPlaceholder')"
               />
             </el-form-item>
           </el-col>
@@ -403,7 +411,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import * as service from '@/api/transactions/transaction-service'
 import { getCustomers, defaultCustomerQuery } from '@/api/customers/customer-service'
-import { getPriceText } from '@/utils/index'
+import { getPriceText, getDateFormat, getApiDateStr, getDateStr, getDatetimeStr } from '@/utils/index'
 import MaterialInput from '@/components/MaterialInput/index.vue'
 import { MessageBox, Form } from 'element-ui'
 import settings from '@/settings'
@@ -451,11 +459,16 @@ export default class extends Vue {
   created() {
     this.rules = {
       amount: [{ required: true, message: this.amountRequired, trigger: 'change' }],
-      parameter_id: [{ required: true, message: this.transactionTypeRequired, trigger: 'change' }],
+      date: [{ required: true, message: this.dateRequired, trigger: 'blur' }],
+      type_id: [{ required: true, message: this.transactionTypeRequired, trigger: 'change' }],
       customer_id: [{ required: true, message: this.customerRequired, trigger: 'change' }]
     }
 
     this.setPage()
+  }
+
+  get dateFormat() {
+    return getDateFormat(this.$i18n.locale)
   }
 
   get customerRequired() {
@@ -468,6 +481,10 @@ export default class extends Vue {
 
   get amountRequired() {
     return this.$t('transactionsView.amountRequired')
+  }
+
+  get dateRequired() {
+    return this.$t('transactionsView.dateRequired')
   }
 
   get options() {
@@ -504,7 +521,7 @@ export default class extends Vue {
       .then(
         (resp) => {
           this.loading = false
-          this.list = resp.data.items
+          this.list = this.getPreparedList(resp.data.items)
           this.total = resp.data.records_total
         },
         (err) => {
@@ -521,6 +538,7 @@ export default class extends Vue {
 
   private handleUpdate(row: any) {
     this.selectedTransaction = Object.assign({}, row)
+    this.selectedTransaction.customer_id = this.selectedTransaction.customer.id
     this.editMode = true
     this.dialogFormVisible = true
     this.$nextTick(() => {
@@ -561,10 +579,31 @@ export default class extends Vue {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
         this.loading = true
+
+        if (this.selectedTransaction.description === '') {
+          this.selectedTransaction.description = null
+        }
+
+        this.selectedTransaction.date_text = getApiDateStr(this.selectedTransaction.date)
+
+        const c = this.customerList.find(p => p.id === this.selectedTransaction.customer_id)
+        const t = this.parameterList.find(p => p.id === this.selectedTransaction.type_id)
+
+        if (c !== undefined) {
+          this.selectedTransaction.customer.title = c.title
+        }
+
+        if (t !== undefined) {
+          this.selectedTransaction.type.name = t.name
+          this.selectedTransaction.type.parameter_type_id = t.parameter_type_id
+        }
+
         service.createTransaction(this.selectedTransaction)
           .then(
             (resp) => {
               this.loading = false
+              this.selectedTransaction.created_at = new Date()
+              this.selectedTransaction.modified_at = new Date()
               this.selectedTransaction.id = resp.data
               this.total += 1
               this.list.unshift(this.selectedTransaction)
@@ -591,11 +630,22 @@ export default class extends Vue {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
         this.loading = true
+
+        this.selectedTransaction.date_text = getApiDateStr(this.selectedTransaction.date)
+
+        const t = this.parameterList.find(p => p.id === this.selectedTransaction.type_id)
+
+        if (t !== undefined) {
+          this.selectedTransaction.type.name = t.name
+          this.selectedTransaction.type.parameter_type_id = t.parameter_type_id
+        }
+
         service.updateTransaction(this.selectedTransaction)
           .then(
             () => {
               this.loading = false
               const index = this.list.findIndex(v => v.id === this.selectedTransaction.id)
+              this.selectedTransaction.modified_at = new Date()
               this.list.splice(index, 1, this.selectedTransaction)
               this.dialogFormVisible = false
               this.$notify({
@@ -675,7 +725,7 @@ export default class extends Vue {
 
     Promise.all([txnPromise, txnTypesPromise, customerPromise]).then((values) => {
       this.loading = false
-      this.list = values[0].data.items
+      this.list = this.getPreparedList(values[0].data.items)
       this.total = values[0].data.records_total
       this.parameterList = values[1].data.items
       this.customerList = values[2].data.items
@@ -684,6 +734,23 @@ export default class extends Vue {
       console.error(err)
       this.loading = false
     })
+  }
+
+  private getDateStr(date: Date) {
+    return getDateStr(date, this.$i18n.locale)
+  }
+
+  private getDatetimeStr(date: Date) {
+    return getDatetimeStr(date, this.$i18n.locale)
+  }
+
+  private getPreparedList(list: ITransaction[]): ITransaction[] {
+    list.forEach(function(value) {
+      value.type_id = value.type.id
+      value.customer_id = value.customer.id
+    })
+
+    return list
   }
 }
 </script>

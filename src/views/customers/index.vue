@@ -155,7 +155,7 @@
           align="center"
         >
           <template slot-scope="{row}">
-            <span>{{ row.created_at_text }}</span>
+            <span>{{ getDateStr(row.created_at) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -205,9 +205,7 @@
         label-width="100px"
       >
         <el-row>
-          <el-col
-            :span="24"
-          >
+          <el-col :span="24">
             <el-form-item
               :label="$t('customersView.title')"
               prop="title"
@@ -219,9 +217,7 @@
               />
             </el-form-item>
           </el-col>
-          <el-col
-            :span="24"
-          >
+          <el-col :span="24">
             <el-form-item
               :label="$t('customersView.authorizedPersonName')"
               prop="authorizedPerson"
@@ -411,7 +407,7 @@ export default class extends Vue {
             (resp) => {
               this.loading = false
               this.selectedCustomer.id = resp.data
-              this.selectedCustomer.created_at_text = getDateStr(new Date())
+              this.selectedCustomer.created_at = new Date()
               this.total += 1
               this.list.unshift(this.selectedCustomer)
               this.dialogFormVisible = false
@@ -486,6 +482,10 @@ export default class extends Vue {
           this.loading = false
         }
       )
+  }
+
+  private getDateStr(date: Date) {
+    return getDateStr(date, this.$i18n.locale)
   }
 }
 </script>

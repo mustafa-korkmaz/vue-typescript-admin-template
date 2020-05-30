@@ -258,8 +258,6 @@ export default class extends Vue {
   private rules = {}
   private getPriceText = getPriceText
 
-  // todo: toggle sort by title buttons
-
   created() {
     this.rules = {
       order: [{ required: true, message: this.orderRequired, trigger: 'change' }],
@@ -342,7 +340,7 @@ export default class extends Vue {
   private handleCreate() {
     this.editMode = false
     this.dialogFormVisible = true
-    this.selectedParameter = Object.assign({}, { ...service.defaultParameter, transactionType: '' })
+    this.selectedParameter = Object.assign({}, service.defaultParameter)
     this.$nextTick(() => {
       (this.$refs.dataForm as Form).clearValidate()
     })

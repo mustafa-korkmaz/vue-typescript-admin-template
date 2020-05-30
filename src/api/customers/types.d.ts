@@ -5,7 +5,7 @@ export interface ICustomer {
     authorized_person_name: string
     title: string
     phone_number: string
-    created_at_text: string
+    created_at: Date | null
     remaining_balance: number
     receivables_amount: number
     debts_amount: number

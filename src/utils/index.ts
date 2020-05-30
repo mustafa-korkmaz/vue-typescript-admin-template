@@ -101,9 +101,130 @@ export const getPriceText = (price: number) => {
   return number.replace(',', '.')
 }
 
-export const getDateStr = (date: Date) => {
+export const getDateFormat = (lang: string) => {
+  // tr: 14.01.2006 else: 2006-01-14 (ISO)
+  if (lang === 'tr') {
+    return 'dd.MM.yyyy'
+  }
+  return 'yyyy-MM-dd'
+}
+
+export const getDateStr = (date: Date | null, lang: string) => {
   let monthText = ''
   let dayText = ''
+
+  if (date === null) {
+    console.error('date cannot be null')
+    return null
+  }
+
+  const _date = new Date(date)
+
+  const day = _date.getDate()
+  const month = _date.getMonth() + 1
+  const yearText = _date.getFullYear().toString()
+
+  if (day < 10) {
+    dayText = '0' + day.toString()
+  } else {
+    dayText = day.toString()
+  }
+
+  if (month < 10) {
+    monthText = '0' + month.toString()
+  } else {
+    monthText = month.toString()
+  }
+
+  if (lang === 'tr') {
+    return dayText + '.' + monthText + '.' + yearText
+  }
+
+  return yearText + '-' + monthText + '-' + dayText
+}
+
+export const getDatetimeStr = (date: Date | null, lang: string) => {
+  let monthText = ''
+  let dayText = ''
+  let minText = ''
+  let result = ''
+
+  if (date === null) {
+    console.error('date cannot be null')
+    return null
+  }
+
+  const _date = new Date(date)
+
+  const day = _date.getDate()
+  const month = _date.getMonth() + 1
+  const yearText = _date.getFullYear().toString()
+  const hours = _date.getHours()
+  const mins = _date.getMinutes()
+
+  if (day < 10) {
+    dayText = '0' + day.toString()
+  } else {
+    dayText = day.toString()
+  }
+
+  if (month < 10) {
+    monthText = '0' + month.toString()
+  } else {
+    monthText = month.toString()
+  }
+
+  if (mins < 10) {
+    minText = '0' + mins.toString()
+  } else {
+    minText = mins.toString()
+  }
+
+  if (lang === 'tr') {
+    result = dayText + '.' + monthText + '.' + yearText
+  } else {
+    result = yearText + '-' + monthText + '-' + dayText
+
+  }
+  return result + ' ' + hours + ':' + minText
+}
+
+export const getDate = (dateText: string, lang: string) => {
+  // tr: 14.01.2006 else: 2006-01-14 (ISO)
+  let monthText = ''
+  let dayText = ''
+  let yearText = ''
+
+  if (lang === 'tr') {
+    dayText = dateText.toString().substr(0, 2)
+    monthText = dateText.toString().substr(3, 2)
+    yearText = dateText.toString().substr(6, 4)
+  }
+  else {
+    yearText = dateText.toString().substr(0, 4)
+    monthText = dateText.toString().substr(5, 2)
+    dayText = dateText.toString().substr(8, 2)
+  }
+
+  return new Date(yearText + '-' + monthText + '-' + dayText)
+}
+
+/** api desired format for date parameters */
+export const getApiDateStr = (date: Date | null) => {
+  // tr: 14.01.2006 else: 2006-01-14 (ISO)
+
+  if (date === null) {
+    console.error('dateText cannot be null')
+    return null
+  }
+
+  let monthText = ''
+  let dayText = ''
+
+  if (date === null) {
+    console.error('date cannot be null')
+    return null
+  }
 
   const _date = new Date(date)
 

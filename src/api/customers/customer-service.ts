@@ -7,7 +7,7 @@ export const defaultCustomer: ICustomer = {
   authorized_person_name: '',
   title: '',
   phone_number: '',
-  created_at_text: '',
+  created_at: null,
   remaining_balance: 0,
   receivables_amount: 0,
   debts_amount: 0

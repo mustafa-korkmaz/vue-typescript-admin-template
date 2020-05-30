@@ -202,7 +202,8 @@ export default {
     approve: 'Onayla',
     create: 'Yeni',
     delete: 'Sil',
-    select: 'Seçiniz'
+    select: 'Seçiniz',
+    selectDate: 'Tarih seçiniz'
   },
   tableActions: {
     name: 'İşlemler',
@@ -247,14 +248,17 @@ export default {
     customer: 'Cari',
     type: 'İşlem tipi',
     amount: 'Tutar',
-    dateText: 'Tarih',
+    amountPlaceholder: 'İşlem tutarı',
+    date: 'Tarih',
     description: 'Açıklama',
-    dateTextTooltip: 'İşlem tarihi',    
+    descriptionPlaceholder: 'İşlem açıklaması',
+    dateTooltip: 'İşlem tarihi',    
     createTransaction: 'Hesap hareketi oluştur',
     updateTransaction: 'Hesap hareketi düzenle',
     customerRequired:'Cari alanı zorunludur',
-    transactionTypeRequired: 'Transaction type field is required',
-    amountRequired:'Tutar alanı zorunludur'
+    transactionTypeRequired: 'İşlem tipi alanı zorunludur',
+    amountRequired:'Tutar alanı zorunludur',
+    dateRequired: 'İşlem tarihi alanı zorunludur'
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz.',
@@ -265,6 +269,8 @@ export default {
     PARAMETER_NAME_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Ad en az 3 en çok 100 karakter olmalıdır',
     PARAMETER_NAME_FIELD_IS_REQUIRED: 'Ad alanı zorunludur',
     CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId tam sayı olmalıdır',
-    USERNAME_OR_PASSWORD_INCORRECT:'Kullanıcı adı ya da şifre hatalı'
+    USERNAME_OR_PASSWORD_INCORRECT:'Kullanıcı adı ya da şifre hatalı',
+    DATE_TEXT_FIELD_IS_REQUIRED:'Tarih alanı zorunludur',
+    DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS:'Açıklama en az 3 en çok 100 karakter olmalıdır'
   }
 }
