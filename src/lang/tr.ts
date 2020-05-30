@@ -244,7 +244,7 @@ export default {
     debt: 'Borç'
   },
   transactionsView: {
-    transactionType:'İşlem tipi',
+    transactionType: 'İşlem tipi',
     customer: 'Cari',
     type: 'İşlem tipi',
     amount: 'Tutar',
@@ -252,12 +252,12 @@ export default {
     date: 'Tarih',
     description: 'Açıklama',
     descriptionPlaceholder: 'İşlem açıklaması',
-    dateTooltip: 'İşlem tarihi',    
+    dateTooltip: 'İşlem tarihi',
     createTransaction: 'Hesap hareketi oluştur',
     updateTransaction: 'Hesap hareketi düzenle',
-    customerRequired:'Cari alanı zorunludur',
+    customerRequired: 'Cari alanı zorunludur',
     transactionTypeRequired: 'İşlem tipi alanı zorunludur',
-    amountRequired:'Tutar alanı zorunludur',
+    amountRequired: 'Tutar alanı zorunludur',
     dateRequired: 'İşlem tarihi alanı zorunludur'
   },
   errorMessages: {
@@ -269,8 +269,8 @@ export default {
     PARAMETER_NAME_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Ad en az 3 en çok 100 karakter olmalıdır',
     PARAMETER_NAME_FIELD_IS_REQUIRED: 'Ad alanı zorunludur',
     CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId tam sayı olmalıdır',
-    USERNAME_OR_PASSWORD_INCORRECT:'Kullanıcı adı ya da şifre hatalı',
-    DATE_TEXT_FIELD_IS_REQUIRED:'Tarih alanı zorunludur',
-    DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS:'Açıklama en az 3 en çok 100 karakter olmalıdır'
+    USERNAME_OR_PASSWORD_INCORRECT: 'Kullanıcı adı ya da şifre hatalı',
+    DATE_TEXT_FIELD_IS_REQUIRED: 'Tarih alanı zorunludur',
+    DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Açıklama en az 3 en çok 100 karakter olmalıdır'
   }
 }

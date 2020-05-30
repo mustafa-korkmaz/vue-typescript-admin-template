@@ -184,7 +184,6 @@ export const getDatetimeStr = (date: Date | null, lang: string) => {
     result = dayText + '.' + monthText + '.' + yearText
   } else {
     result = yearText + '-' + monthText + '-' + dayText
-
   }
   return result + ' ' + hours + ':' + minText
 }
@@ -199,8 +198,7 @@ export const getDate = (dateText: string, lang: string) => {
     dayText = dateText.toString().substr(0, 2)
     monthText = dateText.toString().substr(3, 2)
     yearText = dateText.toString().substr(6, 4)
-  }
-  else {
+  } else {
     yearText = dateText.toString().substr(0, 4)
     monthText = dateText.toString().substr(5, 2)
     dayText = dateText.toString().substr(8, 2)

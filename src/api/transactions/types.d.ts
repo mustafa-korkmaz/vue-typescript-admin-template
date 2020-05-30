@@ -8,13 +8,13 @@ export interface ITransaction {
     customer_id: number | null
     type: IParameter
     type_id: number | null
-    amount:  number | null
+    amount: number | null
     description: string | null
     is_debt: boolean | null
     date: Date | null
     date_text: string | null
-    created_at:  Date | null
-    modified_at:  Date | null
+    created_at: Date | null
+    modified_at: Date | null
 }
 
 export interface ITransactionQuery extends IPagedListQuery {
