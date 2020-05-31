@@ -258,7 +258,8 @@ export default {
     customerRequired: 'Cari alanı zorunludur',
     transactionTypeRequired: 'İşlem tipi alanı zorunludur',
     amountRequired: 'Tutar alanı zorunludur',
-    dateRequired: 'İşlem tarihi alanı zorunludur'
+    dateRequired: 'İşlem tarihi alanı zorunludur',
+    deleteTransactionWarning: 'İşlem kalıcı olarak silinecek'
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz.',

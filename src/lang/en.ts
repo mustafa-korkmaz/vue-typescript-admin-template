@@ -259,7 +259,8 @@ export default {
     customerRequired: 'Customer field is required',
     transactionTypeRequired: 'Transaction type field is required',
     amountRequired: 'Amount field is required',
-    dateRequired: 'Transaction date field is required'
+    dateRequired: 'Transaction date field is required',
+    deleteTransactionWarning: 'Transaction will be deleted permanantly'
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page.',

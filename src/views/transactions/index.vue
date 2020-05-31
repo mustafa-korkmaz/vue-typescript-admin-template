@@ -175,7 +175,7 @@
             slot-scope="{row}"
             text-align="right"
           >
-            <span>{{ getPriceText(row.amount) }}</span>
+            <span>{{ getPriceText(+row.amount) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -548,7 +548,7 @@ export default class extends Vue {
 
   private handleDelete(row: ITransaction) {
     MessageBox.confirm(
-      this.$t('transactionTypesView.deleteParameterWarning').toString(),
+      this.$t('transactionsView.deleteTransactionWarning').toString(),
       this.$t('messages.confirm').toString(),
       {
         confirmButtonText: this.$t('form.delete').toString(),
