@@ -9,6 +9,8 @@ export const defaultCustomer: ICustomer = {
   phone_number: '',
   created_at: null,
   remaining_balance: 0,
+  receivable_balance: 0,
+  debt_balance: 0,
   receivables_amount: 0,
   debts_amount: 0
 }

@@ -217,6 +217,8 @@ export default {
     receivablesAmount: 'Alacak',
     debtsAmount: 'Borç',
     remainingBalance: 'Bakiye',
+    remainingBalanceTooltipDebt: '{0} size {1} borçludur',
+    remainingBalanceTooltipReceivable: '{0} sizden {1} alacaklıdır',
     createdAt: 'Kayıt tarihi',
     modifiedAt: 'Son işlem',
     goToTransactions: 'Hesap hareketlerine git',

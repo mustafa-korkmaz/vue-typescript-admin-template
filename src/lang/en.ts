@@ -218,6 +218,8 @@ export default {
     receivablesAmount: 'Receivables',
     debtsAmount: 'Debts',
     remainingBalance: 'Balance',
+    remainingBalanceTooltipDebt: '{0} owes you {1}',
+    remainingBalanceTooltipReceivable: '{0} will receive {1} from you',
     createdAt: 'Created at',
     modifiedAt: 'Modified at',
     goToTransactions: 'Go to transactions',

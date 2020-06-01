@@ -128,7 +128,7 @@
             slot-scope="{row}"
             text-align="right"
           >
-            <span>{{ getPriceText(row.remaining_balance) }}</span>
+            <span>{{ getPriceText(row.debt_balance) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -137,7 +137,7 @@
           min-width="8"
         >
           <template slot-scope="{row}">
-            <span>{{ getPriceText(row.remaining_balance) }}</span>
+            <span>{{ getPriceText(row.receivable_balance) }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -146,7 +146,13 @@
           min-width="8"
         >
           <template slot-scope="{row}">
-            <span>{{ getPriceText(row.remaining_balance) }}</span>
+            <el-tooltip
+              :content="getRemainingBalanceTooltip(row)"
+              effect="dark"
+              placement="top"
+            >
+              <span>{{ getPriceText(row.remaining_balance) }}</span>
+            </el-tooltip>
           </template>
         </el-table-column>
         <el-table-column
@@ -487,5 +493,18 @@ export default class extends Vue {
   private getDateStr(date: Date) {
     return getDateStr(date, this.$i18n.locale)
   }
+
+  private getRemainingBalanceTooltip(row: ICustomer) {
+    const customer = Object.assign({}, row)
+
+    if (customer.remaining_balance === 0) {
+      return ''
+    } else if (customer.remaining_balance < 0) {
+      return this.$t('customersView.remainingBalanceTooltipReceivable', [customer.title, getPriceText(-customer.remaining_balance)])
+    } else {
+      return this.$t('customersView.remainingBalanceTooltipDebt', [customer.title, getPriceText(customer.remaining_balance)])
+    }
+  }
 }
+
 </script>

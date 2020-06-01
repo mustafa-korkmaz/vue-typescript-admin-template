@@ -6,6 +6,8 @@ export interface ICustomer {
     title: string
     phone_number: string
     created_at: Date | null
+    receivable_balance: number
+    debt_balance: number
     remaining_balance: number
     receivables_amount: number
     debts_amount: number
