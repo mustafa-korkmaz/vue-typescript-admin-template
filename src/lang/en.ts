@@ -82,6 +82,7 @@ export default {
   login: {
     title: 'Login Form',
     logIn: 'Login',
+    tryDemo:'Try Free Demo',
     username: 'Username',
     password: 'Password',
     any: 'any',

@@ -9,6 +9,19 @@ export function getAccount() {
   })
 }
 
+export function getDemoAccount(language: string, password:string) {
+  const data = {
+    language,
+    password
+  }
+
+  return httpService.request<any, IApiResponse<string>>({
+    url: 'account/demo',
+    data,
+    method: 'post'
+  })
+}
+
 export function login(email: string, password: string) {
   const data = {
     email_or_username: email,

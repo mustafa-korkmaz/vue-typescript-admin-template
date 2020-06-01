@@ -80,8 +80,9 @@ export default {
     language: 'Dil'
   },
   login: {
-    title: 'Login Form',
-    logIn: 'Login',
+    title: 'Giriş Formu',
+    logIn: 'Giriş yap',
+    tryDemo:'Ücretsiz Demo',
     username: 'Username',
     password: 'Password',
     any: 'any',

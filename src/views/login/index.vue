@@ -70,19 +70,17 @@
       >
         {{ $t('login.logIn') }}
       </el-button>
-
       <div style="position:relative">
-        <div class="tips">
-          <span>{{ $t('login.username') }} : admin </span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }} </span>
-        </div>
-        <div class="tips">
-          <span>{{ $t('login.username') }} : editor </span>
-          <span>{{ $t('login.password') }} : {{ $t('login.any') }} </span>
-        </div>
-
         <el-button
-          class="thirdparty-button"
+          :loading="demoLoading"
+          style="float:left"
+          type="success"
+          @click="handleDemoLogin"
+        >
+          {{ $t('login.tryDemo') }}
+        </el-button>
+        <el-button
+          style="float:right"
           type="primary"
           @click="showDialog=true"
         >
@@ -150,6 +148,7 @@ export default class extends Vue {
 
   private passwordType = 'password'
   private loading = false
+  private demoLoading = false
   private showDialog = false
   private capsTooltip = false
   private redirect?: string
@@ -207,6 +206,20 @@ export default class extends Vue {
           })
       }
     })
+  }
+
+  private handleDemoLogin() {
+    this.demoLoading = true
+    UserModule.DemoLogin(this.$i18n.locale)
+      .then(() => {
+        this.$router.push({
+          path: this.redirect || '/',
+          query: this.otherQuery
+        })
+      })
+      .finally(() => {
+        this.demoLoading = false
+      })
   }
 
   private getOtherQuery(query: Dictionary<string>) {
@@ -336,6 +349,16 @@ export default class extends Vue {
     position: absolute;
     right: 0;
     bottom: 6px;
+  }
+
+  .el-dropdown {
+    vertical-align: top;
+  }
+  .el-dropdown + .el-dropdown {
+    margin-left: 15px;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
   }
 
   @media only screen and (max-width: 470px) {
