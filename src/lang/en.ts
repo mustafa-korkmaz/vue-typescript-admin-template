@@ -82,9 +82,26 @@ export default {
   login: {
     title: 'Login Form',
     logIn: 'Login',
-    tryDemo:'Try Free Demo',
+    tryDemo:'Try Demo',
     username: 'Username',
+    email:'Email',
+    or: 'OR',
+    facebook: 'Login with Facebook',
+    gmail: 'Login with Google',
+    register: 'Sign up for free',
     password: 'Password',
+    forgotPassword: 'Forgot password?',
+    any: 'any',
+    thirdparty: 'Or connect with',
+    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+  },
+  signup: {
+    title: 'Register Form',
+    logIn: 'Giriş yap',
+    tryDemo:'Ücretsiz Demo',
+    username: 'Username',
+    email:'Email',
+    password: 'Şifre',
     any: 'any',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'

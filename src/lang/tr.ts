@@ -82,9 +82,26 @@ export default {
   login: {
     title: 'Giriş Formu',
     logIn: 'Giriş yap',
+    tryDemo:'Demo Kullanıcı',
+    username: 'Username',
+    email:'Email',
+    or: 'YA DA',
+    facebook: 'Facebook ile Giriş Yap',
+    gmail: 'Google ile Giriş Yap',
+    register: 'Ücretsiz kaydol',
+    password: 'Şifre',
+    forgotPassword: 'Şifreni mi unuttun?',
+    any: 'any',
+    thirdparty: 'Or connect with',
+    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+  },
+  signup: {
+    title: 'Kayıt Formu',
+    logIn: 'Giriş yap',
     tryDemo:'Ücretsiz Demo',
     username: 'Username',
-    password: 'Password',
+    email:'Email',
+    password: 'Şifre',
     any: 'any',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'

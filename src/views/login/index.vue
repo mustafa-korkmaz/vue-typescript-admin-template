@@ -1,7 +1,11 @@
 <template>
-  <div class="login-container">
+  <div
+    class="login-container"
+  >
     <el-form
+      v-if="showLoginForm"
       ref="loginForm"
+      v-loading="formLoading"
       :model="loginForm"
       :rules="loginRules"
       class="login-form"
@@ -15,14 +19,14 @@
         <lang-select class="set-language" />
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="email">
         <span class="svg-container">
-          <svg-icon name="user" />
+          <svg-icon name="email" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          :placeholder="$t('login.username')"
+          ref="email"
+          v-model="loginForm.email"
+          :placeholder="$t('login.email')"
           name="username"
           type="text"
           tabindex="1"
@@ -44,6 +48,121 @@
             :key="passwordType"
             ref="password"
             v-model="loginForm.password"
+            :type="passwordType"
+            :placeholder="$t('login.password')"
+            name="password"
+            tabindex="2"
+            autocomplete="on"
+            @keyup.native="checkCapslock"
+            @blur="capsTooltip = false"
+            @keyup.enter.native="handleLogin"
+          />
+          <span
+            class="show-pwd"
+            @click="showPwd"
+          >
+            <svg-icon :name="passwordType === 'password' ? 'eye-off' : 'eye-on'" />
+          </span>
+        </el-form-item>
+      </el-tooltip>
+      <el-link
+        class="links forgot-password"
+        :underline="false"
+      >
+        {{ $t('login.forgotPassword') }}
+      </el-link>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width:100%; margin-bottom:30px;"
+        @click.native.prevent="handleLogin"
+      >
+        {{ $t('login.logIn') }}
+      </el-button>
+
+      <el-divider class="divider">
+        {{ $t('login.or') }}
+      </el-divider>
+
+      <el-link
+        class="links block"
+        :underline="false"
+      >
+        <svg-icon name="facebook" />
+        {{ $t('login.facebook') }}
+      </el-link>
+      <el-link
+        class="links block"
+        :underline="false"
+      >
+        <svg-icon name="google2" />
+        {{ $t('login.gmail') }}
+      </el-link>
+
+      <div style="position:relative">
+        <el-link
+          class="links"
+          style="float:left"
+          :underline="false"
+          @click="handleDemoLogin"
+        >
+          {{ $t('login.tryDemo') }}
+        </el-link>
+        <el-link
+          class="links"
+          style="float:right"
+          :underline="false"
+        >
+          {{ $t('login.register') }}
+        </el-link>
+      </div>
+    </el-form>
+
+    <el-form
+      v-if="showSignupForm"
+      ref="signupForm"
+      :model="signupForm"
+      :rules="signupRules"
+      class="login-form"
+      autocomplete="on"
+      label-position="left"
+    >
+      <div class="title-container">
+        <h3 class="title">
+          {{ $t('signup.title') }}
+        </h3>
+        <lang-select class="set-language" />
+      </div>
+
+      <el-form-item prop="email">
+        <span class="svg-container">
+          <svg-icon name="email" />
+        </span>
+        <el-input
+          ref="email"
+          v-model="signupForm.email"
+          :placeholder="$t('login.email')"
+          name="username"
+          type="text"
+          tabindex="1"
+          autocomplete="on"
+        />
+      </el-form-item>
+
+      <el-tooltip
+        v-model="capsTooltip"
+        content="Caps lock is On"
+        placement="right"
+        manual
+      >
+        <el-form-item prop="password">
+          <span class="svg-container">
+            <svg-icon name="password" />
+          </span>
+          <el-input
+            :key="passwordType"
+            ref="password"
+            v-model="signupForm.password"
             :type="passwordType"
             :placeholder="$t('login.password')"
             name="password"
@@ -108,7 +227,6 @@ import { Route } from 'vue-router'
 import { Dictionary } from 'vue-router/types/router'
 import { Form as ElForm, Input } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
-import { isValidUsername } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect/index.vue'
 import SocialSign from './components/SocialSignin.vue'
 
@@ -120,32 +238,37 @@ import SocialSign from './components/SocialSignin.vue'
   }
 })
 export default class extends Vue {
-  private validateUsername = (rule: any, value: string, callback: Function) => {
-    if (!isValidUsername(value)) {
-      callback(new Error('Please enter the correct user name'))
-    } else {
-      callback()
-    }
-  }
-
-  private validatePassword = (rule: any, value: string, callback: Function) => {
-    if (value.length < 6) {
-      callback(new Error('The password can not be less than 6 digits'))
-    } else {
-      callback()
-    }
-  }
+   private validatePassword = (rule: any, value: string, callback: Function) => {
+     if (value.length < 6) {
+       callback(new Error('The password can not be less than 6 digits'))
+     } else {
+       callback()
+     }
+   }
 
   private loginForm = {
-    username: 'admin',
-    password: '123456'
+    email: '',
+    password: ''
+  }
+
+  private signupForm = {
+    email: '',
+    password: ''
   }
 
   private loginRules = {
-    username: [{ validator: this.validateUsername, trigger: 'blur' }],
+    email: [{ type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
   }
 
+  private signupRules = {
+    email: [{ type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }],
+    password: [{ validator: this.validatePassword, trigger: 'blur' }]
+  }
+
+  private formLoading = false
+  private showLoginForm = true
+  private showSignupForm = false
   private passwordType = 'password'
   private loading = false
   private demoLoading = false
@@ -166,8 +289,8 @@ export default class extends Vue {
   }
 
   mounted() {
-    if (this.loginForm.username === '') {
-      (this.$refs.username as Input).focus()
+    if (this.loginForm.email === '') {
+      (this.$refs.email as Input).focus()
     } else if (this.loginForm.password === '') {
       (this.$refs.password as Input).focus()
     }
@@ -209,7 +332,7 @@ export default class extends Vue {
   }
 
   private handleDemoLogin() {
-    this.demoLoading = true
+    this.formLoading = true
     UserModule.DemoLogin(this.$i18n.locale)
       .then(() => {
         this.$router.push({
@@ -229,6 +352,11 @@ export default class extends Vue {
       }
       return acc
     }, {} as Dictionary<string>)
+  }
+
+  private handleLoginFormVisibility(loginFormVisibility: boolean) {
+    this.showLoginForm = loginFormVisibility
+    this.showSignupForm = !this.showLoginForm
   }
 }
 </script>
@@ -303,6 +431,31 @@ export default class extends Vue {
       &:first-of-type {
         margin-right: 16px;
       }
+    }
+  }
+
+.el-divider__text{
+   background-color:$loginBg;
+   color: #fff;
+}
+  .divider{
+    background:$darkGray;
+  }
+
+  .links{
+    &.forgot-password{
+      float: right;
+    }
+     &.block{
+      display: block;
+      text-align: center;
+      padding-bottom: 2em;
+    }
+    color: #fff;
+    padding-bottom: 1em;
+    padding-right: 0.4em;
+    :hover {
+      color: $lightGray;
     }
   }
 
