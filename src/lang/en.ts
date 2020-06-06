@@ -93,15 +93,15 @@ export default {
     password: 'Password',
     passwordRequired: 'The password can not be less than 6 digits',
     forgotPassword: 'Forgot password?',
+    comingSoon:'Coming soon!',
     any: 'any',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
   },
   signup: {
     title: 'Register Form',
-    logIn: 'Giriş yap',
+    logIn: 'Already have an account?  Log in',
     submit: 'Sign up',
-    tryDemo: 'Ücretsiz Demo',
     username: 'Username',
     email: 'Email',
     password: 'Password',
@@ -110,6 +110,12 @@ export default {
     any: 'any',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+  },
+  forgotPassword: {
+    title: 'Reset Password',
+    logIn: 'Go to Login page',
+    submit: 'Send login link',
+    email: 'Email',
   },
   documentation: {
     documentation: 'Documentation',

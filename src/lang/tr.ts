@@ -93,15 +93,15 @@ export default {
     password: 'Şifre',
     passwordRequired: 'Şifre en az 6 karakter olmalıdır',
     forgotPassword: 'Şifreni mi unuttun?',
+    comingSoon:'Çok yakında!',
     any: 'any',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
   },
   signup: {
     title: 'Kayıt Formu',
-    logIn: 'Giriş yap',
+    logIn: 'Hesabın var mı?  Giriş yap',
     submit: 'Kayıt ol',
-    tryDemo:'Ücretsiz Demo',
     username: 'Username',
     email:'Email',
     password: 'Şifre',
@@ -110,6 +110,12 @@ export default {
     any: 'any',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+  },
+  forgotPassword: {
+    title: 'Şifreni yenile',
+    logIn: 'Giriş ekranına dön',
+    submit: 'Giriş bağlantısı gönder',
+    email: 'Email',
   },
   documentation: {
     documentation: 'Documentation',
