@@ -93,7 +93,7 @@ export default {
     password: 'Password',
     passwordRequired: 'The password can not be less than 6 digits',
     forgotPassword: 'Forgot password?',
-    comingSoon:'Coming soon!',
+    comingSoon: 'Coming soon!',
     any: 'any',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
@@ -303,6 +303,8 @@ export default {
     PARAMETER_NAME_FIELD_IS_REQUIRED: 'Name field is required',
     CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId should be an integer',
     USERNAME_OR_PASSWORD_INCORRECT: 'Username or password is incorrect',
-    DATE_TEXT_FIELD_IS_REQUIRED: 'Date field is required'
+    DATE_TEXT_FIELD_IS_REQUIRED: 'Date field is required',
+    EMAIL_FIELD_SHOULD_BE_MAX_50_CHARS: 'Email should be max 50 chars',
+    USER_ALREADY_EXISTS:'There is already an account using this email'
   }
 }

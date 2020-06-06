@@ -178,7 +178,6 @@ export default class extends Vue {
   }
 
   private validatePassword = (rule: any, value: string, callback: Function, msg: string) => {
-    console.log(this)
     if (value.length < 6) {
       callback(new Error(msg))
     } else {
@@ -212,10 +211,14 @@ export default class extends Vue {
   }
 
   private handleRegister() {
-    (this.$refs.loginForm as ElForm).validate((valid: boolean) => {
+    (this.$refs.signupForm as ElForm).validate((valid: boolean) => {
       if (valid) {
         this.loading = true
-        UserModule.Login(this.signupForm)
+        const lang = this.$i18n.locale
+
+        const payload = { ...this.signupForm, lang }
+
+        UserModule.Register(payload)
           .then(() => {
             this.$router.push({
               path: this.redirect || '/',

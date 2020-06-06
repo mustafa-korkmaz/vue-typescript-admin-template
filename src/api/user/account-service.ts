@@ -9,7 +9,7 @@ export function getAccount() {
   })
 }
 
-export function getDemoAccount(language: string, password:string) {
+export function getDemoAccount(language: string, password: string) {
   const data = {
     language,
     password
@@ -35,15 +35,14 @@ export function login(email: string, password: string) {
   })
 }
 
-export function register(email: string, name: string, password: string) {
+export function register(email: string, password: string, language: string) {
   const data = {
     email,
-    username: email,
-    password,
-    name_surname: name
+    language,
+    password
   }
 
-  return httpService.request<any, IApiResponse<IUser>>({
+  return httpService.request<any, IApiResponse<any>>({
     url: 'account/register',
     data,
     method: 'post'
