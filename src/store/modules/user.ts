@@ -1,5 +1,5 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
-import { login, getDemoAccount, register } from '@/api/user/account-service'
+import { login, getDemoAccount, getAccount, register } from '@/api/user/account-service'
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import router, { resetRouter } from '@/router'
 import { PermissionModule } from './permission'
@@ -95,7 +95,7 @@ class User extends VuexModule implements IUserState {
 
     await register(email, password, lang)
 
-    await this.Login({email, password})
+    await this.Login({ email, password })
   }
 
   @Action
@@ -122,6 +122,27 @@ class User extends VuexModule implements IUserState {
   }
 
   @Action
+  public async GetUserInfo() {
+    if (this.token === '') {
+      throw Error('GetUserInfo: token is undefined!')
+    }
+    const { data } = await getAccount()
+    if (!data) {
+      throw Error('Verification failed, please Login again.')
+    }
+    const { roles, email, name_surname } = data
+    // roles must be a non-empty array
+    if (!roles || roles.length <= 0) {
+      throw Error('GetUserInfo: roles must be a non-null array!')
+    }
+    this.SET_ROLES(roles)
+    this.SET_NAME(name_surname)
+    this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+    // this.SET_INTRODUCTION(introduction)
+    this.SET_EMAIL(email)
+  }
+
+  @Action
   public async ChangeRoles(role: string) {
     // Dynamically modify permissions
     const token = role + '-token'
@@ -129,8 +150,8 @@ class User extends VuexModule implements IUserState {
     setToken(token)
     //await this.GetUserInfo()
 
-    const roles:string[]=[]
-    roles.push('admin') 
+    const roles: string[] = []
+    roles.push('admin')
     roles.push('editor')
     this.SET_ROLES(roles)
 

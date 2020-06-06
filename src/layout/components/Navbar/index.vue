@@ -37,7 +37,7 @@
         <el-dropdown-menu slot="dropdown">
           <router-link to="/profile/">
             <el-dropdown-item>
-              {{ $t('navbar.profile') }}
+              {{ profileName }}
             </el-dropdown-item>
           </router-link>
           <router-link to="/">
@@ -45,20 +45,6 @@
               {{ $t('navbar.dashboard') }}
             </el-dropdown-item>
           </router-link>
-          <a
-            target="_blank"
-            href="https://github.com/armour/vue-typescript-admin-template/"
-          >
-            <el-dropdown-item>
-              {{ $t('navbar.github') }}
-            </el-dropdown-item>
-          </a>
-          <a
-            target="_blank"
-            href="https://armour.github.io/vue-typescript-admin-docs/"
-          >
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
           <el-dropdown-item
             divided
             @click.native="logout"
@@ -108,6 +94,10 @@ export default class extends Vue {
 
   get avatar() {
     return UserModule.avatar
+  }
+
+  get profileName() {
+    return UserModule.name || UserModule.email
   }
 
   private toggleSideBar() {
