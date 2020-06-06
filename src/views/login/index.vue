@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="login-container"
-  >
+  <div class="login-container">
     <el-form
       v-if="showLoginForm"
       ref="loginForm"
@@ -112,6 +110,7 @@
           class="links"
           style="float:right"
           :underline="false"
+          @click="handleLoginFormVisibility(false)"
         >
           {{ $t('login.register') }}
         </el-link>
@@ -139,9 +138,9 @@
           <svg-icon name="email" />
         </span>
         <el-input
-          ref="email"
+          ref="signupEmail"
           v-model="signupForm.email"
-          :placeholder="$t('login.email')"
+          :placeholder="$t('signup.email')"
           name="username"
           type="text"
           tabindex="1"
@@ -160,11 +159,9 @@
             <svg-icon name="password" />
           </span>
           <el-input
-            :key="passwordType"
-            ref="password"
             v-model="signupForm.password"
-            :type="passwordType"
-            :placeholder="$t('login.password')"
+            :type="signUpPasswordType"
+            :placeholder="$t('signup.password')"
             name="password"
             tabindex="2"
             autocomplete="on"
@@ -174,9 +171,38 @@
           />
           <span
             class="show-pwd"
-            @click="showPwd"
+            @click="showPwdSignUpForm"
           >
-            <svg-icon :name="passwordType === 'password' ? 'eye-off' : 'eye-on'" />
+            <svg-icon :name="signUpPasswordType === 'password' ? 'eye-off' : 'eye-on'" />
+          </span>
+        </el-form-item>
+      </el-tooltip>
+      <el-tooltip
+        v-model="capsTooltip"
+        content="Caps lock is On"
+        placement="right"
+        manual
+      >
+        <el-form-item prop="confirmPassword">
+          <span class="svg-container">
+            <svg-icon name="password" />
+          </span>
+          <el-input
+            v-model="signupForm.confirmPassword"
+            :type="signUpPasswordType"
+            :placeholder="$t('signup.confirmPassword')"
+            name="confirmPassword"
+            tabindex="2"
+            autocomplete="on"
+            @keyup.native="checkCapslock"
+            @blur="capsTooltip = false"
+            @keyup.enter.native="handleLogin"
+          />
+          <span
+            class="show-pwd"
+            @click="showPwdSignUpForm"
+          >
+            <svg-icon :name="signUpPasswordType === 'password' ? 'eye-off' : 'eye-on'" />
           </span>
         </el-form-item>
       </el-tooltip>
@@ -187,7 +213,7 @@
         style="width:100%; margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >
-        {{ $t('login.logIn') }}
+        {{ $t('signup.submit') }}
       </el-button>
       <div style="position:relative">
         <el-button
@@ -229,22 +255,32 @@ import { Form as ElForm, Input } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
 import LangSelect from '@/components/LangSelect/index.vue'
 import SocialSign from './components/SocialSignin.vue'
+import SignUp from './components/SignUp.vue'
 
 @Component({
   name: 'Login',
   components: {
     LangSelect,
-    SocialSign
+    SocialSign,
+    SignUp
   }
 })
 export default class extends Vue {
-   private validatePassword = (rule: any, value: string, callback: Function) => {
-     if (value.length < 6) {
-       callback(new Error('The password can not be less than 6 digits'))
-     } else {
-       callback()
-     }
-   }
+  private validatePassword = (rule: any, value: string, callback: Function, msg: string) => {
+    if (value.length < 6) {
+      callback(new Error(msg))
+    } else {
+      callback()
+    }
+  }
+
+  private validateConfirmPassword = (rule: any, value: string, callback: Function, msg: string) => {
+    if (value !== this.signupForm.password) {
+      callback(new Error(msg))
+    } else {
+      callback()
+    }
+  }
 
   private loginForm = {
     email: '',
@@ -253,23 +289,17 @@ export default class extends Vue {
 
   private signupForm = {
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   }
 
-  private loginRules = {
-    email: [{ type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }],
-    password: [{ validator: this.validatePassword, trigger: 'blur' }]
-  }
-
-  private signupRules = {
-    email: [{ type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }],
-    password: [{ validator: this.validatePassword, trigger: 'blur' }]
-  }
-
+  private loginRules = {}
+  private signupRules = {}
   private formLoading = false
   private showLoginForm = true
   private showSignupForm = false
   private passwordType = 'password'
+  private signUpPasswordType = 'password'
   private loading = false
   private demoLoading = false
   private showDialog = false
@@ -288,6 +318,29 @@ export default class extends Vue {
     }
   }
 
+  created() {
+    this.signupRules = {
+      email: [{ type: 'email', message: this.emailRequired, trigger: ['blur', 'change'] }],
+      password: [{ validator: this.validatePassword, trigger: ['blur', 'change'] }],
+      confirmPassword: [{
+        validator: (rule: any, value: string, callback: Function) => {
+          this.validateConfirmPassword(rule, value, callback, this.passwordConfirmationRequired.toString())
+        },
+        trigger: 'blur'
+      }]
+    }
+
+    this.loginRules = {
+      email: [{ type: 'email', message: this.emailRequired, trigger: ['blur', 'change'] }],
+      password: [{
+        validator: (rule: any, value: string, callback: Function) => {
+          this.validatePassword(rule, value, callback, this.passwordRequired.toString())
+        },
+        trigger: 'blur'
+      }]
+    }
+  }
+
   mounted() {
     if (this.loginForm.email === '') {
       (this.$refs.email as Input).focus()
@@ -296,8 +349,24 @@ export default class extends Vue {
     }
   }
 
+  get passwordRequired() {
+    return this.$t('login.passwordRequired')
+  }
+
+  get emailRequired() {
+    return this.$t('login.emailRequired')
+  }
+
+  get passwordConfirmationRequired() {
+    return this.$t('signup.passwordConfirmationRequired')
+  }
+
   private checkCapslock(e: KeyboardEvent) {
     const { key } = e
+
+    if (key === undefined) {
+      return
+    }
     this.capsTooltip = key !== null && key.length === 1 && (key >= 'A' && key <= 'Z')
   }
 
@@ -310,6 +379,14 @@ export default class extends Vue {
     this.$nextTick(() => {
       (this.$refs.password as Input).focus()
     })
+  }
+
+  private showPwdSignUpForm() {
+    if (this.signUpPasswordType === 'password') {
+      this.signUpPasswordType = ''
+    } else {
+      this.signUpPasswordType = 'password'
+    }
   }
 
   private handleLogin() {
@@ -434,19 +511,19 @@ export default class extends Vue {
     }
   }
 
-.el-divider__text{
-   background-color:$loginBg;
-   color: #fff;
-}
-  .divider{
-    background:$darkGray;
+  .el-divider__text {
+    background-color: $loginBg;
+    color: #fff;
+  }
+  .divider {
+    background: $darkGray;
   }
 
-  .links{
-    &.forgot-password{
+  .links {
+    &.forgot-password {
       float: right;
     }
-     &.block{
+    &.block {
       display: block;
       text-align: center;
       padding-bottom: 2em;

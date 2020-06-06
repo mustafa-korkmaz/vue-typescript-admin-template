@@ -305,8 +305,6 @@ export default class extends Vue {
 
   created() {
     this.rules = {
-      // type: [{ required: true, message: 'type is required', trigger: 'change' }],
-      // timestamp: [{ required: true, message: 'timestamp is required', trigger: 'change' }],
       title: [{ required: true, message: this.titleRequired, trigger: 'blur' }]
     }
     this.getList()
