@@ -117,7 +117,7 @@ import { ElForm } from 'element-ui/types/form'
 import { Dictionary, Route } from 'vue-router/types/router'
 
 @Component({
-  name: 'SignUp',
+  name: 'Signup',
   components: { LangSelect }
 })
 export default class extends Vue {

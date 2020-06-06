@@ -120,7 +120,7 @@
       </div>
     </el-form>
 
-    <sign-up
+    <signup
       v-if="showSignupForm"
       @loginPageClicked="showLoginPage"
     />
@@ -150,9 +150,9 @@ import { Dictionary } from 'vue-router/types/router'
 import { Form as ElForm, Input, Message } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
 import LangSelect from '@/components/LangSelect/index.vue'
-import SocialSign from '@/views/login/components/SocialSignin.vue'
-import SignUp from '@/views/login/components/SignUp.vue'
-import ForgotPassword from '@/views/login/components/ForgotPassword.vue'
+import SocialSign from './components/SocialSignin.vue'
+import ForgotPassword from './components/ForgotPassword.vue'
+import Signup from './components/Signup.vue'
 import settings from '@/settings'
 
 const { notificationDuration } = settings
@@ -162,7 +162,7 @@ const { notificationDuration } = settings
   components: {
     LangSelect,
     SocialSign,
-    SignUp,
+    Signup,
     ForgotPassword
   }
 })
