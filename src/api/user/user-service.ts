@@ -3,9 +3,9 @@ import { IPagedListQuery, IApiResponse, IPagedList } from '../types'
 import { IUser } from './types'
 
 export default class UserService {
-  getHeadlines(params: IPagedListQuery) {
+  getUsers(params: IPagedListQuery) {
     return httpService.request<IPagedListQuery, IApiResponse<IPagedList<IUser>>>({
-      url: 'user',
+      url: 'users',
       params,
       method: 'get'
     })

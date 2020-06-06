@@ -1,5 +1,4 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
-import { logout, getUserInfo } from '@/api/users'
 import { login, getDemoAccount, register } from '@/api/user/account-service'
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import router, { resetRouter } from '@/router'
@@ -62,6 +61,18 @@ class User extends VuexModule implements IUserState {
     const resp = await login(email, password)
     setToken(resp.data.access_token)
     this.SET_TOKEN(resp.data.access_token)
+    this.SET_ROLES(resp.data.roles)
+    this.SET_NAME(name)
+    this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+    //this.SET_INTRODUCTION(introduction)
+    this.SET_EMAIL(email)
+
+    // Generate dynamic accessible routes based on roles
+    PermissionModule.GenerateRoutes(this.roles)
+    // Add generated routes
+    router.addRoutes(PermissionModule.dynamicRoutes)
+    // Reset visited views and cached views
+    TagsViewModule.delAllViews()
   }
 
   @Action
@@ -84,10 +95,7 @@ class User extends VuexModule implements IUserState {
 
     await register(email, password, lang)
 
-    const loginResp = await login(email, password)
-
-    setToken(loginResp.data.access_token)
-    this.SET_TOKEN(loginResp.data.access_token)
+    await this.Login({email, password})
   }
 
   @Action
@@ -95,44 +103,6 @@ class User extends VuexModule implements IUserState {
     removeToken()
     this.SET_TOKEN('')
     this.SET_ROLES([])
-  }
-
-  @Action
-  public async GetUserInfo() {
-    if (this.token === '') {
-      throw Error('GetUserInfo: token is undefined!')
-    }
-    const { data } = await getUserInfo({ /* Your params here */ })
-    if (!data) {
-      throw Error('Verification failed, please Login again.')
-    }
-    const { roles, name, avatar, introduction, email } = data.user
-    // roles must be a non-empty array
-    if (!roles || roles.length <= 0) {
-      throw Error('GetUserInfo: roles must be a non-null array!')
-    }
-    roles.push('admin') // todo: retrieve from api
-    this.SET_ROLES(roles)
-    this.SET_NAME(name)
-    this.SET_AVATAR(avatar)
-    this.SET_INTRODUCTION(introduction)
-    this.SET_EMAIL(email)
-  }
-
-  @Action
-  public async ChangeRoles(role: string) {
-    // Dynamically modify permissions
-    const token = role + '-token'
-    this.SET_TOKEN(token)
-    setToken(token)
-    await this.GetUserInfo()
-    resetRouter()
-    // Generate dynamic accessible routes based on roles
-    PermissionModule.GenerateRoutes(this.roles)
-    // Add generated routes
-    router.addRoutes(PermissionModule.dynamicRoutes)
-    // Reset visited views and cached views
-    TagsViewModule.delAllViews()
   }
 
   @Action
@@ -149,6 +119,28 @@ class User extends VuexModule implements IUserState {
     this.SET_ROLES([])
 
     router.push('/login')
+  }
+
+  @Action
+  public async ChangeRoles(role: string) {
+    // Dynamically modify permissions
+    const token = role + '-token'
+    this.SET_TOKEN(token)
+    setToken(token)
+    //await this.GetUserInfo()
+
+    const roles:string[]=[]
+    roles.push('admin') 
+    roles.push('editor')
+    this.SET_ROLES(roles)
+
+    resetRouter()
+    // Generate dynamic accessible routes based on roles
+    PermissionModule.GenerateRoutes(this.roles)
+    // Add generated routes
+    router.addRoutes(PermissionModule.dynamicRoutes)
+    // Reset visited views and cached views
+    TagsViewModule.delAllViews()
   }
 }
 
