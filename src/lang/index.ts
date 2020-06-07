@@ -57,13 +57,13 @@ export const getLocale = () => {
   const locales = Object.keys(messages)
   for (const locale of locales) {
     if (language.indexOf(locale) > -1) {
-      document.documentElement.lang = locale
+      console.log('language set to locale: ' + locale)
       return locale
     }
   }
 
-  // Default language is english
-  return 'en'
+  // Default language is turkish
+  return 'tr'
 }
 
 const i18n = new VueI18n({
