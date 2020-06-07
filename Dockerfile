@@ -1,26 +1,11 @@
-FROM node:lts-alpine
-
-# install simple http server for serving static content
-RUN npm install -g http-server
-
-# make the 'app' folder the current working directory
+FROM node:latest as build-stage
 WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY ./ .
+RUN npm run build:prod
 
-# copy both 'package.json' and 'package-lock.json' (if available)
-COPY package.json /app 
-COPY yarn.lock /app
-
-RUN apk add --no-cache git
-# RUN yarn --pure-lockfile
-
-
-# install project dependencies
-RUN yarn install
-
-# copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY . .
-
-# build app for production with minification
-RUN yarn run build:prod
-
-CMD [ "http-server", "dist" ]
+FROM nginx as production-stage
+RUN mkdir /app
+COPY --from=build-stage /app/dist /app
+COPY nginx.conf /etc/nginx/nginx.conf
