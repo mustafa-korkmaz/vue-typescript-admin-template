@@ -7,6 +7,7 @@
       <sidebar-item-link
         v-if="theOnlyOneChild.meta"
         :to="resolvePath(theOnlyOneChild.path)"
+        :tooltip="theOnlyOneChild.meta.tooltip"
       >
         <el-menu-item
           :index="resolvePath(theOnlyOneChild.path)"

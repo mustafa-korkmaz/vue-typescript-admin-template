@@ -64,11 +64,12 @@ export default {
     externalLink: 'External Link',
     profile: 'Profile',
     // mute
-    adminSettings: 'Admin Ayarlari',
+    adminSettings: 'Admin Ayarları',
     customers: 'Cariler',
     transactions: 'Hesap Hareketleri',
     settings: 'Ayarlar',
-    transactionTypes: 'İşlem Tipleri'
+    transactionTypes: 'İşlem Tipleri',
+    transactionTypesTooltip: 'Hesap hareketleri için yeni bir işlem tipi tanımlayabilir <br/> ya da önceden tanımlı işlem tiplerini düzenleyebilirsin'
   },
   navbar: {
     logOut: 'Log Out',
@@ -95,6 +96,7 @@ export default {
     forgotPassword: 'Şifreni mi unuttun?',
     comingSoon:'Çok yakında!',
     any: 'any',
+    capsLockOn: 'Caps lock açık',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
   },
@@ -175,7 +177,7 @@ export default {
     selectColumns: 'Kolon seçiniz',
     menu: 'Tablo menüsu',
     showColumnSelectionOptions: 'Kolon seçiciyi göster',
-    hideColumnSelectionOptions: 'Kolon seçiciyi kapat',
+    hideColumnSelectionOptions: 'Kolon seçiciyi gizle',
     exportToExcel: 'Excel\'e aktar'
   },
   example: {

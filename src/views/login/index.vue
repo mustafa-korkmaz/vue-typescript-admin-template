@@ -34,7 +34,7 @@
 
       <el-tooltip
         v-model="capsTooltip"
-        content="Caps lock is On"
+        :content="$t('login.capsLockOn')"
         placement="right"
         manual
       >

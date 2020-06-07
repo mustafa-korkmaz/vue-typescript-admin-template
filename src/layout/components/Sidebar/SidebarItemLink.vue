@@ -7,6 +7,19 @@
   >
     <slot />
   </a>
+  <el-tooltip
+    v-else-if="tooltip!==''"
+    effect="dark"
+    placement="right"
+  >
+    <div
+      slot="content"
+      v-html="$t('route.' + this.tooltip)"
+    />
+    <router-link :to="to">
+      <slot />
+    </router-link>
+  </el-tooltip>
   <router-link
     v-else
     :to="to"
@@ -24,7 +37,7 @@ import { isExternal } from '@/utils/validate'
 })
 export default class extends Vue {
   @Prop({ required: true }) private to!: string
-
+  @Prop({ default: '' }) private tooltip!: string
   private isExternal = isExternal
 }
 </script>

@@ -68,7 +68,8 @@ export default {
     customers: 'Customers',
     transactions: 'Transactions',
     settings: 'Settings',
-    transactionTypes: 'Transaction Types'
+    transactionTypes: 'Transaction Types',
+    transactionTypesTooltip: 'You can set your own types for any kind of transaction'
   },
   navbar: {
     logOut: 'Log Out',
@@ -95,6 +96,7 @@ export default {
     forgotPassword: 'Forgot password?',
     comingSoon: 'Coming soon!',
     any: 'any',
+    capsLockOn: 'Caps lock is On',
     thirdparty: 'Or connect with',
     thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
   },
