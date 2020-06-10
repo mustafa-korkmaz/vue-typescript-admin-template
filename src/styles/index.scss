@@ -205,6 +205,10 @@ aside {
   }
 }
 
+.el-table thead{
+  color: #696d74;
+}
+
 /* For Mobile - xs */
 @media screen and (max-width: 767px) {
   .el-dialog__body >.el-form

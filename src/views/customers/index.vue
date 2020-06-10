@@ -114,7 +114,7 @@
         </el-table-column>
         <el-table-column
           :label="$t('customersView.phoneNumber')"
-          min-width="8"
+          min-width="10"
           align="center"
         >
           <template slot-scope="{row}">
@@ -124,7 +124,7 @@
         <el-table-column
           :label="$t('customersView.debtsAmount')"
           align="center"
-          min-width="8"
+          min-width="10"
         >
           <template
             slot-scope="{row}"
@@ -136,7 +136,7 @@
         <el-table-column
           :label="$t('customersView.receivablesAmount')"
           align="center"
-          min-width="8"
+          min-width="10"
         >
           <template slot-scope="{row}">
             <span>{{ getPriceText(row.receivable_balance) }}</span>
@@ -145,7 +145,7 @@
         <el-table-column
           :label="$t('customersView.remainingBalance')"
           align="center"
-          min-width="8"
+          min-width="10"
         >
           <template slot-scope="{row}">
             <el-tooltip
@@ -159,7 +159,7 @@
         </el-table-column>
         <el-table-column
           :label="$t('customersView.createdAt')"
-          min-width="8"
+          min-width="10"
           align="center"
         >
           <template slot-scope="{row}">
