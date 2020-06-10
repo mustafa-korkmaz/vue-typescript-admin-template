@@ -109,7 +109,7 @@ export const constantRoutes: RouteConfig[] = [
     ]
   },
   {
-    path: '/transaction',
+    path: '/transactions',
     component: Layout,
     redirect: '/transactions/index',
     children: [

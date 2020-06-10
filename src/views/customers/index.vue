@@ -95,10 +95,12 @@
               effect="dark"
               placement="right"
             >
-              <span
+              <router-link
+                :to="{path: '/transactions', query: {customerId: row.id}}"
                 class="link-type"
-                @click="handleUpdate(row)"
-              >{{ row.title }}</span>
+              >
+                {{ row.title }}
+              </router-link>
             </el-tooltip>
           </template>
         </el-table-column>

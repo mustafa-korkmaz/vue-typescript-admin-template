@@ -706,9 +706,20 @@ export default class extends Vue {
   }
 
   private setPage() {
+    this.query.customer_id = null
+
+    if (this.$route.query.customerId != null) {
+      const customerId = this.$route.query.customerId as string
+      const parsed = parseInt(customerId)
+
+      if (!isNaN(parsed)) {
+        this.query.customer_id = +customerId
+        this.selectedCustomerId = +customerId
+      }
+    }
+
     this.loading = true
     this.query.offset = 0
-    this.query.customer_id = null
     this.query.is_debt = null
 
     const customerQuery = defaultCustomerQuery
