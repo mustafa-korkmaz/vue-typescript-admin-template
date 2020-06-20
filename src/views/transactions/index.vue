@@ -121,10 +121,13 @@
         fit
         highlight-current-row
         style="width: 100%;"
+        @sort-change="sortChange"
       >
         <el-table-column
           :label="$t('transactionsView.customer')"
           min-width="16"
+          prop="title"
+          sortable="custom"
         >
           <template slot-scope="{row}">
             <span>{{ row.customer.title }}</span>
@@ -762,6 +765,27 @@ export default class extends Vue {
     })
 
     return list
+  }
+
+  private sortChange(data: any) {
+    const { prop, order } = data
+
+    this.query.sort_by = data.prop
+    if (prop === 'title') {
+      this.sortByTitle(order)
+    }
+  }
+
+  private sortByTitle(type: string) {
+    if (type === 'ascending') {
+      this.query.sort_type = 'asc'
+    } else if (type === 'descending') {
+      this.query.sort_type = 'desc'
+    } else {
+      this.query.sort_type = null
+      this.query.sort_by = null
+    }
+    this.handleFilter()
   }
 }
 </script>

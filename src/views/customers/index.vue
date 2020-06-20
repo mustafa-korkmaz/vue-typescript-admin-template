@@ -87,7 +87,6 @@
           prop="title"
           sortable="custom"
           min-width="18"
-          :class-name="getSortClass()"
         >
           <template slot-scope="{row}">
             <el-tooltip
@@ -353,18 +352,13 @@ export default class extends Vue {
   private sortByTitle(type: string) {
     if (type === 'ascending') {
       this.query.sort_type = 'asc'
-    } else {
+    } else if (type === 'descending') {
       this.query.sort_type = 'desc'
+    } else {
+      this.query.sort_type = null
+      this.query.sort_by = null
     }
     this.handleFilter()
-  }
-
-  private getSortClass() {
-    const sort = this.query.sort_type
-    if (sort === null) {
-      return ''
-    }
-    return sort === 'asc' ? 'ascending' : 'descending'
   }
 
   private handleUpdate(row: any) {
