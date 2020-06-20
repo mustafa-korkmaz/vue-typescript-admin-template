@@ -4,7 +4,9 @@ import { getToken, setToken, removeToken } from '@/utils/cookies'
 import router, { resetRouter } from '@/router'
 import { PermissionModule } from './permission'
 import { TagsViewModule } from './tags-view'
+import { SettingsModule } from '@/store/modules/settings'
 import store from '@/store'
+import { setTimeout } from 'timers'
 
 export interface IUserState {
   token: string
@@ -61,7 +63,6 @@ class User extends VuexModule implements IUserState {
     const resp = await login(email, password)
     setToken(resp.data.access_token)
     this.SET_TOKEN(resp.data.access_token)
-    this.SET_ROLES(resp.data.roles)
     this.SET_NAME(name)
     this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
     //this.SET_INTRODUCTION(introduction)
@@ -130,7 +131,7 @@ class User extends VuexModule implements IUserState {
     if (!data) {
       throw Error('Verification failed, please Login again.')
     }
-    const { roles, email, name_surname } = data
+    const { roles, email, name_surname, settings } = data
     // roles must be a non-empty array
     if (!roles || roles.length <= 0) {
       throw Error('GetUserInfo: roles must be a non-null array!')
@@ -140,6 +141,8 @@ class User extends VuexModule implements IUserState {
     this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
     // this.SET_INTRODUCTION(introduction)
     this.SET_EMAIL(email)
+
+    SettingsModule.ChangeUserSettings(settings)
   }
 
   @Action

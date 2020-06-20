@@ -69,6 +69,7 @@ export default {
     transactions: 'Transactions',
     settings: 'Settings',
     transactionTypes: 'Transaction Types',
+    themePreferences: 'Theme Preferences',
     transactionTypesTooltip: 'You can set your own types for any kind of transaction'
   },
   navbar: {
@@ -230,6 +231,7 @@ export default {
   form: {
     search: 'Search',
     save: 'Save',
+    saveChanges: 'Save changes',
     cancel: 'Cancel',
     approve: 'Approve',
     create: 'Create',

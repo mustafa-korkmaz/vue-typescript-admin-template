@@ -2,6 +2,7 @@ import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-dec
 import store from '@/store'
 import elementVariables from '@/styles/element-variables.scss'
 import defaultSettings from '@/settings'
+import { IUserSettings } from '@/api/user/types'
 
 export interface ISettingsState {
   theme: string
@@ -30,8 +31,15 @@ class Settings extends VuexModule implements ISettingsState {
   }
 
   @Action
-  public ChangeSetting(payload: { key: string, value: any}) {
+  public ChangeSetting(payload: { key: string, value: any }) {
     this.CHANGE_SETTING(payload)
+  }
+
+  @Action
+  public ChangeUserSettings(userSettings: IUserSettings) {
+    this.CHANGE_SETTING({ key: 'showTagsView', value: userSettings.open_tags_view })
+    this.CHANGE_SETTING({ key: 'fixedHeader', value: userSettings.fixed_header })
+    this.CHANGE_SETTING({ key: 'theme', value: userSettings.theme_color })
   }
 }
 

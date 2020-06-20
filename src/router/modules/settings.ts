@@ -19,6 +19,14 @@ const settingsRouter: RouteConfig = {
         title: 'transactionTypes',
         tooltip: 'transactionTypesTooltip'
       }
+    },
+    {
+      path: 'theme-preferences',
+      component: () => import(/* webpackChunkName: "settings-theme-preferences" */ '@/views/settings/theme-preferences.vue'),
+      name: 'ThemePreferences',
+      meta: {
+        title: 'themePreferences'
+      }
     }
   ]
 }

@@ -68,6 +68,7 @@ export default {
     customers: 'Cariler',
     transactions: 'Hesap Hareketleri',
     settings: 'Ayarlar',
+    themePreferences: 'Tema Tercihleri',
     transactionTypes: 'İşlem Tipleri',
     transactionTypesTooltip: 'Hesap hareketleri için yeni bir işlem tipi tanımlayabilir <br/> ya da önceden tanımlı işlem tiplerini düzenleyebilirsin'
   },
@@ -213,10 +214,10 @@ export default {
   },
   settings: {
     title: 'Page style setting',
-    theme: 'Theme Color',
-    showTagsView: 'Open Tags-View',
+    theme: 'Tema rengi',
+    showTagsView: 'Sekmeleri göster',
     showSidebarLogo: 'Sidebar Logo',
-    fixedHeader: 'Fixed Header',
+    fixedHeader: 'Üst başlığı sabitle',
     sidebarTextTheme: 'Sidebar Text Theme'
   },
   messages: {
@@ -229,6 +230,7 @@ export default {
   form: {
     search: 'Ara',
     save: 'Kaydet',
+    saveChanges: 'Değişiklikleri kaydet',
     cancel: 'Vazgeç',
     approve: 'Onayla',
     create: 'Yeni',
