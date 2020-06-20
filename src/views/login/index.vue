@@ -399,7 +399,7 @@ export default class extends Vue {
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    padding: 5em 2em 0;
     margin: 0 auto;
     overflow: hidden;
   }
