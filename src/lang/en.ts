@@ -256,6 +256,7 @@ export default {
     remainingBalance: 'Balance',
     remainingBalanceTooltipDebt: '{0} owes you {1}',
     remainingBalanceTooltipReceivable: '{0} will receive {1} from you',
+    remainingBalanceTooltipZero: 'For {0}, debts and receivables aggregrate are equal',
     createdAt: 'Created at',
     modifiedAt: 'Modified at',
     goToTransactions: 'Go to transactions',

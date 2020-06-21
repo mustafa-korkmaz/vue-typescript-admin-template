@@ -493,7 +493,7 @@ export default class extends Vue {
     const customer = Object.assign({}, row)
 
     if (customer.remaining_balance === 0) {
-      return ''
+      return this.$t('customersView.remainingBalanceTooltipZero', [customer.title])
     } else if (customer.remaining_balance < 0) {
       return this.$t('customersView.remainingBalanceTooltipReceivable', [customer.title, getPriceText(-customer.remaining_balance)])
     } else {

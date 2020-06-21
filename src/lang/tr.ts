@@ -255,6 +255,7 @@ export default {
     remainingBalance: 'Bakiye',
     remainingBalanceTooltipDebt: '{0} size {1} borçludur',
     remainingBalanceTooltipReceivable: '{0} sizden {1} alacaklıdır',
+    remainingBalanceTooltipZero: '{0} carisine ait alacak ve borç toplamları birbirine eşittir.',
     createdAt: 'Kayıt tarihi',
     modifiedAt: 'Son işlem',
     goToTransactions: 'Hesap hareketlerine git',
