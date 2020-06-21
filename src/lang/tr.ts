@@ -218,7 +218,10 @@ export default {
     showTagsView: 'Sekmeleri göster',
     showSidebarLogo: 'Sidebar Logo',
     fixedHeader: 'Üst başlığı sabitle',
-    sidebarTextTheme: 'Sidebar Text Theme'
+    sidebarTextTheme: 'Sidebar Text Theme',
+    paginationAlign: 'Tablo sayfalama hizala',
+    paginationAlignLeft:'Sol alt',
+    paginationAlignRight:'Sağ alt'
   },
   messages: {
     languageModified: 'Dil seçimi Türkçe olarak ayarlandı',
@@ -309,6 +312,7 @@ export default {
     DATE_TEXT_FIELD_IS_REQUIRED: 'Tarih alanı zorunludur',
     DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Açıklama en az 3 en çok 100 karakter olmalıdır',
     EMAIL_FIELD_SHOULD_BE_MAX_50_CHARS: 'Email en çok 50 karakter olmalıdır',
-    USER_ALREADY_EXISTS:'Bu email ile önceden bir hesap açılmış'
+    USER_ALREADY_EXISTS:'Bu email ile önceden bir hesap açılmış',
+    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS:'Ünvan en az 3 en çok 100 karakter olmalıdır'
   }
 }

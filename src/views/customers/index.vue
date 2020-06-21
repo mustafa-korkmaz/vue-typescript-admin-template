@@ -276,6 +276,7 @@ import { MessageBox, Form } from 'element-ui'
 import settings from '@/settings'
 
 import Pagination from '@/components/Pagination/index.vue'
+import tr from '../../lang/tr'
 
 const { notificationDuration } = settings
 
@@ -302,8 +303,6 @@ export default class extends Vue {
 
   private getPriceText = getPriceText
 
-  // todo: toggle sort by title buttons
-
   created() {
     this.rules = {
       title: [{ required: true, message: this.titleRequired, trigger: 'blur' }]
@@ -320,6 +319,7 @@ export default class extends Vue {
     this.query.offset = (this.page - 1) * this.query.limit
     this.query.authorized_person_name = this.postForm.authorized_person_name
     this.query.title = this.postForm.title
+    this.query.include_records_total = true
 
     service.getCustomers(this.query)
       .then(
@@ -408,8 +408,9 @@ export default class extends Vue {
               this.loading = false
               this.selectedCustomer.id = resp.data
               this.selectedCustomer.created_at = new Date()
+              const newCustomer = Object.assign({}, this.selectedCustomer)
               this.total += 1
-              this.list.unshift(this.selectedCustomer)
+              this.list.unshift(newCustomer)
               this.dialogFormVisible = false
               this.$notify({
                 title: this.$t('messages.success').toString(),

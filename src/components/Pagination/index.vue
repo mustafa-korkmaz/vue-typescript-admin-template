@@ -1,7 +1,6 @@
 <template>
   <div
-    :class="{'hidden': hidden}"
-    class="pagination-container"
+    :class="containerClass"
   >
     <el-pagination
       :background="background"
@@ -20,6 +19,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { scrollTo } from '@/utils/scroll-to'
+import { SettingsModule } from '@/store/modules/settings'
 
 @Component({
   name: 'Pagination'
@@ -40,6 +40,15 @@ export default class extends Vue {
 
   set currentPage(value) {
     this.$emit('update:page', value)
+  }
+
+  get containerClass() {
+    const style = 'pagination-container'
+    if (this.hidden) {
+      return style + ' hidden'
+    }
+
+    return style + ' ' + SettingsModule.paginationAlign
   }
 
   get pageSize() {
@@ -69,7 +78,14 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .pagination-container {
   background: #fff;
-  padding: 32px 16px;
+  padding: 32px 16px 32px 0;
+
+  &.left {
+    float: left;
+  }
+  &.right {
+    float: right;
+  }
 }
 
 .pagination-container.hidden {

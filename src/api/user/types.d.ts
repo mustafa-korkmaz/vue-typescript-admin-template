@@ -12,4 +12,5 @@ export interface IUserSettings {
     fixed_header: boolean
     open_tags_view: boolean
     theme_color: string
+    pagination_align: string
 }

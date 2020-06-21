@@ -1,6 +1,6 @@
 import httpService from '@/utils/http'
 import { IApiResponse } from '../types'
-import { IUser } from './types'
+import { IUser, IUserSettings } from './types'
 
 export function getAccount() {
   return httpService.request<any, IApiResponse<IUser>>({
@@ -17,6 +17,21 @@ export function getDemoAccount(language: string, password: string) {
 
   return httpService.request<any, IApiResponse<string>>({
     url: 'account/demo',
+    data,
+    method: 'post'
+  })
+}
+
+export function updateSettings(userSettings: IUserSettings) {
+  const data = {
+    fixed_header: userSettings.fixed_header,
+    open_tags_view: userSettings.open_tags_view,
+    theme_color: userSettings.theme_color,
+    pagination_align: userSettings.pagination_align
+  }
+
+  return httpService.request<any, IApiResponse<any>>({
+    url: 'account/settings',
     data,
     method: 'post'
   })

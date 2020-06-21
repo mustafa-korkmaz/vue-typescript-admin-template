@@ -10,6 +10,7 @@ interface ISettings {
   mockServerPort: number // Port number for mock server
   notificationDuration: number // notify message duration in miliseconds
   maxQueryLimit: number
+  paginationAlign: string
 }
 
 // You can customize below settings :)
@@ -24,7 +25,8 @@ const settings: ISettings = {
   devServerPort: 9527,
   mockServerPort: 9528,
   notificationDuration: 3000,
-  maxQueryLimit: 1000
+  maxQueryLimit: 1000,
+  paginationAlign: 'left'
 }
 
 export default settings

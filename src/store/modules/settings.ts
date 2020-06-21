@@ -21,6 +21,7 @@ class Settings extends VuexModule implements ISettingsState {
   public showTagsView = defaultSettings.showTagsView
   public showSidebarLogo = defaultSettings.showSidebarLogo
   public sidebarTextTheme = defaultSettings.sidebarTextTheme
+  public paginationAlign = defaultSettings.paginationAlign
 
   @Mutation
   private CHANGE_SETTING(payload: { key: string, value: any }) {
@@ -40,6 +41,7 @@ class Settings extends VuexModule implements ISettingsState {
     this.CHANGE_SETTING({ key: 'showTagsView', value: userSettings.open_tags_view })
     this.CHANGE_SETTING({ key: 'fixedHeader', value: userSettings.fixed_header })
     this.CHANGE_SETTING({ key: 'theme', value: userSettings.theme_color })
+    this.CHANGE_SETTING({ key: 'paginationAlign', value: userSettings.pagination_align })
   }
 }
 

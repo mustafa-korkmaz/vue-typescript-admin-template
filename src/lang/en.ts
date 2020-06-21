@@ -215,11 +215,14 @@ export default {
   },
   settings: {
     title: 'Page style setting',
-    theme: 'Theme Color',
-    showTagsView: 'Open Tags-View',
-    showSidebarLogo: 'Sidebar Logo',
-    fixedHeader: 'Fixed Header',
-    sidebarTextTheme: 'Sidebar Text Theme'
+    theme: 'Theme color',
+    showTagsView: 'Open tags-view',
+    showSidebarLogo: 'Sidebar logo',
+    fixedHeader: 'Fixed header',
+    sidebarTextTheme: 'Sidebar text theme',
+    paginationAlign: 'Align table pagination to',
+    paginationAlignLeft:'Left bottom',
+    paginationAlignRight:'Right bottom'
   },
   messages: {
     languageModified: 'Language is set to English',
@@ -309,6 +312,7 @@ export default {
     USERNAME_OR_PASSWORD_INCORRECT: 'Username or password is incorrect',
     DATE_TEXT_FIELD_IS_REQUIRED: 'Date field is required',
     EMAIL_FIELD_SHOULD_BE_MAX_50_CHARS: 'Email should be max 50 chars',
-    USER_ALREADY_EXISTS:'There is already an account using this email'
+    USER_ALREADY_EXISTS:'There is already an account using this email',
+    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS:'Title should be min 3 max 100 chars'
   }
 }

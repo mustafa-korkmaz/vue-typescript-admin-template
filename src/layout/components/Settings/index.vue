@@ -21,14 +21,6 @@
         />
       </div>
 
-      <!-- <div class="drawer-item">
-        <span>{{ $t('settings.showSidebarLogo') }}</span>
-        <el-switch
-          v-model="showSidebarLogo"
-          class="drawer-switch"
-        />
-      </div> -->
-
       <div class="drawer-item">
         <span>{{ $t('settings.fixedHeader') }}</span>
         <el-switch
@@ -37,13 +29,20 @@
         />
       </div>
 
-      <!-- <div class="drawer-item">
-        <span>{{ $t('settings.sidebarTextTheme') }}</span>
-        <el-switch
-          v-model="sidebarTextTheme"
+      <div class="drawer-item">
+        <span>{{ $t('settings.paginationAlign') }}</span>
+        <el-radio-group
+          v-model="paginationAlign"
           class="drawer-switch"
-        />
-      </div> -->
+        >
+          <el-radio label="left">
+            {{ $t('settings.paginationAlignLeft') }}
+          </el-radio>
+          <el-radio label="right">
+            {{ $t('settings.paginationAlignRight') }}
+          </el-radio>
+        </el-radio-group>
+      </div>
     </div>
   </div>
 </template>
@@ -52,6 +51,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { SettingsModule } from '@/store/modules/settings'
 import ThemePicker from '@/components/ThemePicker/index.vue'
+import defaultSettings from '@/settings'
 
 @Component({
   name: 'Settings',
@@ -90,6 +90,14 @@ export default class extends Vue {
 
   set sidebarTextTheme(value) {
     SettingsModule.ChangeSetting({ key: 'sidebarTextTheme', value })
+  }
+
+  get paginationAlign() {
+    return SettingsModule.paginationAlign || defaultSettings.paginationAlign
+  }
+
+  set paginationAlign(value) {
+    SettingsModule.ChangeSetting({ key: 'paginationAlign', value })
   }
 
   private themeChange(value: string) {
