@@ -119,6 +119,7 @@ export default {
     logIn: 'Giriş ekranına dön',
     submit: 'Giriş bağlantısı gönder',
     email: 'Email',
+    resetPasswordLinkSent: 'Şifre yenileme linkini {0} adresine gönderdik',
   },
   documentation: {
     documentation: 'Documentation',

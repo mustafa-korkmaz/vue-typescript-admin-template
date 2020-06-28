@@ -64,14 +64,13 @@ export function register(email: string, password: string, language: string) {
   })
 }
 
-// todo: add forgot password logic
-export function remindPassword(email: string) {
+export function resetPassword(email: string) {
   const data = {
     email_or_username: email
   }
 
   return httpService.request<any, IApiResponse<any>>({
-    url: 'account/TODO',
+    url: 'account/reset',
     data,
     method: 'post'
   })

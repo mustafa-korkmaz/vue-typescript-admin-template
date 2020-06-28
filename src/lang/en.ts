@@ -63,7 +63,6 @@ export default {
     i18n: 'I18n',
     externalLink: 'External Link',
     profile: 'Profile',
-    // mute
     adminSettings: 'Admin Settings',
     customers: 'Customers',
     transactions: 'Transactions',
@@ -119,6 +118,7 @@ export default {
     logIn: 'Go to Login page',
     submit: 'Send login link',
     email: 'Email',
+    resetPasswordLinkSent: 'We sent your password reset link to {0}',
   },
   documentation: {
     documentation: 'Documentation',

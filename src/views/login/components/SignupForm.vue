@@ -161,7 +161,7 @@ export default class extends Vue {
 
   created() {
     this.signupRules = {
-      email: [{ type: 'email', message: this.emailRequired, trigger: ['blur', 'change'] }],
+      email: [{ type: 'email', required: true, message: this.emailRequired, trigger: ['blur', 'change'] }],
       password: [{
         validator: (rule: any, value: string, callback: Function) => {
           this.validatePassword(rule, value, callback, this.passwordRequired.toString())

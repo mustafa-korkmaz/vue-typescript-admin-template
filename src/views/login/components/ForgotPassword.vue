@@ -19,7 +19,7 @@
         <svg-icon name="email" />
       </span>
       <el-input
-        ref="signupEmail"
+        ref="email"
         v-model="forgotPasswordForm.email"
         :placeholder="$t('forgotPassword.email')"
         name="username"
@@ -53,6 +53,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import LangSelect from '@/components/LangSelect/index.vue'
 import { ElForm } from 'element-ui/types/form'
+import { resetPassword } from '@/api/user/account-service'
 
 @Component({
   name: 'ForgotPassword',
@@ -72,24 +73,31 @@ export default class extends Vue {
 
   created() {
     this.forgotPasswordRules = {
-      email: [{ type: 'email', message: this.emailRequired, trigger: ['blur', 'change'] }]
+      email: [{ type: 'email', required: true, message: this.emailRequired, trigger: ['blur', 'change'] }]
     }
   }
 
-  private handleRegister() {
-    (this.$refs.loginForm as ElForm).validate((valid: boolean) => {
+  private handleForgotPasword() {
+    (this.$refs.forgotPasswordForm as ElForm).validate((valid: boolean) => {
       if (valid) {
-        // this.loading = true
-        // UserModule.Login(this.forgotPasswordForm)
-        //   .then(() => {
-        //     this.$router.push({
-        //       path: this.redirect || '/',
-        //       query: this.otherQuery
-        //     })
-        //   })
-        //   .finally(() => {
-        //     this.loading = false
-        //   })
+        this.loading = true
+        resetPassword(this.forgotPasswordForm.email)
+          .then(
+            () => {
+              this.loading = false
+
+              const msg = this.$t('forgotPassword.resetPasswordLinkSent', [this.forgotPasswordForm.email])
+
+              this.$message({
+                message: msg.toString(),
+                type: 'success'
+              })
+            },
+            (err) => {
+              console.error(err)
+              this.loading = false
+            }
+          )
       }
     })
   }
