@@ -5,17 +5,15 @@
         :image="avatar"
         style="float: left"
       >
-        Your roles:
-        <span
-          v-for="item in roles"
-          :key="item"
-          class="info-roles"
-        >{{ item }}</span>
+        {{ getGreeting() }}
+        <span>
+          {{ $t('dashboardView.boss') }}
+        </span>
       </pan-thumb>
       <github-corner style="position: absolute; top: 0px; border: 0; right: 0;" />
       <div class="info-container">
         <span class="display_name">{{ name }}</span>
-        <span style="font-size:20px;padding-top:20px;display:inline-block;">Editor's Dashboard</span>
+        <span style="font-size:20px;padding-top:20px;display:inline-block;">Dashboard</span>
       </div>
     </div>
     <div>
@@ -53,6 +51,20 @@ export default class extends Vue {
 
   get roles() {
     return UserModule.roles
+  }
+
+  getGreeting() {
+    const d = new Date()
+    const h = d.getHours()
+
+    if (h > 5 && h < 12) {
+      return this.$t('dashboardView.goodMorning')
+    } else
+    if (h >= 12 && h < 17) {
+      return this.$t('dashboardView.goodDay')
+    }
+
+    return this.$t('dashboardView.goodEvening')
   }
 }
 </script>

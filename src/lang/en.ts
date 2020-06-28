@@ -247,6 +247,12 @@ export default {
     edit: 'Edit',
     delete: 'Delete'
   },
+  dashboardView: {
+    goodMorning: 'Good morning,',
+    goodDay: 'Good day,',
+    goodEvening: 'Good evening,',
+    boss: 'boss!'
+  },
   customersView: {
     title: 'Title',
     authorizedPersonName: 'Authorized person',

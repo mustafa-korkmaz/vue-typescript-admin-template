@@ -84,9 +84,9 @@ export default {
   login: {
     title: 'Giriş Formu',
     logIn: 'Giriş yap',
-    tryDemo:'Demo Kullanıcı',
+    tryDemo: 'Demo Kullanıcı',
     username: 'Kullanıcı adı',
-    email:'Email',
+    email: 'Email',
     emailRequired: 'Lütfen geçerli bir email adresi gir',
     or: 'YA DA',
     facebook: 'Facebook ile Giriş Yap',
@@ -95,7 +95,7 @@ export default {
     password: 'Şifre',
     passwordRequired: 'Şifre en az 6 karakter olmalıdır',
     forgotPassword: 'Şifreni mi unuttun?',
-    comingSoon:'Çok yakında!',
+    comingSoon: 'Çok yakında!',
     any: 'any',
     capsLockOn: 'Caps lock açık',
     thirdparty: 'Or connect with',
@@ -106,7 +106,7 @@ export default {
     logIn: 'Hesabın var mı?  Giriş yap',
     submit: 'Kayıt ol',
     username: 'Username',
-    email:'Email',
+    email: 'Email',
     password: 'Şifre',
     confirmPassword: 'Şifreni onayla',
     passwordConfirmationRequired: 'Şifre eşleşmiyor',
@@ -220,8 +220,8 @@ export default {
     fixedHeader: 'Üst başlığı sabitle',
     sidebarTextTheme: 'Sidebar Text Theme',
     paginationAlign: 'Tablo sayfalama hizala',
-    paginationAlignLeft:'Sol alt',
-    paginationAlignRight:'Sağ alt'
+    paginationAlignLeft: 'Sol alt',
+    paginationAlignRight: 'Sağ alt'
   },
   messages: {
     languageModified: 'Dil seçimi Türkçe olarak ayarlandı',
@@ -245,6 +245,12 @@ export default {
     name: 'İşlemler',
     edit: 'Düzenle',
     delete: 'Sil'
+  },
+  dashboardView: {
+    goodMorning: 'Günaydın,',
+    goodDay: 'İyi günler,',
+    goodEvening: 'İyi akşamlar,',
+    boss: 'patron!'
   },
   customersView: {
     title: 'Ünvan',
@@ -313,7 +319,7 @@ export default {
     DATE_TEXT_FIELD_IS_REQUIRED: 'Tarih alanı zorunludur',
     DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Açıklama en az 3 en çok 100 karakter olmalıdır',
     EMAIL_FIELD_SHOULD_BE_MAX_50_CHARS: 'Email en çok 50 karakter olmalıdır',
-    USER_ALREADY_EXISTS:'Bu email ile önceden bir hesap açılmış',
-    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS:'Ünvan en az 3 en çok 100 karakter olmalıdır'
+    USER_ALREADY_EXISTS: 'Bu email ile önceden bir hesap açılmış',
+    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Ünvan en az 3 en çok 100 karakter olmalıdır'
   }
 }

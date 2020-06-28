@@ -15,8 +15,8 @@
           :width="'100px'"
           :hoverable="false"
         >
-          <div>Hello</div>
-          {{ user.roles }}
+          <div>  {{ getGreeting() }}</div>
+          {{ $t('dashboardView.boss') }}
         </pan-thumb>
       </div>
       <div class="box-center">
@@ -84,6 +84,20 @@ import PanThumb from '@/components/PanThumb/index.vue'
 })
 export default class extends Vue {
   @Prop({ required: true }) private user!: IProfile
+
+  getGreeting() {
+    const d = new Date()
+    const h = d.getHours()
+
+    if (h > 5 && h < 12) {
+      return this.$t('dashboardView.goodMorning')
+    } else
+    if (h >= 12 && h < 17) {
+      return this.$t('dashboardView.goodDay')
+    }
+
+    return this.$t('dashboardView.goodEvening')
+  }
 }
 </script>
 
