@@ -6,6 +6,7 @@ export interface IUser {
     access_token: string
     roles: string[]
     settings: IUserSettings
+    title: string
 }
 
 export interface IUserSettings {

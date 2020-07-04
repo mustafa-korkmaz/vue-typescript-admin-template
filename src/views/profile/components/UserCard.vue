@@ -4,7 +4,7 @@
       slot="header"
       class="clearfix"
     >
-      <span>About me</span>
+      <span> {{ title || name }}</span>
     </div>
 
     <div class="user-profile">
@@ -24,7 +24,7 @@
           {{ user.name }}
         </div>
         <div class="user-role text-center text-muted">
-          {{ user.roles | uppercaseFirstChar }}
+          {{ $t('roles.' + user.roles) }}
         </div>
       </div>
     </div>
@@ -75,6 +75,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IProfile } from '../index.vue'
 import PanThumb from '@/components/PanThumb/index.vue'
+import { UserModule } from '@/store/modules/user'
 
 @Component({
   name: 'UserCard',
@@ -84,6 +85,14 @@ import PanThumb from '@/components/PanThumb/index.vue'
 })
 export default class extends Vue {
   @Prop({ required: true }) private user!: IProfile
+
+  get title() {
+    return UserModule.title || UserModule.name || UserModule.email
+  }
+
+  get nameSurname() {
+    return UserModule.name || UserModule.email
+  }
 
   getGreeting() {
     const d = new Date()

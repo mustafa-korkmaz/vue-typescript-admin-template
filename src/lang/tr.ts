@@ -135,6 +135,11 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel'
   },
+  roles :{
+    demo_user:'Demo kullanıcı',
+    admin:'Admin',
+    user:'Standart kullanıcı'
+  },
   guide: {
     description: 'The guide page is useful for some people who entered the project for the first time. You can briefly introduce the features of the project. Demo is based on ',
     button: 'Show Guide'
@@ -306,6 +311,14 @@ export default {
     amountRequired: 'Tutar alanı zorunludur',
     dateRequired: 'İşlem tarihi alanı zorunludur',
     deleteTransactionWarning: 'İşlem kalıcı olarak silinecek'
+  },
+  profileView: {
+    account: 'Hesap',
+    changePassword: 'Şifre değiştir',
+    password:'Şifre',
+    newPassword:'Yeni şifre',
+    title: 'Ünvan',
+    authorizedPersonName:'Yetkili kişi'
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz.',

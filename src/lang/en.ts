@@ -134,6 +134,11 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel'
   },
+  roles :{
+    demo_user:'Demo user',
+    admin:'Admin',
+    user:'Standart user'
+  },
   guide: {
     description: 'The guide page is useful for some people who entered the project for the first time. You can briefly introduce the features of the project. Demo is based on ',
     button: 'Show Guide'
@@ -306,6 +311,14 @@ export default {
     amountRequired: 'Amount field is required',
     dateRequired: 'Transaction date field is required',
     deleteTransactionWarning: 'Transaction will be deleted permanantly'
+  },
+  profileView: {
+    account: 'Account',
+    changePassword: 'Change password',
+    password:'Password',
+    newPassword:'New password',
+    title: 'Title',
+    authorizedPersonName:'Authorized Person'
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page.',

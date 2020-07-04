@@ -92,7 +92,7 @@ export default class extends Vue {
   }
 
   get profileName() {
-    return UserModule.name || UserModule.email
+    return UserModule.name || UserModule.title || UserModule.email
   }
 
   private toggleSideBar() {
