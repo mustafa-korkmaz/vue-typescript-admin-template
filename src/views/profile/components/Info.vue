@@ -4,7 +4,7 @@
       <el-input v-model.trim="user.title" />
     </el-form-item>
     <el-form-item :label="$t('profileView.authorizedPersonName')">
-      <el-input v-model.trim="user.name" />
+      <el-input v-model.trim="user.authorizedPersonName" />
     </el-form-item>
     <el-form-item label="Email">
       <el-input

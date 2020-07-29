@@ -134,10 +134,10 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel'
   },
-  roles :{
-    demo_user:'Demo user',
-    admin:'Admin',
-    user:'Standart user'
+  roles: {
+    demo_user: 'Demo user',
+    admin: 'Admin',
+    user: 'Standart user'
   },
   guide: {
     description: 'The guide page is useful for some people who entered the project for the first time. You can briefly introduce the features of the project. Demo is based on ',
@@ -226,8 +226,8 @@ export default {
     fixedHeader: 'Fixed header',
     sidebarTextTheme: 'Sidebar text theme',
     paginationAlign: 'Align table pagination to',
-    paginationAlignLeft:'Left bottom',
-    paginationAlignRight:'Right bottom'
+    paginationAlignLeft: 'Left bottom',
+    paginationAlignRight: 'Right bottom'
   },
   messages: {
     languageModified: 'Language is set to English',
@@ -256,7 +256,11 @@ export default {
     goodMorning: 'Good morning,',
     goodDay: 'Good day,',
     goodEvening: 'Good evening,',
-    boss: 'boss!'
+    boss: 'boss!',
+    membership: 'Membership',
+    membershipCreatedAt: 'Member since: ',
+    membershipExpiresAt: 'Expire date: ',
+    leftDays:'Remaining days: '
   },
   customersView: {
     title: 'Title',
@@ -315,10 +319,10 @@ export default {
   profileView: {
     account: 'Account',
     changePassword: 'Change password',
-    password:'Password',
-    newPassword:'New password',
+    password: 'Password',
+    newPassword: 'New password',
     title: 'Title',
-    authorizedPersonName:'Authorized Person'
+    authorizedPersonName: 'Authorized Person'
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page.',
@@ -332,7 +336,7 @@ export default {
     USERNAME_OR_PASSWORD_INCORRECT: 'Username or password is incorrect',
     DATE_TEXT_FIELD_IS_REQUIRED: 'Date field is required',
     EMAIL_FIELD_SHOULD_BE_MAX_50_CHARS: 'Email should be max 50 chars',
-    USER_ALREADY_EXISTS:'There is already an account using this email',
-    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS:'Title should be min 3 max 100 chars'
+    USER_ALREADY_EXISTS: 'There is already an account using this email',
+    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Title should be min 3 max 100 chars'
   }
 }

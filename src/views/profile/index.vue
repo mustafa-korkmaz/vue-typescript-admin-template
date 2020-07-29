@@ -79,7 +79,7 @@ const defaultProfile: IProfile = {
 })
 export default class extends Vue {
   private user = defaultProfile
-  private activeTab = 'changePassword'
+  private activeTab = 'account'
 
   get name() {
     return UserModule.name

@@ -16,6 +16,8 @@ export interface IUserState {
   roles: string[]
   email: string
   title: string
+  createdAt: Date
+  membershipExpiresAt: Date
 }
 
 @Module({ dynamic: true, store, name: 'user' })
@@ -27,6 +29,8 @@ class User extends VuexModule implements IUserState {
   public roles: string[] = []
   public email = ''
   public title = ''
+  public createdAt = new Date()
+  public membershipExpiresAt = new Date()
 
   @Mutation
   private SET_TOKEN(token: string) {
@@ -63,6 +67,16 @@ class User extends VuexModule implements IUserState {
     this.email = email
   }
 
+  @Mutation
+  private SET_CREATED_AT(date: Date) {
+    this.createdAt = date
+  }
+
+  @Mutation
+  private SET_MEMBERSHIP_EXPIRES_AT(date: Date) {
+    this.membershipExpiresAt = date
+  }
+
   @Action
   public async Login(userInfo: { email: string, password: string }) {
     let { email, password } = userInfo
@@ -74,7 +88,6 @@ class User extends VuexModule implements IUserState {
     this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
     //this.SET_INTRODUCTION(introduction)
     this.SET_EMAIL(email)
-
     // Generate dynamic accessible routes based on roles
     PermissionModule.GenerateRoutes(this.roles)
     // Add generated routes
@@ -138,7 +151,7 @@ class User extends VuexModule implements IUserState {
     if (!data) {
       throw Error('Verification failed, please Login again.')
     }
-    const { roles, email, name_surname, title, settings } = data
+    const { roles, email, name_surname, title, settings, created_at, membership_expires_at } = data
     // roles must be a non-empty array
     if (!roles || roles.length <= 0) {
       throw Error('GetUserInfo: roles must be a non-null array!')
@@ -149,6 +162,8 @@ class User extends VuexModule implements IUserState {
     this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
     // this.SET_INTRODUCTION(introduction)
     this.SET_EMAIL(email)
+    this.SET_CREATED_AT(created_at)
+    this.SET_MEMBERSHIP_EXPIRES_AT(membership_expires_at)
 
     SettingsModule.ChangeUserSettings(settings)
   }

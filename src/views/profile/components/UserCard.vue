@@ -15,7 +15,7 @@
           :width="'100px'"
           :hoverable="false"
         >
-          <div>  {{ getGreeting() }}</div>
+          <div> {{ getGreeting() }}</div>
           {{ $t('dashboardView.boss') }}
         </pan-thumb>
       </div>
@@ -32,38 +32,17 @@
     <div class="user-bio">
       <div class="user-education user-bio-section">
         <div class="user-bio-section-header">
-          <svg-icon name="education" /><span>Education</span>
+          <svg-icon name="skill" /><span>{{ $t('dashboardView.membership') }}</span>
         </div>
         <div class="user-bio-section-body">
           <div class="text-muted">
-            JS in Computer Science from the University of Technology
+            {{ $t('dashboardView.membershipCreatedAt') }} {{ membershipDate }}
           </div>
-        </div>
-      </div>
-
-      <div class="user-skills user-bio-section">
-        <div class="user-bio-section-header">
-          <svg-icon name="skill" /><span>Skills</span>
-        </div>
-        <div class="user-bio-section-body">
-          <div class="progress-item">
-            <span>Vue</span>
-            <el-progress :percentage="51" />
+          <div class="text-muted">
+            {{ $t('dashboardView.membershipExpiresAt') }}{{ membershipExpirationDate }}
           </div>
-          <div class="progress-item">
-            <span>Typescript</span>
-            <el-progress :percentage="45" />
-          </div>
-          <div class="progress-item">
-            <span>Css</span>
-            <el-progress :percentage="4" />
-          </div>
-          <div class="progress-item">
-            <span>ESLint</span>
-            <el-progress
-              :percentage="100"
-              status="success"
-            />
+          <div class="text-muted">
+            {{ $t('dashboardView.leftDays') }}{{ calculateLeftDays }}
           </div>
         </div>
       </div>
@@ -76,6 +55,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IProfile } from '../index.vue'
 import PanThumb from '@/components/PanThumb/index.vue'
 import { UserModule } from '@/store/modules/user'
+import { getDateStr } from '@/utils/index'
 
 @Component({
   name: 'UserCard',
@@ -92,6 +72,19 @@ export default class extends Vue {
 
   get nameSurname() {
     return UserModule.name || UserModule.email
+  }
+
+  get membershipDate() {
+    return getDateStr(UserModule.createdAt, this.$i18n.locale)
+  }
+
+  get membershipExpirationDate() {
+    return getDateStr(UserModule.membershipExpiresAt, this.$i18n.locale)
+  }
+
+  get calculateLeftDays() {
+    const diff = new Date(UserModule.membershipExpiresAt).getTime() - new Date().getTime()
+    return Math.ceil(diff / (1000 * 3600 * 24))
   }
 
   getGreeting() {
@@ -118,6 +111,7 @@ export default class extends Vue {
 
 .text-muted {
   color: #777;
+  margin-top: 1em;
 }
 
 .user-profile {

@@ -135,10 +135,10 @@ export default {
     confirm: 'Confirm',
     cancel: 'Cancel'
   },
-  roles :{
-    demo_user:'Demo kullanıcı',
-    admin:'Admin',
-    user:'Standart kullanıcı'
+  roles: {
+    demo_user: 'Demo kullanıcı',
+    admin: 'Admin',
+    user: 'Standart kullanıcı'
   },
   guide: {
     description: 'The guide page is useful for some people who entered the project for the first time. You can briefly introduce the features of the project. Demo is based on ',
@@ -256,7 +256,11 @@ export default {
     goodMorning: 'Günaydın,',
     goodDay: 'İyi günler,',
     goodEvening: 'İyi akşamlar,',
-    boss: 'patron!'
+    boss: 'patron!',
+    membership: 'Üyelik',
+    membershipCreatedAt: 'Başlangıç: ',
+    membershipExpiresAt: 'Bitiş: ',
+    leftDays:'Kalan gün: '
   },
   customersView: {
     title: 'Ünvan',
@@ -315,10 +319,10 @@ export default {
   profileView: {
     account: 'Hesap',
     changePassword: 'Şifre değiştir',
-    password:'Şifre',
-    newPassword:'Yeni şifre',
+    password: 'Şifre',
+    newPassword: 'Yeni şifre',
     title: 'Ünvan',
-    authorizedPersonName:'Yetkili kişi'
+    authorizedPersonName: 'Yetkili kişi'
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz.',

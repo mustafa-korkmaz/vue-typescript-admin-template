@@ -7,6 +7,8 @@ export interface IUser {
     roles: string[]
     settings: IUserSettings
     title: string
+    created_at: Date
+    membership_expires_at: Date
 }
 
 export interface IUserSettings {
