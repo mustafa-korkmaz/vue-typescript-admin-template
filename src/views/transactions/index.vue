@@ -542,7 +542,6 @@ export default class extends Vue {
 
   private handleUpdate(row: any) {
     this.selectedTransaction = Object.assign({}, row)
-    this.selectedTransaction.customer_id = this.selectedTransaction.customer.id
     this.editMode = true
     this.dialogFormVisible = true
     this.$nextTick(() => {
@@ -634,6 +633,10 @@ export default class extends Vue {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
         this.loading = true
+
+        if (this.selectedTransaction.description === '') {
+          this.selectedTransaction.description = null
+        }
 
         this.selectedTransaction.date_text = getApiDateStr(this.selectedTransaction.date)
 
