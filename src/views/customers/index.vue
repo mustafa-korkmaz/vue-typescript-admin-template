@@ -202,6 +202,7 @@
     </el-row>
     <el-dialog
       :title="getDialogTitle()"
+      :close-on-click-modal="false"
       :visible.sync="dialogFormVisible"
     >
       <el-form

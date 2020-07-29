@@ -140,6 +140,7 @@
     <el-dialog
       :title="getDialogTitle()"
       :visible.sync="dialogFormVisible"
+      :close-on-click-modal="false"
     >
       <el-form
         ref="dataForm"
