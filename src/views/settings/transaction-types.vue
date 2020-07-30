@@ -168,6 +168,18 @@
               prop="parameter_type_id"
               class="single"
             >
+              <label slot="label">
+                <el-tooltip
+                  effect="dark"
+                  placement="right"
+                >
+                  <div slot="content">{{ $t('transactionTypesView.debtOrReceivableDescription1') }}
+                    <br>{{ $t('transactionTypesView.debtOrReceivableDescription2') }}
+                    <br>{{ $t('transactionTypesView.debtOrReceivableDescription3') }}
+                    <br>{{ $t('transactionTypesView.debtOrReceivableDescription4') }}</div>
+                  <span>{{ $t('transactionTypesView.debtOrReceivableTooltip') }} <i class="el-icon-question" /></span>
+                </el-tooltip>
+              </label>
               <el-select
                 v-model="selectedParameter.parameter_type_id"
                 clearable
