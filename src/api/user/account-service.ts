@@ -75,3 +75,28 @@ export function resetPassword(email: string) {
     method: 'post'
   })
 }
+
+export function changePassword(password: string) {
+  const data = {
+    password
+  }
+
+  return httpService.request<any, IApiResponse<any>>({
+    url: 'account/password',
+    data,
+    method: 'post'
+  })
+}
+
+export function updateInfo(title: string, authorizedPersonName: string) {
+  const data = {
+    title,
+    authorized_person_name:authorizedPersonName
+  }
+
+  return httpService.request<any, IApiResponse<any>>({
+    url: 'account',
+    data,
+    method: 'patch'
+  })
+}

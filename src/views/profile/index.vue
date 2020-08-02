@@ -36,7 +36,7 @@
                 :label="$t('profileView.changePassword')"
                 name="changePassword"
               >
-                <account :user="user" />
+                <account />
               </el-tab-pane>
             </el-tabs>
           </el-card>
@@ -56,6 +56,7 @@ import UserCard from './components/UserCard.vue'
 
 export interface IProfile {
   name: string
+  title: string
   email: string
   avatar: string
   roles: string
@@ -65,7 +66,8 @@ const defaultProfile: IProfile = {
   name: 'Loading...',
   email: 'Loading...',
   avatar: 'Loading...',
-  roles: 'Loading...'
+  roles: 'Loading...',
+  title: 'Loading...'
 }
 
 @Component({
@@ -83,6 +85,10 @@ export default class extends Vue {
 
   get name() {
     return UserModule.name
+  }
+
+  get title() {
+    return UserModule.title
   }
 
   get email() {
@@ -106,6 +112,7 @@ export default class extends Vue {
       name: this.name,
       email: this.email,
       avatar: this.avatar,
+      title: this.title,
       roles: this.roles.join(' | ')
     }
   }

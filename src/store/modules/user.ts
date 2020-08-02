@@ -127,6 +127,12 @@ class User extends VuexModule implements IUserState {
   }
 
   @Action
+  public ResetUserInfo(userInfo: { title: string, name: string }) {
+    this.SET_TITLE(userInfo.title)
+    this.SET_NAME(userInfo.name)
+  }
+
+  @Action
   public async LogOut() {
     if (this.token === '') {
       throw Error('LogOut: token is undefined!')
