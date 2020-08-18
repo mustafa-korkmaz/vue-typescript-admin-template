@@ -17,3 +17,11 @@ export interface IUserSettings {
     theme_color: string
     pagination_align: string
 }
+
+export interface IUserDashboard {
+    customer_count: number
+    transaction_count: number
+    customer_receivables_total: number
+    customer_debts_total: number
+    last_updated_at: Date
+}

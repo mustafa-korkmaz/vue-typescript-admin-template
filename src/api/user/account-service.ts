@@ -1,6 +1,6 @@
 import httpService from '@/utils/http'
 import { IApiResponse } from '../types'
-import { IUser, IUserSettings } from './types'
+import { IUser, IUserSettings, IUserDashboard } from './types'
 
 export function getAccount() {
   return httpService.request<any, IApiResponse<IUser>>({
@@ -91,12 +91,19 @@ export function changePassword(password: string) {
 export function updateInfo(title: string, authorizedPersonName: string) {
   const data = {
     title,
-    authorized_person_name:authorizedPersonName
+    authorized_person_name: authorizedPersonName
   }
 
   return httpService.request<any, IApiResponse<any>>({
     url: 'account',
     data,
     method: 'patch'
+  })
+}
+
+export function getDashboard() {
+  return httpService.request<any, IApiResponse<IUserDashboard>>({
+    url: 'dashboard',
+    method: 'get'
   })
 }

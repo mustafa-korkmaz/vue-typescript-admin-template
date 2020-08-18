@@ -29,6 +29,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { UserModule } from '@/store/modules/user'
 import PanThumb from '@/components/PanThumb/index.vue'
 import GithubCorner from '@/components/GithubCorner/index.vue'
+import { getDashboard } from '@/api/user/account-service'
 
 @Component({
   name: 'DashboardEditor',
@@ -39,6 +40,18 @@ import GithubCorner from '@/components/GithubCorner/index.vue'
 })
 export default class extends Vue {
   private emptyGif = 'https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3'
+
+  created() {
+    getDashboard()
+      .then(
+        (resp) => {
+          console.log(resp)
+        },
+        (err) => {
+          console.error(err)
+        }
+      )
+  }
 
   get title() {
     return UserModule.title || UserModule.name || UserModule.email
