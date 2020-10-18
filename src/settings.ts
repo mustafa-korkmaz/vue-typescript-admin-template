@@ -13,9 +13,8 @@ interface ISettings {
   paginationAlign: string
 }
 
-// You can customize below settings :)
 const settings: ISettings = {
-  title: 'Vue Typescript Admin',
+  title: 'koruq',
   showSettings: true,
   showTagsView: true,
   fixedHeader: false,

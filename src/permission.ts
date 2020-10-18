@@ -13,15 +13,18 @@ NProgress.configure({ showSpinner: false })
 const whiteList = ['/login', '/auth-redirect']
 
 const getPageTitle = (key: string) => {
+
+  const title = i18n.t('site.title')
+
   const hasKey = i18n.te(`route.${key}`)
   if (hasKey) {
     const pageName = i18n.t(`route.${key}`)
-    return `${pageName} - ${settings.title}`
+    return `${pageName} - ${title}`
   }
-  return `${settings.title}`
+  return `${title}`
 }
 
-router.beforeEach(async(to: Route, _: Route, next: any) => {
+router.beforeEach(async (to: Route, _: Route, next: any) => {
   // Start progress bar
   NProgress.start()
 

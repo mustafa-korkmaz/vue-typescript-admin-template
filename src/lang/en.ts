@@ -1,4 +1,7 @@
 export default {
+  site: {
+    title: 'koruq accounting app'
+  },
   route: {
     dashboard: 'Dashboard',
     documentation: 'Documentation',
@@ -260,7 +263,7 @@ export default {
     membership: 'Membership',
     membershipCreatedAt: 'Member since: ',
     membershipExpiresAt: 'Expire date: ',
-    leftDays:'Remaining days: '
+    leftDays: 'Remaining days: '
   },
   customersView: {
     title: 'Title',
@@ -297,10 +300,10 @@ export default {
     createTransactionType: 'Create transaction type',
     receivable: 'Receivable',
     debt: 'Debt',
-    debtOrReceivableDescription1:'Muhasebe terimi olarak, alan hesap borçludur veren hesap alacaklıdır.',
-    debtOrReceivableDescription2:'Fatura, çek, senet gibi evrakları da para gibi düşünebilirsiniz.',
-    debtOrReceivableDescription3:'Fatura benzeri bir işlem tanımlarken "Borç" seçmelisiniz çünkü faturayı alan taraf cari olduğu için fatura kaydı sonucunda cari borçlanır.',
-    debtOrReceivableDescription4:'Tahsilat benzeri bir işlem tanımlarken "Alacak" seçmelisiniz çünkü parayı veren taraf cari olduğu için işlem sonucunda cari alacaklı olur.'
+    debtOrReceivableDescription1: 'Muhasebe terimi olarak, alan hesap borçludur veren hesap alacaklıdır.',
+    debtOrReceivableDescription2: 'Fatura, çek, senet gibi evrakları da para gibi düşünebilirsiniz.',
+    debtOrReceivableDescription3: 'Fatura benzeri bir işlem tanımlarken "Borç" seçmelisiniz çünkü faturayı alan taraf cari olduğu için fatura kaydı sonucunda cari borçlanır.',
+    debtOrReceivableDescription4: 'Tahsilat benzeri bir işlem tanımlarken "Alacak" seçmelisiniz çünkü parayı veren taraf cari olduğu için işlem sonucunda cari alacaklı olur.'
   },
   transactionsView: {
     transactionType: 'Transaction type',

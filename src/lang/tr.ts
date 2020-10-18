@@ -1,4 +1,7 @@
 export default {
+  site: {
+    title: 'koruq hesap takip uygulaması'
+  },
   route: {
     dashboard: 'Dashboard',
     documentation: 'Documentation',
