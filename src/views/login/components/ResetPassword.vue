@@ -101,7 +101,6 @@ import { ElForm } from 'element-ui/types/form'
 import { resetPassword } from '@/api/user/account-service'
 import settings from '@/settings'
 import { Message } from 'element-ui'
-import { UserModule } from '@/store/modules/user'
 
 const { notificationDuration } = settings
 
@@ -209,7 +208,7 @@ export default class extends Vue {
                 duration: notificationDuration
               })
               setTimeout(() => {
-                UserModule.LogOut()
+                this.$router.push('/login')
               }, notificationDuration)
             },
             (err) => {
