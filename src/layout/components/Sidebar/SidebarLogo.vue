@@ -11,7 +11,7 @@
         to="/"
       >
         <img
-          src="favicon.svg"
+          src="favicon.ico"
           class="sidebar-logo"
         >
       </router-link>
@@ -22,7 +22,7 @@
         to="/"
       >
         <img
-          src="favicon.svg"
+          src="favicon.ico"
           class="sidebar-logo"
         >
         <h1 class="sidebar-title">
