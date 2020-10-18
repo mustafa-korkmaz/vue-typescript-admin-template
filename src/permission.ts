@@ -6,14 +6,12 @@ import { Route } from 'vue-router'
 import { UserModule } from '@/store/modules/user'
 import { PermissionModule } from '@/store/modules/permission'
 import i18n from '@/lang' // Internationalization
-import settings from './settings'
 
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login', '/auth-redirect']
+const whiteList = ['/login', '/auth-redirect', '/reset']
 
 const getPageTitle = (key: string) => {
-
   const title = i18n.t('site.title')
 
   const hasKey = i18n.te(`route.${key}`)
@@ -24,7 +22,7 @@ const getPageTitle = (key: string) => {
   return `${title}`
 }
 
-router.beforeEach(async (to: Route, _: Route, next: any) => {
+router.beforeEach(async(to: Route, _: Route, next: any) => {
   // Start progress bar
   NProgress.start()
 

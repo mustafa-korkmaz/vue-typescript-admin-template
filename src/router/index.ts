@@ -75,6 +75,11 @@ export const constantRoutes: RouteConfig[] = [
     meta: { hidden: true }
   },
   {
+    path: '/reset',
+    component: () => import(/* webpackChunkName: "reset" */ '@/views/login/reset-password.vue'),
+    meta: { hidden: true }
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/dashboard',

@@ -53,7 +53,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import LangSelect from '@/components/LangSelect/index.vue'
 import { ElForm } from 'element-ui/types/form'
-import { resetPassword } from '@/api/user/account-service'
+import { resetAccount } from '@/api/user/account-service'
 
 @Component({
   name: 'ForgotPassword',
@@ -81,7 +81,7 @@ export default class extends Vue {
     (this.$refs.forgotPasswordForm as ElForm).validate((valid: boolean) => {
       if (valid) {
         this.loading = true
-        resetPassword(this.forgotPasswordForm.email)
+        resetAccount(this.forgotPasswordForm.email)
           .then(
             () => {
               this.loading = false

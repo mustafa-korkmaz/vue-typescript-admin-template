@@ -6,7 +6,6 @@ import { PermissionModule } from './permission'
 import { TagsViewModule } from './tags-view'
 import { SettingsModule } from '@/store/modules/settings'
 import store from '@/store'
-import { setTimeout } from 'timers'
 
 export interface IUserState {
   token: string
@@ -86,7 +85,7 @@ class User extends VuexModule implements IUserState {
     this.SET_TOKEN(resp.data.access_token)
     this.SET_NAME(name)
     this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
-    //this.SET_INTRODUCTION(introduction)
+    // this.SET_INTRODUCTION(introduction)
     this.SET_EMAIL(email)
     // Generate dynamic accessible routes based on roles
     PermissionModule.GenerateRoutes(this.roles)
@@ -98,7 +97,6 @@ class User extends VuexModule implements IUserState {
 
   @Action
   public async DemoLogin(lang: string) {
-
     const password = '12345678'
     const resp = await getDemoAccount(lang, password)
 
@@ -110,7 +108,6 @@ class User extends VuexModule implements IUserState {
 
   @Action
   public async Register(payload: { email: string, password: string, lang: string }) {
-
     let { email, password, lang } = payload
     email = email.trim()
 
@@ -164,7 +161,7 @@ class User extends VuexModule implements IUserState {
     }
     this.SET_ROLES(roles)
     this.SET_NAME(name_surname)
-    this.SET_TITLE(title);
+    this.SET_TITLE(title)
     this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
     // this.SET_INTRODUCTION(introduction)
     this.SET_EMAIL(email)
@@ -180,7 +177,7 @@ class User extends VuexModule implements IUserState {
     const token = role + '-token'
     this.SET_TOKEN(token)
     setToken(token)
-    //await this.GetUserInfo()
+    // await this.GetUserInfo()
 
     const roles: string[] = []
     roles.push('admin')

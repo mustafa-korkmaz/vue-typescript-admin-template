@@ -123,6 +123,14 @@ export default {
     email: 'Email',
     resetPasswordLinkSent: 'We sent your password reset link to {0}',
   },
+  resetPassword: {
+    title: 'Reset Password',
+    logIn: 'Go to Login page',
+    submit: 'Send',
+    password: 'New password',
+    securityCodeNotFound: 'Security code not found, please try to reset your password again',
+    saved: 'Your new password has been saved. You are being redirected to login page',
+  },
   documentation: {
     documentation: 'Documentation',
     github: 'Github Repository'
@@ -332,7 +340,7 @@ export default {
     authorizedPersonName: 'Authorized Person'
   },
   errorMessages: {
-    sessionTimeOut: 'Your session has expired. You are being redirected to login page.',
+    sessionTimeOut: 'Your session has expired. You are being redirected to login page',
     USER_NOT_FOUND: 'User not found',
     PHONE_NUMBER_FIELD_SHOULD_BE_MIN_10_MAX_12_CHARS: 'Phone number should contain between 10 and 12 chars',
     AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Authorized person name should contain between 3 and 50 chars',
@@ -344,6 +352,8 @@ export default {
     DATE_TEXT_FIELD_IS_REQUIRED: 'Date field is required',
     EMAIL_FIELD_SHOULD_BE_MAX_50_CHARS: 'Email should be max 50 chars',
     USER_ALREADY_EXISTS: 'There is already an account using this email',
-    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Title should be min 3 max 100 chars'
+    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Title should be min 3 max 100 chars',
+    SECURITY_CODE_EXPIRED: 'Security code has expired, please try to reset your password again',
+    SECURITY_ERROR: 'Security code is invalid, please try to reset your password again'
   }
 }

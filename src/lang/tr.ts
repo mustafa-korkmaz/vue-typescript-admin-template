@@ -122,7 +122,15 @@ export default {
     logIn: 'Giriş ekranına dön',
     submit: 'Giriş bağlantısı gönder',
     email: 'Email',
-    resetPasswordLinkSent: 'Şifre yenileme linkini {0} adresine gönderdik',
+    resetPasswordLinkSent: 'Şifre yenileme linkini {0} adresine gönderdik'
+  },
+  resetPassword: {
+    title: 'Şifreni yenile',
+    logIn: 'Giriş ekranına dön',
+    submit: 'Gönder',
+    password: 'Yeni şifre',
+    securityCodeNotFound: 'Güvenlik kodu bulunamadı, lütfen şifrenizi tekrar resetleyiniz',
+    saved: 'Yeni şifreniz kaydedildi. Giriş sayfasına yönlediriliyorsunuz',
   },
   documentation: {
     documentation: 'Documentation',
@@ -263,7 +271,7 @@ export default {
     membership: 'Üyelik',
     membershipCreatedAt: 'Başlangıç: ',
     membershipExpiresAt: 'Bitiş: ',
-    leftDays:'Kalan gün: '
+    leftDays: 'Kalan gün: '
   },
   customersView: {
     title: 'Ünvan',
@@ -300,10 +308,10 @@ export default {
     createTransactionType: 'İşlem tipi oluştur',
     receivable: 'Alacak',
     debt: 'Borç',
-    debtOrReceivableDescription1:'Muhasebe terimi olarak, alan hesap borçludur veren hesap alacaklıdır.',
-    debtOrReceivableDescription2:'Fatura, çek, senet gibi evrakları da para gibi düşünebilirsiniz.',
-    debtOrReceivableDescription3:'Fatura benzeri bir işlem tanımlarken "Borç" seçmelisiniz çünkü faturayı alan taraf cari olduğu için fatura kaydı sonucunda cari borçlanır.',
-    debtOrReceivableDescription4:'Tahsilat benzeri bir işlem tanımlarken "Alacak" seçmelisiniz çünkü parayı veren taraf cari olduğu için işlem sonucunda cari alacaklı olur.'
+    debtOrReceivableDescription1: 'Muhasebe terimi olarak, alan hesap borçludur veren hesap alacaklıdır.',
+    debtOrReceivableDescription2: 'Fatura, çek, senet gibi evrakları da para gibi düşünebilirsiniz.',
+    debtOrReceivableDescription3: 'Fatura benzeri bir işlem tanımlarken "Borç" seçmelisiniz çünkü faturayı alan taraf cari olduğu için fatura kaydı sonucunda cari borçlanır.',
+    debtOrReceivableDescription4: 'Tahsilat benzeri bir işlem tanımlarken "Alacak" seçmelisiniz çünkü parayı veren taraf cari olduğu için işlem sonucunda cari alacaklı olur.'
   },
   transactionsView: {
     transactionType: 'İşlem tipi',
@@ -332,7 +340,7 @@ export default {
     authorizedPersonName: 'Yetkili kişi'
   },
   errorMessages: {
-    sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz.',
+    sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz',
     USER_NOT_FOUND: 'Kullanıcı bulunamadı',
     PHONE_NUMBER_FIELD_SHOULD_BE_MIN_10_MAX_12_CHARS: 'Telefon numarası en az 10 en çok 12 karakter olmalıdır',
     AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Yetkili kişi adı en az 3 en çok 50 karakter olmalıdır',
@@ -345,6 +353,8 @@ export default {
     DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Açıklama en az 3 en çok 100 karakter olmalıdır',
     EMAIL_FIELD_SHOULD_BE_MAX_50_CHARS: 'Email en çok 50 karakter olmalıdır',
     USER_ALREADY_EXISTS: 'Bu email ile önceden bir hesap açılmış',
-    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Ünvan en az 3 en çok 100 karakter olmalıdır'
+    TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Ünvan en az 3 en çok 100 karakter olmalıdır',
+    SECURITY_CODE_EXPIRED: 'Güvenlik kodu zaman aşımına uğradı, lütfen şifrenizi tekrar resetleyiniz',
+    SECURITY_ERROR: 'Güvenlik kodu geçersiz, lütfen şifrenizi tekrar resetleyiniz'
   }
 }

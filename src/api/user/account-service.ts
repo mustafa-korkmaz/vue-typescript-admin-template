@@ -64,7 +64,7 @@ export function register(email: string, password: string, language: string) {
   })
 }
 
-export function resetPassword(email: string) {
+export function resetAccount(email: string) {
   const data = {
     email_or_username: email
   }
@@ -83,6 +83,19 @@ export function changePassword(password: string) {
 
   return httpService.request<any, IApiResponse<any>>({
     url: 'account/password',
+    data,
+    method: 'post'
+  })
+}
+
+export function resetPassword(password: string, code: string) {
+  const data = {
+    password,
+    security_code: code
+  }
+
+  return httpService.request<any, IApiResponse<any>>({
+    url: 'account/reset-password',
     data,
     method: 'post'
   })
