@@ -130,7 +130,7 @@ export default {
     submit: 'Gönder',
     password: 'Yeni şifre',
     securityCodeNotFound: 'Güvenlik kodu bulunamadı, lütfen şifrenizi tekrar resetleyiniz',
-    saved: 'Yeni şifreniz kaydedildi. Giriş sayfasına yönlediriliyorsunuz',
+    saved: 'Yeni şifreniz kaydedildi. Giriş sayfasına yönlediriliyorsunuz'
   },
   documentation: {
     documentation: 'Documentation',
@@ -273,8 +273,8 @@ export default {
     membershipExpiresAt: 'Bitiş: ',
     leftDays: 'Kalan gün: ',
     customers: 'Toplam Cari',
-    receivablesTotal: 'Toplam Alacak',
-    debtsTotal: 'Toplam Borç',
+    receivablesTotal: 'Cari Alacakları',
+    debtsTotal: 'Cari Borçları',
     transactionTotal: 'Toplam İşlem',
     lastUpdated: 'Last updated at'
   },

@@ -273,8 +273,8 @@ export default {
     membershipExpiresAt: 'Expire date: ',
     leftDays: 'Remaining days: ',
     customers: 'Customers',
-    receivablesTotal: 'Receivables Total',
-    debtsTotal: 'Debts Total',
+    receivablesTotal: 'Customer Receivables',
+    debtsTotal: 'Customer Debts',
     transactionTotal: 'Transaction Count',
     lastUpdated: 'Last updated at'
   },

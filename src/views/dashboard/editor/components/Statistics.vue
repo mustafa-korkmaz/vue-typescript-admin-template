@@ -70,11 +70,11 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            {{ $t('dashboardView.receivablesTotal') }}
+            {{ $t('dashboardView.debtsTotal') }}
           </div>
           <count-to
             :start-val="0"
-            :end-val="receivablesTotal"
+            :end-val="debtsTotal"
             :duration="3000"
             class="card-panel-num"
           />
@@ -96,11 +96,11 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            {{ $t('dashboardView.debtsTotal') }}
+            {{ $t('dashboardView.receivablesTotal') }}
           </div>
           <count-to
             :start-val="0"
-            :end-val="debtsTotal"
+            :end-val="receivablesTotal"
             :duration="3000"
             class="card-panel-num"
           />
