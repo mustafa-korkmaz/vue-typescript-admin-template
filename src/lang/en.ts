@@ -271,7 +271,12 @@ export default {
     membership: 'Membership',
     membershipCreatedAt: 'Member since: ',
     membershipExpiresAt: 'Expire date: ',
-    leftDays: 'Remaining days: '
+    leftDays: 'Remaining days: ',
+    customers: 'Customers',
+    receivablesTotal: 'Receivables Total',
+    debtsTotal: 'Debts Total',
+    transactionTotal: 'Transaction Count',
+    lastUpdated: 'Last updated at'
   },
   customersView: {
     title: 'Title',

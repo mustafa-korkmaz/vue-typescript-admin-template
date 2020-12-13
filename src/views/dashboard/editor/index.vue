@@ -1,20 +1,48 @@
 <template>
   <div class="dashboard-editor-container">
-    <div class="clearfix">
-      <pan-thumb
-        :image="avatar"
-        style="float: left"
+    <el-row :gutter="8">
+      <el-col
+        :xs="{span: 24}"
+        :sm="{span: 24}"
+        :md="{span: 24}"
+        :lg="{span: 12}"
+        :xl="{span: 12}"
+        style="padding-right:8px;margin-bottom:30px;"
       >
-        {{ getGreeting() }}
-        <span>
-          {{ $t('dashboardView.boss') }}
-        </span>
-      </pan-thumb>
-      <div class="info-container">
-        <span class="display_name">{{ title }}</span>
-        <span style="font-size:20px;padding-top:20px;display:inline-block;">Dashboard</span>
-      </div>
-    </div>
+        <div class="clearfix">
+          <pan-thumb
+            :image="avatar"
+            style="float: left"
+          >
+            {{ getGreeting() }}
+            <span>
+              {{ $t('dashboardView.boss') }}
+            </span>
+          </pan-thumb>
+
+          <div class="info-container">
+            <span class="display_name">{{ title }}</span>
+            <span style="font-size:20px;padding-top:20px;display:inline-block;">Dashboard</span>
+          </div>
+        </div>
+      </el-col>
+      <el-col
+        :xs="{span: 24}"
+        :sm="{span: 24}"
+        :md="{span: 24}"
+        :lg="{span: 12}"
+        :xl="{span: 12}"
+        style="margin-bottom:30px;"
+      >
+        <statistics
+          :customers-total="customers"
+          :debts-total="debtsTotal"
+          :receivables-total="receivablesTotal"
+          :transactions-total="transactionTotal"
+        />
+      </el-col>
+    </el-row>
+
     <div>
       <img
         :src="emptyGif"
@@ -28,24 +56,32 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { UserModule } from '@/store/modules/user'
 import PanThumb from '@/components/PanThumb/index.vue'
-import GithubCorner from '@/components/GithubCorner/index.vue'
 import { getDashboard } from '@/api/user/account-service'
+import Statistics from './components/Statistics.vue'
 
 @Component({
   name: 'DashboardEditor',
   components: {
     PanThumb,
-    GithubCorner
+    Statistics
   }
 })
 export default class extends Vue {
   private emptyGif = 'https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3'
 
+  private customers = 0
+  private transactionTotal = 0
+  private debtsTotal = 0
+  private receivablesTotal = 0
+
   created() {
     getDashboard()
       .then(
         (resp) => {
-          console.log(resp)
+          this.customers = resp.data.customer_count
+          this.transactionTotal = resp.data.transaction_count
+          this.debtsTotal = resp.data.customer_debts_total
+          this.receivablesTotal = resp.data.customer_receivables_total
         },
         (err) => {
           console.error(err)
@@ -84,8 +120,8 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .emptyGif {
   display: block;
-  width: 45%;
-  margin: 0 auto;
+  width: 30%;
+  margin: 0;
 }
 
 .dashboard-editor-container {

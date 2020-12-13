@@ -271,7 +271,12 @@ export default {
     membership: 'Üyelik',
     membershipCreatedAt: 'Başlangıç: ',
     membershipExpiresAt: 'Bitiş: ',
-    leftDays: 'Kalan gün: '
+    leftDays: 'Kalan gün: ',
+    customers: 'Toplam Cari',
+    receivablesTotal: 'Toplam Alacak',
+    debtsTotal: 'Toplam Borç',
+    transactionTotal: 'Toplam İşlem',
+    lastUpdated: 'Last updated at'
   },
   customersView: {
     title: 'Ünvan',
