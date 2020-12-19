@@ -334,7 +334,8 @@ export default {
     transactionTypeRequired: 'İşlem tipi alanı zorunludur',
     amountRequired: 'Tutar alanı zorunludur',
     dateRequired: 'İşlem tarihi alanı zorunludur',
-    deleteTransactionWarning: 'İşlem kalıcı olarak silinecek'
+    deleteTransactionWarning: 'İşlem kalıcı olarak silinecek',
+    fileName: 'hesap-hareketleri'
   },
   profileView: {
     account: 'Hesap',

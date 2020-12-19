@@ -91,6 +91,7 @@ export default class extends Vue {
     switch (cmd) {
       case 'excel':
         // handle excel
+        this.excelExportClicked()
         break
       case 'toggle-select-columns':
         // handle column selection
@@ -101,6 +102,10 @@ export default class extends Vue {
 
   private optionalColumnsChanged() {
     this.$emit('optionalColumnsChanged', this.selectedOptionalColumns)
+  }
+
+  private excelExportClicked() {
+    this.$emit('excelExportClicked')
   }
 }
 </script>

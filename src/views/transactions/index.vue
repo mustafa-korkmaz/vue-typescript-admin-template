@@ -113,6 +113,7 @@
         :activate-column-selection-option="true"
         :column-selection-options="optionalColumns"
         @optionalColumnsChanged="optionalColumnsChanged"
+        @excelExportClicked="excelExportClicked"
       />
       <el-table
         :key="tableKey"
@@ -415,7 +416,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import * as service from '@/api/transactions/transaction-service'
 import { getCustomers, defaultCustomerQuery } from '@/api/customers/customer-service'
-import { getPriceText, getDateFormat, getApiDateStr, getDateStr, getDatetimeStr } from '@/utils/index'
+import { getPriceText, getDateFormat, getApiDateStr, getDateStr, getDatetimeStr, formatJson } from '@/utils/index'
 import MaterialInput from '@/components/MaterialInput/index.vue'
 import { MessageBox, Form } from 'element-ui'
 import settings from '@/settings'
@@ -426,6 +427,7 @@ import { ITransaction } from '../../api/transactions/types'
 import { ICustomer } from '../../api/customers/types'
 import { getParameters, defaultParameterQuery } from '../../api/parameters/parameter-service'
 import { IParameter } from '../../api/parameters/types'
+import { exportJson2Excel } from '@/utils/excel'
 
 const { notificationDuration, maxQueryLimit } = settings
 
@@ -460,6 +462,9 @@ export default class extends Vue {
     accountingType: true
   }
 
+  private autoWidth = true
+  private bookType = 'xlsx'
+
   created() {
     this.rules = {
       amount: [{ required: true, message: this.amountRequired, trigger: 'change' }],
@@ -469,6 +474,10 @@ export default class extends Vue {
     }
 
     this.setPage()
+  }
+
+  get fileName() {
+    return this.$t('transactionsView.fileName').toString()
   }
 
   get dateFormat() {
@@ -710,6 +719,43 @@ export default class extends Vue {
     this.selectableOptionalColumns.desc = selectedOptionalColumns.find(p => p === 'description') !== undefined
     this.selectableOptionalColumns.modifiedAt = selectedOptionalColumns.find(p => p === 'modifiedAt') !== undefined
     this.selectableOptionalColumns.accountingType = selectedOptionalColumns.find(p => p === 'accountingType') !== undefined
+  }
+
+  private excelExportClicked() {
+    const tHeader = [this.$t('transactionsView.customer').toString(),
+      this.$t('transactionsView.type').toString(),
+      this.$t('transactionsView.description').toString(),
+      this.$t('transactionTypesView.debt').toString(),
+      this.$t('transactionsView.amount').toString(),
+      this.$t('transactionsView.date').toString(),
+      this.$t('table.createdAt').toString(),
+      this.$t('table.modifiedAt').toString()]
+
+    const filterVal = ['customer.title', 'type.name', 'description', 'is_debt', 'amount', 'date', 'created_at', 'modified_at']
+
+    const query = Object.assign({}, service.defaultTransactionQuery)
+
+    query.offset = 0
+    query.limit = maxQueryLimit
+    query.include_records_total = false
+    query.customer_id = this.selectedCustomerId
+    query.type_id = this.selectedTransactionTypeId
+    query.is_debt = this.isDebt
+
+    this.loading = true
+    service.getTransactions(query)
+      .then(
+        (resp) => {
+          this.loading = false
+          const list = resp.data.items
+          const data = formatJson(filterVal, list, this.$i18n.locale)
+          exportJson2Excel(tHeader, data, this.fileName, undefined, undefined, this.autoWidth, this.bookType)
+        },
+        (err) => {
+          console.error(err)
+          this.loading = false
+        }
+      )
   }
 
   private setPage() {

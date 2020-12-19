@@ -334,7 +334,8 @@ export default {
     transactionTypeRequired: 'Transaction type field is required',
     amountRequired: 'Amount field is required',
     dateRequired: 'Transaction date field is required',
-    deleteTransactionWarning: 'Transaction will be deleted permanantly'
+    deleteTransactionWarning: 'Transaction will be deleted permanantly',
+    fileName: 'transactions'
   },
   profileView: {
     account: 'Account',

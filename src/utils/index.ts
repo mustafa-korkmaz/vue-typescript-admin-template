@@ -47,12 +47,21 @@ export const parseTime = (
 }
 
 // Format and filter json data using filterKeys array
-export const formatJson = (filterKeys: any, jsonData: any) =>
+export const formatJson = (filterKeys: any, jsonData: any, lang: string = 'en' || 'tr') =>
   jsonData.map((data: any) => filterKeys.map((key: string) => {
-    if (key === 'timestamp') {
-      return parseTime(data[key])
-    } else {
-      return data[key]
+    if (key.toLowerCase().indexOf('ed_at') >= 0) {
+      return getDatetimeStr(data[key], lang)
+    } else if (key.toLowerCase() === 'date') {
+      return getDateStr(data[key], lang)
+    }
+    else {
+      const depth = key.split('.');
+      if (depth.length > 1) {
+        return data[depth[0]][depth[1]]
+      }
+
+      const value = data[key]
+      return (typeof value === "boolean") ? getBooleanVal(value, lang) : value
     }
   }))
 
@@ -243,4 +252,12 @@ export const getApiDateStr = (date: Date | null) => {
   }
 
   return dayText + '.' + monthText + '.' + yearText
+}
+
+const getBooleanVal = (val: boolean, lang: string) => {
+  if (val) {
+    return lang === 'en' ? 'Yes' : 'Evet'
+  }
+
+  return lang === 'en' ? 'No' : 'Hayir'
 }
