@@ -126,7 +126,7 @@
       >
         <el-table-column
           :label="$t('transactionsView.customer')"
-          min-width="16"
+          min-width="15"
           prop="title"
           sortable="custom"
         >
@@ -145,7 +145,7 @@
         <el-table-column
           v-if="selectableOptionalColumns.desc"
           :label="$t('transactionsView.description')"
-          min-width="16"
+          min-width="14"
         >
           <template slot-scope="{row}">
             <span>{{ row.description }}</span>
@@ -235,6 +235,26 @@
           </template>
         </el-table-column>
         <el-table-column
+          min-width="3"
+          align="right"
+        >
+          <template
+            slot-scope="{row}"
+            text-align="right"
+          >
+            <el-tooltip
+              :content="$t('transactionsView.downloadAttachment')"
+              effect="dark"
+              placement="top"
+            >
+              <a
+                href="javascript:;"
+                @click.prevent="downloadDocument(row.id)"
+              > <span><i class="el-icon-paperclip" /></span></a>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column
           :label="$t('tableActions.name')"
           align="center"
           min-width="12"
@@ -276,6 +296,7 @@
     >
       <el-form
         ref="dataForm"
+        v-loading="modalLoading"
         :rules="rules"
         :model="selectedTransaction"
         label-position="top"
@@ -401,6 +422,7 @@
           {{ $t('form.cancel') }}
         </el-button>
         <el-button
+          :loading="modalLoading"
           type="success"
           icon="el-icon-check"
           @click="editMode?updateTransaction():createTransaction()"
@@ -452,6 +474,7 @@ export default class extends Vue {
   private total = 0
   private page = 1
   private loading = true
+  private modalLoading = false
   private editMode = false
   private dialogFormVisible = false
   private rules = {}
@@ -590,7 +613,7 @@ export default class extends Vue {
   private createTransaction() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
-        this.loading = true
+        this.modalLoading = true
 
         if (this.selectedTransaction.description === '') {
           this.selectedTransaction.description = null
@@ -613,7 +636,7 @@ export default class extends Vue {
         service.createTransaction(this.selectedTransaction)
           .then(
             (resp) => {
-              this.loading = false
+              this.modalLoading = false
               this.selectedTransaction.created_at = new Date()
               this.selectedTransaction.modified_at = new Date()
               this.selectedTransaction.id = resp.data
@@ -629,7 +652,7 @@ export default class extends Vue {
             },
             (err) => {
               console.error(err)
-              this.loading = false
+              this.modalLoading = false
             }
           )
       } else {
@@ -641,7 +664,7 @@ export default class extends Vue {
   private updateTransaction() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
-        this.loading = true
+        this.modalLoading = true
 
         if (this.selectedTransaction.description === '') {
           this.selectedTransaction.description = null
@@ -659,7 +682,7 @@ export default class extends Vue {
         service.updateTransaction(this.selectedTransaction)
           .then(
             () => {
-              this.loading = false
+              this.modalLoading = false
               const index = this.list.findIndex(v => v.id === this.selectedTransaction.id)
               this.selectedTransaction.modified_at = new Date()
               this.list.splice(index, 1, this.selectedTransaction)
@@ -673,7 +696,7 @@ export default class extends Vue {
             },
             (err) => {
               console.error(err)
-              this.loading = false
+              this.modalLoading = false
             }
           )
       }
@@ -836,6 +859,10 @@ export default class extends Vue {
       this.query.sort_by = null
     }
     this.handleFilter()
+  }
+
+  private downloadDocument(transactionId: string) {
+    alert(transactionId)
   }
 }
 </script>

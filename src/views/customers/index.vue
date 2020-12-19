@@ -207,6 +207,7 @@
     >
       <el-form
         ref="dataForm"
+        v-loading="modalLoading"
         :rules="rules"
         :model="selectedCustomer"
         label-position="top"
@@ -258,6 +259,7 @@
         <el-button
           type="success"
           icon="el-icon-check"
+          :loading="modalLoading"
           @click="editMode?updateCustomer():createCustomer()"
         >
           {{ $t('form.save') }}
@@ -298,6 +300,7 @@ export default class extends Vue {
   private total = 0
   private page = 1
   private loading = true
+  private modalLoading = false
   private editMode = false
   private dialogFormVisible = false
   private rules = {}
@@ -403,10 +406,11 @@ export default class extends Vue {
   private createCustomer() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
+        this.modalLoading = true
         service.createCustomer(this.selectedCustomer)
           .then(
             (resp) => {
-              this.loading = false
+              this.modalLoading = false
               this.selectedCustomer.id = resp.data
               this.selectedCustomer.created_at = new Date()
               const newCustomer = Object.assign({}, this.selectedCustomer)
@@ -422,7 +426,7 @@ export default class extends Vue {
             },
             (err) => {
               console.error(err)
-              this.loading = false
+              this.modalLoading = false
             }
           )
       }
@@ -432,12 +436,12 @@ export default class extends Vue {
   private updateCustomer() {
     (this.$refs.dataForm as Form).validate(async(valid) => {
       if (valid) {
-        this.loading = true
+        this.modalLoading = true
 
         service.updateCustomer(this.selectedCustomer)
           .then(
             () => {
-              this.loading = false
+              this.modalLoading = false
               const index = this.list.findIndex(v => v.id === this.selectedCustomer.id)
               this.list.splice(index, 1, this.selectedCustomer)
               this.dialogFormVisible = false
@@ -450,7 +454,7 @@ export default class extends Vue {
             },
             (err) => {
               console.error(err)
-              this.loading = false
+              this.modalLoading = false
             }
           )
       }

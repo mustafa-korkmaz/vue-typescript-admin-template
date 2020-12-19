@@ -335,7 +335,8 @@ export default {
     amountRequired: 'Tutar alanı zorunludur',
     dateRequired: 'İşlem tarihi alanı zorunludur',
     deleteTransactionWarning: 'İşlem kalıcı olarak silinecek',
-    fileName: 'hesap-hareketleri'
+    fileName: 'hesap-hareketleri',
+    downloadAttachment: 'Belgeyi indir'
   },
   profileView: {
     account: 'Hesap',
@@ -356,11 +357,11 @@ export default {
     CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId tam sayı olmalıdır',
     USERNAME_OR_PASSWORD_INCORRECT: 'Kullanıcı adı ya da şifre hatalı',
     DATE_TEXT_FIELD_IS_REQUIRED: 'Tarih alanı zorunludur',
-    DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Açıklama en az 3 en çok 100 karakter olmalıdır',
     EMAIL_FIELD_SHOULD_BE_MAX_50_CHARS: 'Email en çok 50 karakter olmalıdır',
     USER_ALREADY_EXISTS: 'Bu email ile önceden bir hesap açılmış',
     TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Ünvan en az 3 en çok 100 karakter olmalıdır',
     SECURITY_CODE_EXPIRED: 'Güvenlik kodu zaman aşımına uğradı, lütfen şifrenizi tekrar resetleyiniz',
-    SECURITY_ERROR: 'Güvenlik kodu geçersiz, lütfen şifrenizi tekrar resetleyiniz'
+    SECURITY_ERROR: 'Güvenlik kodu geçersiz, lütfen şifrenizi tekrar resetleyiniz',
+    DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Açıklama en az 3 en çok 100 karakter olmalıdır',
   }
 }

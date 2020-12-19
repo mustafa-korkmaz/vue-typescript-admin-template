@@ -121,7 +121,7 @@ export default {
     logIn: 'Go to Login page',
     submit: 'Send login link',
     email: 'Email',
-    resetPasswordLinkSent: 'We sent your password reset link to {0}',
+    resetPasswordLinkSent: 'We sent your password reset link to {0}'
   },
   resetPassword: {
     title: 'Reset Password',
@@ -129,7 +129,7 @@ export default {
     submit: 'Send',
     password: 'New password',
     securityCodeNotFound: 'Security code not found, please try to reset your password again',
-    saved: 'Your new password has been saved. You are being redirected to login page',
+    saved: 'Your new password has been saved. You are being redirected to login page'
   },
   documentation: {
     documentation: 'Documentation',
@@ -335,7 +335,8 @@ export default {
     amountRequired: 'Amount field is required',
     dateRequired: 'Transaction date field is required',
     deleteTransactionWarning: 'Transaction will be deleted permanantly',
-    fileName: 'transactions'
+    fileName: 'transactions',
+    downloadAttachment: 'Download attachment'
   },
   profileView: {
     account: 'Account',
@@ -360,6 +361,7 @@ export default {
     USER_ALREADY_EXISTS: 'There is already an account using this email',
     TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Title should be min 3 max 100 chars',
     SECURITY_CODE_EXPIRED: 'Security code has expired, please try to reset your password again',
-    SECURITY_ERROR: 'Security code is invalid, please try to reset your password again'
+    SECURITY_ERROR: 'Security code is invalid, please try to reset your password again',
+    DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'DEscription should be min 3 max 100 chars'
   }
 }
