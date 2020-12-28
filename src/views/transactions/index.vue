@@ -235,6 +235,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          v-if="showAttachmentsColumn"
           min-width="3"
           align="right"
         >
@@ -243,13 +244,14 @@
             text-align="right"
           >
             <el-tooltip
+              v-if="row.attachment_name"
               :content="$t('transactionsView.downloadAttachment')"
               effect="dark"
               placement="top"
             >
               <a
                 href="javascript:;"
-                @click.prevent="downloadDocument(row.id)"
+                @click.prevent="downloadAttachment(row.attachment_name)"
               > <span><i class="el-icon-paperclip" /></span></a>
             </el-tooltip>
           </template>
@@ -394,6 +396,8 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
           <el-col
             :xs="24"
             :sm="24"
@@ -409,6 +413,23 @@
                 type="textarea"
                 :rows="2"
                 :placeholder="$t('transactionsView.descriptionPlaceholder')"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col
+            :xs="24"
+            :sm="24"
+            :md="20"
+            :lg="20"
+          >
+            <el-form-item :label="$t('transactionsView.attachment')">
+              <file-upload
+                :key="rerenderKey"
+                :before-upload="beforeFileUpload"
+                :on-success="onFileUploadSuccess"
+                :existing-file-name="selectedTransaction.attachment_name"
               />
             </el-form-item>
           </el-col>
@@ -450,6 +471,7 @@ import { ICustomer } from '../../api/customers/types'
 import { getParameters, defaultParameterQuery } from '../../api/parameters/parameter-service'
 import { IParameter } from '../../api/parameters/types'
 import { exportJson2Excel } from '@/utils/excel'
+import FileUpload from './components/FileUpload.vue'
 
 const { notificationDuration, maxQueryLimit } = settings
 
@@ -458,7 +480,8 @@ const { notificationDuration, maxQueryLimit } = settings
   components: {
     MaterialInput,
     Pagination,
-    TableMenu
+    TableMenu,
+    FileUpload
   }
 })
 export default class extends Vue {
@@ -485,8 +508,11 @@ export default class extends Vue {
     accountingType: true
   }
 
+  private rerenderKey = 0
+  private showAttachmentsColumn = false
   private autoWidth = true
   private bookType = 'xlsx'
+  private attachmentName: string | null = null
 
   created() {
     this.rules = {
@@ -576,6 +602,8 @@ export default class extends Vue {
     this.selectedTransaction = Object.assign({}, row)
     this.editMode = true
     this.dialogFormVisible = true
+    this.rerenderKey++ // refresh file upload component
+
     this.$nextTick(() => {
       (this.$refs.dataForm as Form).clearValidate()
     })
@@ -599,6 +627,7 @@ export default class extends Vue {
   private handleCreate() {
     this.editMode = false
     this.dialogFormVisible = true
+    this.rerenderKey++ // refresh file upload component
     this.selectedTransaction = Object.assign({}, service.defaultTransaction)
     this.$nextTick(() => {
       (this.$refs.dataForm as Form).clearValidate()
@@ -837,6 +866,9 @@ export default class extends Vue {
       value.customer_id = value.customer.id
     })
 
+    const predicate = (element: ITransaction | null) => element?.attachment_name !== null
+
+    this.showAttachmentsColumn = list.some(predicate)
     return list
   }
 
@@ -861,8 +893,47 @@ export default class extends Vue {
     this.handleFilter()
   }
 
-  private downloadDocument(transactionId: string) {
-    alert(transactionId)
+  private downloadAttachment(name: string) {
+    this.loading = true
+
+    service.downloadAttachment(name)
+      .then(
+        (resp) => {
+          this.loading = false
+          const fileURL = window.URL.createObjectURL(new Blob([resp]))
+          const fileLink = document.createElement('a')
+
+          fileLink.href = fileURL
+          fileLink.setAttribute('download', name)
+          document.body.appendChild(fileLink)
+
+          fileLink.click()
+        },
+        (err) => {
+          console.error(err)
+          this.loading = false
+        }
+      )
+  }
+
+  private beforeFileUpload(file: File) {
+    const isLt5M = file.size / 1024 / 1024 < 5
+    if (isLt5M) {
+      return true
+    }
+    this.$message({
+      message: this.$t('transactionsView.fileSizeExceeded').toString(),
+      type: 'warning'
+    })
+    return false
+  }
+
+  private onFileUploadSuccess(fileName: string, data: any) {
+    if (fileName === '_deleted') {
+      this.attachmentName = null
+      return
+    }
+    this.attachmentName = fileName
   }
 }
 </script>

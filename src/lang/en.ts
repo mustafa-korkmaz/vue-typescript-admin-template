@@ -336,7 +336,13 @@ export default {
     dateRequired: 'Transaction date field is required',
     deleteTransactionWarning: 'Transaction will be deleted permanantly',
     fileName: 'transactions',
-    downloadAttachment: 'Download attachment'
+    downloadAttachment: 'Download attachment',
+    fileUploadDescription: 'Drop file here or',
+    browse: 'Browse',
+    browseAnother: 'Browse another file',
+    attachment: 'Attachment',
+    fileSizeExceeded:'Max 5mb file size is supported',
+    fileAmountExceeded:'Only 1 file upload is supported. You can try uploading .zip or .rar files for more'
   },
   profileView: {
     account: 'Account',

@@ -7,6 +7,7 @@ import { defaultCustomer } from '../customers/customer-service'
 export const defaultTransaction: ITransaction = {
   id: 0,
   description: null,
+  attachment_name: null,
   amount: null,
   type: defaultParameter,
   type_id: null,
@@ -71,5 +72,13 @@ export function deleteTransaction(id: number) {
   return httpService.request<any, IApiResponse<any>>({
     url: `transactions/${id}`,
     method: 'delete'
+  })
+}
+
+export function downloadAttachment(name: string) {
+  return httpService.request<any, any>({
+    url: `uploads/${name}`,
+    method: 'get',
+    responseType: 'blob',
   })
 }

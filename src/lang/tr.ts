@@ -336,7 +336,13 @@ export default {
     dateRequired: 'İşlem tarihi alanı zorunludur',
     deleteTransactionWarning: 'İşlem kalıcı olarak silinecek',
     fileName: 'hesap-hareketleri',
-    downloadAttachment: 'Belgeyi indir'
+    downloadAttachment: 'Belgeyi indir',
+    fileUploadDescription: 'Dosyayı buraya sürükle ya da',
+    browse: 'Dosya seç',
+    browseAnother: 'Farklı bir dosya seç',
+    attachment: 'Ek dosya',
+    fileSizeExceeded:'Max 5mb dosya boyutu desteklenmektedir',
+    fileAmountExceeded:'Yalnız 1 dosya yükleyebilirsiniz. Daha fazlası için dosyalarınızı sıkıştırarak (".zip", ".rar", vb) yükleyebilirsiniz'
   },
   profileView: {
     account: 'Hesap',

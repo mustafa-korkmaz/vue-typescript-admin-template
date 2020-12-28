@@ -10,6 +10,7 @@ export interface ITransaction {
     type_id: number | null
     amount: number | null
     description: string | null
+    attachment_name: string | null
     is_debt: boolean | null
     date: Date | null
     date_text: string | null
