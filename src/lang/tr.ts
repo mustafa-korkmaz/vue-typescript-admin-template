@@ -245,7 +245,8 @@ export default {
     success: 'İşlem başarılı',
     confirm: 'Devam etmek istiyor musunuz?',
     saved: 'Değişiklikler kaydedildi',
-    deleted: 'Kayıt silindi.'
+    deleted: 'Kayıt silindi.',
+    error: 'Hata'
   },
   form: {
     search: 'Ara',
@@ -342,7 +343,8 @@ export default {
     browseAnother: 'Farklı bir dosya seç',
     attachment: 'Ek dosya',
     fileSizeExceeded:'Max 5mb dosya boyutu desteklenmektedir',
-    fileAmountExceeded:'Yalnız 1 dosya yükleyebilirsiniz. Daha fazlası için dosyalarınızı sıkıştırarak (".zip", ".rar", vb) yükleyebilirsiniz'
+    fileAmountExceeded:'Yalnız 1 dosya yükleyebilirsiniz. Daha fazlası için dosyalarınızı sıkıştırarak (".zip", ".rar", vb) yükleyebilirsiniz',
+    uploadFailed: 'Dosya yükleme işlemi sırasında beklenmedik bir problem oluştu'
   },
   profileView: {
     account: 'Hesap',

@@ -487,6 +487,7 @@ const { notificationDuration, maxQueryLimit } = settings
 export default class extends Vue {
   private query = Object.assign({}, service.defaultTransactionQuery)
   private selectedTransaction = Object.assign({}, service.defaultTransaction)
+  private attachment = Object.assign({}, service.defaultTransactionAttachment)
   private selectedCustomerId: number | null = null
   private selectedTransactionTypeId: number | null = null
   private isDebt: boolean | null = null
@@ -512,7 +513,6 @@ export default class extends Vue {
   private showAttachmentsColumn = false
   private autoWidth = true
   private bookType = 'xlsx'
-  private attachmentName: string | null = null
 
   created() {
     this.rules = {
@@ -662,6 +662,20 @@ export default class extends Vue {
           this.selectedTransaction.type.parameter_type_id = t.parameter_type_id
         }
 
+        const attachmentName = await this.getAttachmentName()
+
+        if (attachmentName === 'error') {
+          this.modalLoading = false
+          this.$notify({
+            title: this.$t('messages.error').toString(),
+            message: this.$t('transactionsView.uploadFailed').toString(),
+            type: 'error',
+            duration: notificationDuration
+          })
+          return
+        }
+
+        this.selectedTransaction.attachment_name = attachmentName
         service.createTransaction(this.selectedTransaction)
           .then(
             (resp) => {
@@ -707,6 +721,21 @@ export default class extends Vue {
           this.selectedTransaction.type.name = t.name
           this.selectedTransaction.type.parameter_type_id = t.parameter_type_id
         }
+
+        const attachmentName = await this.getAttachmentName()
+
+        if (attachmentName === 'error') {
+          this.modalLoading = false
+          this.$notify({
+            title: this.$t('messages.error').toString(),
+            message: this.$t('transactionsView.uploadFailed').toString(),
+            type: 'error',
+            duration: notificationDuration
+          })
+          return
+        }
+
+        this.selectedTransaction.attachment_name = attachmentName
 
         service.updateTransaction(this.selectedTransaction)
           .then(
@@ -928,12 +957,56 @@ export default class extends Vue {
     return false
   }
 
-  private onFileUploadSuccess(fileName: string, data: any) {
+  private onFileUploadSuccess(fileName: string, file: File) {
     if (fileName === '_deleted') {
-      this.attachmentName = null
+      this.attachment.name = null
+      this.attachment.file = null
+      this.selectedTransaction.attachment_name = null
       return
     }
-    this.attachmentName = fileName
+    this.attachment.name = fileName
+    this.attachment.file = file
+  }
+
+  private getAttachmentName() {
+    switch (this.editMode) {
+      case true: {
+        console.log(this.attachment)
+        console.log(this.selectedTransaction.attachment_name)
+        if (this.attachment.name === null && this.selectedTransaction.attachment_name !== null) {
+          return this.selectedTransaction.attachment_name // still same attachment is valid
+        }
+
+        if (this.attachment.name === null && this.selectedTransaction.attachment_name === null) {
+          return null // attachment is deleted
+        }
+        break
+      }
+      default: {
+        if (this.attachment.name === null) {
+          return null
+        }
+        break
+      }
+    }
+
+    if (this.attachment.file === null) {
+      return 'error'
+    }
+
+    return service.uploadAttachment(this.attachment.file)
+      .then(
+        (resp) => {
+          this.loading = false
+          console.log(resp.data)
+          return resp.data
+        },
+        (err) => {
+          console.error(err)
+          this.loading = false
+          return 'error'
+        }
+      )
   }
 }
 </script>

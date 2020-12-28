@@ -23,3 +23,8 @@ export interface ITransactionQuery extends IPagedListQuery {
     type_id: number | null
     is_debt: boolean | null
 }
+
+export interface ITransactionAttachment {
+    name: string | null
+    file: File | null
+}

@@ -1,6 +1,6 @@
 import httpService from '@/utils/http'
 import { IApiResponse, IPagedList } from '../types'
-import { ITransaction, ITransactionQuery } from './types'
+import { ITransactionAttachment, ITransaction, ITransactionQuery } from './types'
 import { defaultParameter } from '../parameters/parameter-service'
 import { defaultCustomer } from '../customers/customer-service'
 
@@ -31,6 +31,11 @@ export const defaultTransactionQuery: ITransactionQuery = {
   sort_type: null
 }
 
+export const defaultTransactionAttachment: ITransactionAttachment = {
+  name: null,
+  file: null
+}
+
 export function getTransactions(params: ITransactionQuery) {
   return httpService.request<ITransactionQuery, IApiResponse<IPagedList<ITransaction>>>({
     url: 'transactions',
@@ -45,6 +50,7 @@ export function createTransaction(txn: ITransaction) {
     type_id: txn.type_id,
     amount: txn.amount,
     description: txn.description,
+    attachment_name:txn.attachment_name,
     date_text: txn.date_text
   }
   return httpService.request<any, IApiResponse<number>>({
@@ -59,6 +65,7 @@ export function updateTransaction(txn: ITransaction) {
     type_id: txn.type_id,
     amount: txn.amount,
     description: txn.description,
+    attachment_name:txn.attachment_name,
     date_text: txn.date_text
   }
   return httpService.request<any, IApiResponse<any>>({
@@ -81,4 +88,11 @@ export function downloadAttachment(name: string) {
     method: 'get',
     responseType: 'blob',
   })
+}
+
+export function uploadAttachment(file: File) {
+  const formData = new FormData();
+
+  formData.append('file', file, file.name);
+  return httpService.post<any,IApiResponse<string>>('uploads', formData)
 }

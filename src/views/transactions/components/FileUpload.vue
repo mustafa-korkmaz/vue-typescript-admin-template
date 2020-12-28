@@ -56,10 +56,16 @@ export default class extends Vue {
   private showDeleteButton = false
 
   created() {
-    console.log('created')
-    console.log(this.existingFileName)
-    this.dropZoneText = this.existingFileName === null ? this.$t('transactionsView.fileUploadDescription').toString() : this.existingFileName
-    this.browseButtonText = this.$t('transactionsView.browse').toString()
+    const attachmentExists = this.existingFileName !== null
+
+    if (attachmentExists) {
+      this.dropZoneText = this.existingFileName
+      this.browseButtonText = this.$t('transactionsView.browseAnother').toString()
+      this.showDeleteButton = true
+    } else {
+      this.dropZoneText = this.$t('transactionsView.fileUploadDescription').toString()
+      this.browseButtonText = this.$t('transactionsView.browse').toString()
+    }
   }
 
   private handleDrop(e: DragEvent) {
@@ -125,19 +131,16 @@ export default class extends Vue {
     this.loading = true
     const reader = new FileReader()
     reader.onload = e => {
-      const data = (e.target as FileReader).result
       this.loading = false
       this.dropZoneText = rawFile.name
       this.browseButtonText = this.$t('transactionsView.browseAnother').toString()
       this.showDeleteButton = true
-      this.onSuccess(rawFile.name, data)
+      this.onSuccess(rawFile.name, rawFile)
     }
     reader.readAsArrayBuffer(rawFile)
   }
 
   private handleClear() {
-    console.log(this.existingFileName)
-
     this.showDeleteButton = false
     this.dropZoneText = this.$t('transactionsView.fileUploadDescription').toString()
     this.browseButtonText = this.$t('transactionsView.browse').toString()

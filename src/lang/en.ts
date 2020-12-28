@@ -245,7 +245,8 @@ export default {
     success: 'Success',
     confirm: 'Do you want to continue?',
     saved: 'Saved successfully',
-    deleted: 'Record has been deleted.'
+    deleted: 'Record has been deleted.',
+    error: 'Error'
   },
   form: {
     search: 'Search',
@@ -342,7 +343,8 @@ export default {
     browseAnother: 'Browse another file',
     attachment: 'Attachment',
     fileSizeExceeded:'Max 5mb file size is supported',
-    fileAmountExceeded:'Only 1 file upload is supported. You can try uploading .zip or .rar files for more'
+    fileAmountExceeded:'Only 1 file upload is supported. You can try uploading .zip or .rar files for more',
+    uploadFailed: 'Unexpected problem occured while uploading attachment'
   },
   profileView: {
     account: 'Account',
