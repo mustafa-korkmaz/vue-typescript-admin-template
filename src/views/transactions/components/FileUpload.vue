@@ -168,6 +168,6 @@ export default class extends Vue {
   position: relative;
 }
 .drop.hover {
-  opacity: 50%;
+  opacity: 0.5;
 }
 </style>
