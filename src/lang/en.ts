@@ -100,8 +100,7 @@ export default {
     comingSoon: 'Coming soon!',
     any: 'any',
     capsLockOn: 'Caps lock is On',
-    thirdparty: 'Or connect with',
-    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+    socialLoginSuccess: 'Social media login succeeded, you are being directed to home page',
   },
   signup: {
     title: 'Register Form',
@@ -356,6 +355,7 @@ export default {
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page',
+    socialMediaProviderFailure:'Social media login has failed, please try to login with your credentials or try again later',
     USER_NOT_FOUND: 'User not found',
     PHONE_NUMBER_FIELD_SHOULD_BE_MIN_10_MAX_12_CHARS: 'Phone number should contain between 10 and 12 chars',
     AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Authorized person name should contain between 3 and 50 chars',

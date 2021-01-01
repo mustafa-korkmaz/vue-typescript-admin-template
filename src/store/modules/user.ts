@@ -83,12 +83,46 @@ class User extends VuexModule implements IUserState {
     const resp = await login(email, password)
     setToken(resp.data.access_token)
     this.SET_TOKEN(resp.data.access_token)
-    this.SET_NAME(name)
+    this.SET_NAME(resp.data.name_surname)
     this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
     // this.SET_INTRODUCTION(introduction)
     this.SET_EMAIL(email)
     // Generate dynamic accessible routes based on roles
     PermissionModule.GenerateRoutes(this.roles)
+    // Add generated routes
+    router.addRoutes(PermissionModule.dynamicRoutes)
+    // Reset visited views and cached views
+    TagsViewModule.delAllViews()
+  }
+
+  @Action
+  public async SocialLogin (token:string) {
+    setToken(token)
+    this.SET_TOKEN(token)
+    
+    const { data } = await getAccount()
+    if (!data) {
+      throw Error('Verification failed, please Login again.')
+    }
+    const { roles, email, name_surname, title, settings, created_at, membership_expires_at } = data
+    // roles must be a non-empty array
+    if (!roles || roles.length <= 0) {
+      throw Error('GetUserInfo: roles must be a non-null array!')
+    }
+    this.SET_ROLES(roles)
+    this.SET_NAME(name_surname)
+    this.SET_TITLE(title)
+    this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+    // this.SET_INTRODUCTION(introduction)
+    this.SET_EMAIL(email)
+    this.SET_CREATED_AT(created_at)
+    this.SET_MEMBERSHIP_EXPIRES_AT(membership_expires_at)
+
+    SettingsModule.ChangeUserSettings(settings)
+
+    // Generate dynamic accessible routes based on roles
+    PermissionModule.GenerateRoutes(this.roles)
+
     // Add generated routes
     router.addRoutes(PermissionModule.dynamicRoutes)
     // Reset visited views and cached views

@@ -101,8 +101,7 @@ export default {
     comingSoon: 'Çok yakında!',
     any: 'any',
     capsLockOn: 'Caps lock açık',
-    thirdparty: 'Or connect with',
-    thirdpartyTips: 'Can not be simulated on local, so please combine you own business simulation! ! !'
+    socialLoginSuccess: 'Sosyal medya hesabı ile başarıyla giriş yapıldı, ana sayfaya yönlediriliyorsunuz.',
   },
   signup: {
     title: 'Kayıt Formu',
@@ -342,8 +341,8 @@ export default {
     browse: 'Dosya seç',
     browseAnother: 'Farklı bir dosya seç',
     attachment: 'Ek dosya',
-    fileSizeExceeded:'Max 5mb dosya boyutu desteklenmektedir',
-    fileAmountExceeded:'Yalnız 1 dosya yükleyebilirsiniz. Daha fazlası için dosyalarınızı sıkıştırarak (".zip", ".rar", vb) yükleyebilirsiniz',
+    fileSizeExceeded: 'Max 5mb dosya boyutu desteklenmektedir',
+    fileAmountExceeded: 'Yalnız 1 dosya yükleyebilirsiniz. Daha fazlası için dosyalarınızı sıkıştırarak (".zip", ".rar", vb) yükleyebilirsiniz',
     uploadFailed: 'Dosya yükleme işlemi sırasında beklenmedik bir problem oluştu'
   },
   profileView: {
@@ -356,10 +355,11 @@ export default {
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz',
+    socialMediaProviderFailure: 'Sosyal medya ile giriş sırasında hata oluştu, lütfen kendi kullanıcı adı ve parolanız ile giriş yapınız ya da daha sonra tekrar deneyiniz',
     USER_NOT_FOUND: 'Kullanıcı bulunamadı',
     PHONE_NUMBER_FIELD_SHOULD_BE_MIN_10_MAX_12_CHARS: 'Telefon numarası en az 10 en çok 12 karakter olmalıdır',
     AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Yetkili kişi adı en az 3 en çok 50 karakter olmalıdır',
-    UNEXPECTED_ERROR: 'Uygulamada beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz.',
+    UNEXPECTED_ERROR: 'Uygulamada beklenmedik bir hata oluştu, lütfen daha sonra tekrar deneyiniz',
     PARAMETER_NAME_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Ad en az 3 en çok 100 karakter olmalıdır',
     PARAMETER_NAME_FIELD_IS_REQUIRED: 'Ad alanı zorunludur',
     CUSTOMER_ID_FIELD_SHOULD_BE_BETWEEN_1_AND_2147483647: 'CustomerId tam sayı olmalıdır',

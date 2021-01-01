@@ -86,7 +86,7 @@
       <el-link
         class="links block"
         :underline="false"
-        @click="handleComingSoon"
+        @click="handleFacebookSignIn"
       >
         <svg-icon name="facebook" />
         {{ $t('login.facebook') }}
@@ -94,7 +94,7 @@
       <el-link
         class="links block"
         :underline="false"
-        @click="handleComingSoon"
+        @click="handleGoogleSignIn"
       >
         <svg-icon name="google2" />
         {{ $t('login.gmail') }}
@@ -154,6 +154,8 @@ import SocialSign from './components/SocialSignin.vue'
 import ForgotPassword from './components/ForgotPassword.vue'
 import settings from '@/settings'
 import Signup from './components/SignupForm.vue'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 const { notificationDuration } = settings
 
@@ -328,12 +330,60 @@ export default class extends Vue {
     this.showForgotPasswordForm = true
   }
 
-  private handleComingSoon() {
+  private socialLoginError() {
+    Message({
+      message: this.$t('errorMessages.socialMediaProviderFailure').toString(),
+      type: 'error',
+      duration: notificationDuration
+    })
+  }
+
+  private handleGoogleSignIn() {
+    const provider = new firebase.auth.GoogleAuthProvider()
+
+    this.handleSocialLogin(provider)
+  }
+
+  private handleFacebookSignIn() {
     Message({
       message: this.$t('login.comingSoon').toString(),
       type: 'info',
       duration: notificationDuration
     })
+  }
+
+  private handleSocialLogin(provider: any) {
+    this.loading = true
+    firebase.auth()
+      .signInWithPopup(provider)
+      .then((res) => {
+        if (res.user) {
+          res.user.getIdToken(/* forceRefresh */ true).then((idToken) => {
+            Message({
+              message: this.$t('login.socialLoginSuccess').toString(),
+              type: 'success',
+              duration: notificationDuration
+            })
+            UserModule.SocialLogin(idToken)
+              .then(() => {
+                this.$router.push({
+                  path: this.redirect || '/',
+                  query: this.otherQuery
+                })
+              })
+          })
+        } else {
+          this.loading = false
+          this.socialLoginError()
+        }
+      },
+      (err) => {
+        console.error(err)
+        this.socialLoginError()
+      })
+      .finally(() => {
+        this.loading = false
+      })
   }
 }
 </script>
