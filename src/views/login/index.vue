@@ -345,11 +345,9 @@ export default class extends Vue {
   }
 
   private handleFacebookSignIn() {
-    Message({
-      message: this.$t('login.comingSoon').toString(),
-      type: 'info',
-      duration: notificationDuration
-    })
+    const provider = new firebase.auth.FacebookAuthProvider()
+
+    this.handleSocialLogin(provider)
   }
 
   private handleSocialLogin(provider: any) {
