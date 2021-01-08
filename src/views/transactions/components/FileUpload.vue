@@ -39,12 +39,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop } from 'vue-property-decorator'
+import { checkPermission } from '@/utils/permission' // Use permission directly
+import { mixins } from 'vue-class-component'
+import PremiumSubscriptionErrorMixin from '@/layout/mixin/premiumsubscriptionerror'
 
 @Component({
   name: 'FileUpload'
 })
-export default class extends Vue {
+export default class extends mixins(PremiumSubscriptionErrorMixin) {
   @Prop({ required: true }) private beforeUpload!: Function
   @Prop({ required: true }) private onSuccess!: Function
   @Prop({ required: true }) private existingFileName!: string
@@ -54,6 +57,7 @@ export default class extends Vue {
   private browseButtonText = ''
   private isHovering = false
   private showDeleteButton = false
+  private permissions = ['admin', 'demo_user', 'premium_user']
 
   created() {
     const attachmentExists = this.existingFileName !== null
@@ -71,6 +75,13 @@ export default class extends Vue {
   private handleDrop(e: DragEvent) {
     e.stopPropagation()
     e.preventDefault()
+
+    if (!checkPermission(this.permissions)) {
+      this.showPaidUserError()
+      this.isHovering = false
+      return
+    }
+
     if (this.loading) return
     if (!e.dataTransfer) return
     const files = e.dataTransfer.files
@@ -104,6 +115,11 @@ export default class extends Vue {
   }
 
   private handleUpload() {
+    if (!checkPermission(this.permissions)) {
+      this.showPaidUserError()
+      return
+    }
+
     (this.$refs['excel-upload-input'] as HTMLInputElement).click()
   }
 
@@ -130,7 +146,7 @@ export default class extends Vue {
   private readerData(rawFile: File) {
     this.loading = true
     const reader = new FileReader()
-    reader.onload = e => {
+    reader.onload = () => {
       this.loading = false
       this.dropZoneText = rawFile.name
       this.browseButtonText = this.$t('transactionsView.browseAnother').toString()

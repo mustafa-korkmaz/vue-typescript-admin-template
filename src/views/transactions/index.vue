@@ -971,8 +971,6 @@ export default class extends Vue {
   private getAttachmentName() {
     switch (this.editMode) {
       case true: {
-        console.log(this.attachment)
-        console.log(this.selectedTransaction.attachment_name)
         if (this.attachment.name === null && this.selectedTransaction.attachment_name !== null) {
           return this.selectedTransaction.attachment_name // still same attachment is valid
         }
@@ -998,7 +996,6 @@ export default class extends Vue {
       .then(
         (resp) => {
           this.loading = false
-          console.log(resp.data)
           return resp.data
         },
         (err) => {

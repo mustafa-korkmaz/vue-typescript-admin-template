@@ -353,6 +353,11 @@ export default {
     title: 'Ünvan',
     authorizedPersonName: 'Yetkili kişi'
   },
+  paidUserErrorView: {
+    title: 'Premium üyelik gerekli!',
+    description: 'Bu işlemi gerçekleştirebilmeniz için Premium üye olmaniz gerekir',
+    action: 'Premium üye nasıl olurum?',
+  },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz',
     socialMediaProviderFailure: 'Sosyal medya ile giriş sırasında hata oluştu, lütfen kendi kullanıcı adı ve parolanız ile giriş yapınız ya da daha sonra tekrar deneyiniz',

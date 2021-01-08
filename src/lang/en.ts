@@ -353,6 +353,11 @@ export default {
     title: 'Title',
     authorizedPersonName: 'Authorized Person'
   },
+  paidUserErrorView: {
+    title: 'Premium subscription is required!',
+    description: 'This action requires a Premium account',
+    action: 'How can I claim a Premium account?',
+  },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page',
     socialMediaProviderFailure:'Social media login has failed, please try to login with your credentials or try again later',
