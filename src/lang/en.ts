@@ -71,6 +71,7 @@ export default {
     transactions: 'Transactions',
     settings: 'Settings',
     transactionTypes: 'Transaction Types',
+    dataImport:'Data import',
     themePreferences: 'Theme Preferences',
     transactionTypesTooltip: 'You can set your own types for any kind of transaction'
   },

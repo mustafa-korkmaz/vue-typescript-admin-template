@@ -73,6 +73,7 @@ export default {
     settings: 'Ayarlar',
     themePreferences: 'Tema Tercihleri',
     transactionTypes: 'İşlem Tipleri',
+    dataImport:'Veri Aktarımı',
     transactionTypesTooltip: 'Hesap hareketleri için yeni bir işlem tipi tanımlayabilir <br/> ya da önceden tanımlı işlem tiplerini düzenleyebilirsin'
   },
   navbar: {

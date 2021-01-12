@@ -27,6 +27,14 @@ const settingsRouter: RouteConfig = {
       meta: {
         title: 'themePreferences'
       }
+    },
+    {
+      path: 'data-import',
+      component: () => import(/* webpackChunkName: "settings-data-import" */ '@/views/settings/data-import.vue'),
+      name: 'DataImport',
+      meta: {
+        title: 'dataImport'
+      }
     }
   ]
 }
