@@ -1,10 +1,6 @@
 <template>
   <div class="drawer-container">
     <div>
-      <!-- <h3 class="drawer-title">
-        {{ $t('settings.title') }}
-      </h3> -->
-
       <div class="drawer-item">
         <span>{{ $t('settings.theme') }}</span>
         <theme-picker

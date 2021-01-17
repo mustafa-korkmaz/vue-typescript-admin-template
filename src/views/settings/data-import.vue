@@ -1,48 +1,141 @@
 <template>
   <div class="page-container">
-    <el-form
-      ref="postForm"
-      v-loading="loading"
-      class="form-container"
+    <el-tabs
+      v-model="activeName"
     >
-      <el-row>
-        <el-col :span="16">
-          <span>{{ $t('route.dataImport') }}</span>
-        </el-col>
-        <el-col :span="16">
-          <el-form-item
-            prop="create"
-            class="form-buttons"
-          >
-            <el-button
-              icon="el-icon-check"
-              type="primary"
-              @click="updateSettings"
+      <el-tab-pane
+        :label="basicTitle"
+        name="basic"
+      >
+        <el-form id="basicImportForm">
+          <el-row>
+            <el-col
+              :xs="24"
+              :sm="24"
+              :md="8"
+              :lg="8"
             >
-              {{ $t('form.saveChanges') }}
-            </el-button>
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
+              <el-form-item>
+                <el-tooltip
+                  effect="dark"
+                  placement="right"
+                >
+                  <div slot="content">
+                    {{ $t('dataImportView.basicImportTooltip1') }}
+                    <br>{{ $t('dataImportView.basicImportTooltip2') }}
+                  </div>
+                  <span>{{ $t('dataImportView.basic') }} <i class="el-icon-question" /></span>
+                </el-tooltip>
+              </el-form-item>
+            </el-col>
+            <el-col
+              :xs="24"
+              :sm="24"
+              :md="8"
+              :lg="8"
+            >
+              <el-form-item>
+                <el-button
+                  icon="el-icon-download"
+                  type="primary"
+                  @click="downloadBasicTemplate"
+                >
+                  {{ $t('dataImportView.downloadTemplate') }}
+                </el-button>
+              </el-form-item>
+            </el-col>
+            <el-col
+              :xs="24"
+              :sm="24"
+              :md="24"
+              :lg="24"
+            >
+              <div class="file-upload">
+                <upload-excel-component
+                  :key="1"
+                  :on-success="handleBasicImport"
+                  :before-upload="beforeUpload"
+                />
+              </div>
+            </el-col>
+          </el-row>
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane
+        :label="detailedTitle"
+        name="detailed"
+      >
+        <el-form id="detailedImportForm">
+          <el-row>
+            <el-col
+              :xs="24"
+              :sm="24"
+              :md="8"
+              :lg="8"
+            >
+              <el-form-item>
+                <el-tooltip
+                  effect="dark"
+                  placement="right"
+                >
+                  <div slot="content">
+                    {{ $t('dataImportView.detailedImportTooltip1') }}
+                    <br>{{ $t('dataImportView.detailedImportTooltip2') }}
+                  </div>
+                  <span>{{ $t('dataImportView.detailed') }} <i class="el-icon-question" /></span>
+                </el-tooltip>
+              </el-form-item>
+            </el-col>
+            <el-col
+              :xs="24"
+              :sm="24"
+              :md="8"
+              :lg="8"
+            >
+              <el-form-item>
+                <el-button
+                  icon="el-icon-download"
+                  type="primary"
+                  @click="downloadDetailedTemplate"
+                >
+                  {{ $t('dataImportView.downloadTemplate') }}
+                </el-button>
+              </el-form-item>
+            </el-col>
+            <el-col
+              :xs="24"
+              :sm="24"
+              :md="24"
+              :lg="24"
+            >
+              <div class="file-upload">
+                <upload-excel-component
+                  :key="2"
+                  :on-success="handleDetailedImport"
+                  :before-upload="beforeUpload"
+                />
+              </div>
+            </el-col>
+          </el-row>
+        </el-form>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { updateSettings } from '@/api/user/account-service'
-import MaterialInput from '@/components/MaterialInput/index.vue'
 import { Settings } from '@/layout/components'
-import { SettingsModule } from '@/store/modules/settings'
-import { IUserSettings } from '../../api/user/types'
 import settings from '@/settings'
+import UploadExcelComponent from '@/components/UploadExcel/index.vue'
+import * as service from '@/api/data-import/data-import-service'
 
 const { notificationDuration } = settings
 
 @Component({
   name: 'DataImport',
   components: {
-    MaterialInput,
+    UploadExcelComponent,
     Settings
   }
 })
@@ -50,26 +143,58 @@ export default class extends Vue {
   private loading = false
   private editMode = false
   private dialogFormVisible = false
+  private activeName = 'basic'
+  private detailedTitle = ''
+  private basicTitle =''
 
-  private updateSettings() {
-    this.loading = true
+  created() {
+    this.detailedTitle = this.$t('dataImportView.detailedTabTitle').toString()
+    this.basicTitle = this.$t('dataImportView.basicTabTitle').toString()
+  }
 
-    const settings: IUserSettings = {
-      fixed_header: SettingsModule.fixedHeader,
-      open_tags_view: SettingsModule.showTagsView,
-      theme_color: SettingsModule.theme,
-      pagination_align: SettingsModule.paginationAlign
+  private beforeUpload(file: File) {
+    const isLt1M = file.size / 1024 / 1024 < 5
+    if (isLt1M) {
+      return true
     }
-    updateSettings(settings)
+    this.$message({
+      message: 'Please do not upload files larger than 5m in size.',
+      type: 'warning'
+    })
+    return false
+  }
+
+  private handleDetailedImport({ results, header }: { results: any, header: string[] }) {
+    alert('handleDetailedImport')
+  }
+
+  private handleBasicImport({ results, header }: { results: any, header: string[] }) {
+    alert('handleBasicImport')
+  }
+
+  private downloadBasicTemplate() {
+    const name = this.$t('dataImportView.basicTemplateName').toString()
+    this.downloadTemplate(name)
+  }
+
+  private downloadDetailedTemplate() {
+    const name = this.$t('dataImportView.detailedTemplateName').toString()
+    this.downloadTemplate(name)
+  }
+
+  private downloadTemplate(name: string) {
+    service.downloadTemplate(name)
       .then(
-        () => {
+        (resp) => {
           this.loading = false
-          this.$notify({
-            title: this.$t('messages.success').toString(),
-            message: this.$t('messages.saved').toString(),
-            type: 'success',
-            duration: notificationDuration
-          })
+          const fileURL = window.URL.createObjectURL(new Blob([resp]))
+          const fileLink = document.createElement('a')
+
+          fileLink.href = fileURL
+          fileLink.setAttribute('download', name)
+          document.body.appendChild(fileLink)
+
+          fileLink.click()
         },
         (err) => {
           console.error(err)
@@ -79,3 +204,8 @@ export default class extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.file-upload {
+  margin: 0 0 1em 0;
+}
+</style>

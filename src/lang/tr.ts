@@ -356,8 +356,25 @@ export default {
   },
   paidUserErrorView: {
     title: 'Premium üyelik gerekli!',
-    description: 'Bu işlemi gerçekleştirebilmeniz için Premium üye olmaniz gerekir',
+    description: 'Bu işlemi gerçekleştirebilmeniz için Premium üye olmanız gerekir',
     action: 'Premium üye nasıl olurum?',
+  },
+  fileUpload:{
+    fileAmountExceeded:'Yalnız 1 dosya yükleyebilirsiniz.',
+    unsupportedFile:'Sadece .xlsx, .xls, .csv uzantili dosyalar desteklenmektedir.'
+  },
+  dataImportView: {
+    basicTemplateName:'kolay-aktarim-sablonu.xlsx',
+    detailedTemplateName:'detayli-aktarim-sablonu.xlsx',
+    basicTabTitle: 'Kolay',
+    detailedTabTitle: 'Detaylı',
+    basic: 'Kolay aktarım',
+    detailed: 'Detaylı aktarım',
+    downloadTemplate: 'Şablon indir',
+    basicImportTooltip1:'Kolay aktarım ile her bir cariniz için yalnız 1 \'Alacak\' ve 1 \'Borç\' olmak üzere 2 adet hesap hareket kaydı oluşturulur.',
+    basicImportTooltip2:'Tüm hesap hareketlerine detaylı bir şekilde ihtiyacınız yok ise işlem kalabalığından kurtulmak için bu yöntemi tercih edebilirsiniz.',
+    detailedImportTooltip1:'Detaylı aktarım, yüklenen şablondaki her satırı bir hesap hareketi olarak kabul eder.',
+    detailedImportTooltip2:'Carilerinizin tüm hesap hareketlerini aktarmak için bu yöntemi tercih edebilirsiniz.'
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz',

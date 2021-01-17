@@ -13,7 +13,7 @@
       @dragover="handleDragover"
       @dragenter="handleDragover"
     >
-      Drop excel file here or
+      {{ dropZoneText }}
       <el-button
         :loading="loading"
         style="margin-left:16px;"
@@ -21,7 +21,7 @@
         type="primary"
         @click="handleUpload"
       >
-        Browse
+        {{ browseButtonText }}
       </el-button>
     </div>
   </div>
@@ -38,10 +38,17 @@ export default class extends Vue {
   @Prop({ required: true }) private beforeUpload!: Function
   @Prop({ required: true }) private onSuccess!: Function
 
+  private dropZoneText = ''
+  private browseButtonText = ''
   private loading = false
   private excelData = {
     header: null,
     results: null
+  }
+
+  created() {
+    this.dropZoneText = this.$t('transactionsView.fileUploadDescription').toString()
+    this.browseButtonText = this.$t('transactionsView.browse').toString()
   }
 
   private generateData(header: any, results: any) {
@@ -57,13 +64,13 @@ export default class extends Vue {
     if (!e.dataTransfer) return
     const files = e.dataTransfer.files
     if (files.length !== 1) {
-      this.$message.error('Only support uploading one file!')
+      this.$message.error(this.$t('fileUpload.fileAmountExceeded').toString())
       return
     }
     const rawFile = files[0] // only use files[0]
 
     if (!this.isExcel(rawFile)) {
-      this.$message.error('Only supports upload .xlsx, .xls, .csv suffix files')
+      this.$message.error(this.$t('fileUpload.unsupportedFile').toString())
       return false
     }
     this.upload(rawFile)
@@ -154,7 +161,6 @@ export default class extends Vue {
   width: 600px;
   height: 160px;
   line-height: 160px;
-  margin: 0 auto;
   font-size: 24px;
   border-radius: 5px;
   text-align: center;

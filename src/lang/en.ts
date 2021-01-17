@@ -264,6 +264,10 @@ export default {
     edit: 'Edit',
     delete: 'Delete'
   },
+  fileUpload:{
+    fileAmountExceeded:'Only 1 file upload is supported.',
+    unsupportedFile:'Only supports upload .xlsx, .xls, .csv suffix files'
+  },
   dashboardView: {
     goodMorning: 'Good morning,',
     goodDay: 'Good day,',
@@ -358,6 +362,19 @@ export default {
     title: 'Premium subscription is required!',
     description: 'This action requires a Premium account',
     action: 'How can I claim a Premium account?',
+  },
+  dataImportView: {
+    basicTemplateName:'basic-import-template.xlsx',
+    detailedTemplateName:'detailed-import-template.xlsx',
+    basicTabTitle: 'Basic',
+    detailedTabTitle: 'Detailed',
+    basic: 'Basic import',
+    detailed: 'Detailed import',
+    downloadTemplate: 'Download template',
+    basicImportTooltip1:'Basic import creates only 2 transactions for your each customer which are typed as \'Receivable\' and \'Debt\'.',
+    basicImportTooltip2:'If you don\'t need all of the transactions in details for your each customer, you may prefer this method in order to avoid unnecessary paperwork.',
+    detailedImportTooltip1:'In detailed import, every row inside the template is being considered as a transaction.',
+    detailedImportTooltip2:'You may prefer this method when you need all transactions for your each customer.'
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page',
