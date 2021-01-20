@@ -120,6 +120,9 @@ export default class extends Vue {
       const worksheet = workbook.Sheets[firstSheetName]
       const header = this.getHeaderRow(worksheet)
       const results = XLSX.utils.sheet_to_json(worksheet)
+
+      this.dropZoneText = rawFile.name
+      this.browseButtonText = this.$t('transactionsView.browseAnother').toString()
       this.generateData(header, results)
       this.loading = false
     }

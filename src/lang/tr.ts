@@ -364,6 +364,7 @@ export default {
     unsupportedFile:'Sadece .xlsx, .xls, .csv uzantili dosyalar desteklenmektedir.'
   },
   dataImportView: {
+    startImport:'Aktarımı başlat',
     basicTemplateName:'kolay-aktarim-sablonu.xlsx',
     detailedTemplateName:'detayli-aktarim-sablonu.xlsx',
     basicTabTitle: 'Kolay',

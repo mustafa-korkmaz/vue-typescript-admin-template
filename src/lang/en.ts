@@ -364,6 +364,7 @@ export default {
     action: 'How can I claim a Premium account?',
   },
   dataImportView: {
+    startImport:'Start import',
     basicTemplateName:'basic-import-template.xlsx',
     detailedTemplateName:'detailed-import-template.xlsx',
     basicTabTitle: 'Basic',

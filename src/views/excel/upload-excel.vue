@@ -5,16 +5,19 @@
       :before-upload="beforeUpload"
     />
     <el-table
-      :data="tableData"
-      border
+      v-loading="loading"
+      fit
       highlight-current-row
-      style="width: 100%;margin-top:20px;"
+      style="width: 100%;"
+      :data="tableData"
+      @sort-change="sortChange"
     >
       <el-table-column
         v-for="item of tableHeader"
         :key="item"
         :prop="item"
         :label="item"
+        min-width="10"
       />
     </el-table>
   </div>

@@ -1,8 +1,6 @@
 <template>
   <div class="page-container">
-    <el-tabs
-      v-model="activeName"
-    >
+    <el-tabs v-model="activeName">
       <el-tab-pane
         :label="basicTitle"
         name="basic"
@@ -47,6 +45,23 @@
             <el-col
               :xs="24"
               :sm="24"
+              :md="8"
+              :lg="8"
+            >
+              <el-form-item>
+                <el-button
+                  :disabled="importDisabledForBasic"
+                  icon="el-icon-refresh"
+                  type="success"
+                  @click="downloadBasicTemplate"
+                >
+                  {{ $t('dataImportView.startImport') }}
+                </el-button>
+              </el-form-item>
+            </el-col>
+            <el-col
+              :xs="24"
+              :sm="24"
               :md="24"
               :lg="24"
             >
@@ -58,6 +73,21 @@
                 />
               </div>
             </el-col>
+          </el-row>
+          <el-row>
+            <el-table
+              :data="basicTableData"
+              border
+              highlight-current-row
+              style="width: 100%;margin-top:20px;"
+            >
+              <el-table-column
+                v-for="item of basicTableHeader"
+                :key="item"
+                :prop="item"
+                :label="item"
+              />
+            </el-table>
           </el-row>
         </el-form>
       </el-tab-pane>
@@ -105,6 +135,23 @@
             <el-col
               :xs="24"
               :sm="24"
+              :md="8"
+              :lg="8"
+            >
+              <el-form-item>
+                <el-button
+                  :disabled="importDisabledForDetailed"
+                  icon="el-icon-refresh"
+                  type="success"
+                  @click="downloadBasicTemplate"
+                >
+                  {{ $t('dataImportView.startImport') }}
+                </el-button>
+              </el-form-item>
+            </el-col>
+            <el-col
+              :xs="24"
+              :sm="24"
               :md="24"
               :lg="24"
             >
@@ -116,6 +163,21 @@
                 />
               </div>
             </el-col>
+          </el-row>
+          <el-row>
+            <el-table
+              :data="detailedTableData"
+              border
+              highlight-current-row
+              style="width: 100%;margin-top:20px;"
+            >
+              <el-table-column
+                v-for="item of detailedTableHeader"
+                :key="item"
+                :prop="item"
+                :label="item"
+              />
+            </el-table>
           </el-row>
         </el-form>
       </el-tab-pane>
@@ -145,7 +207,13 @@ export default class extends Vue {
   private dialogFormVisible = false
   private activeName = 'basic'
   private detailedTitle = ''
-  private basicTitle =''
+  private basicTitle = ''
+  private detailedTableData: any = []
+  private detailedTableHeader: string[] = []
+  private basicTableData: any = []
+  private basicTableHeader: string[] = []
+  private importDisabledForBasic = true
+  private importDisabledForDetailed = true
 
   created() {
     this.detailedTitle = this.$t('dataImportView.detailedTabTitle').toString()
@@ -165,11 +233,15 @@ export default class extends Vue {
   }
 
   private handleDetailedImport({ results, header }: { results: any, header: string[] }) {
-    alert('handleDetailedImport')
+    this.detailedTableData = results
+    this.detailedTableHeader = header
+    this.importDisabledForDetailed = false
   }
 
   private handleBasicImport({ results, header }: { results: any, header: string[] }) {
-    alert('handleBasicImport')
+    this.basicTableData = results
+    this.basicTableHeader = header
+    this.importDisabledForBasic = false
   }
 
   private downloadBasicTemplate() {
