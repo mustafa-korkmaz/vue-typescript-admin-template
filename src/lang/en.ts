@@ -394,6 +394,8 @@ export default {
     TITLE_FIELD_SHOULD_BE_MIN_3_MAX_100_CHARS: 'Title should be min 3 max 100 chars',
     SECURITY_CODE_EXPIRED: 'Security code has expired, please try to reset your password again',
     SECURITY_ERROR: 'Security code is invalid, please try to reset your password again',
-    DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'DEscription should be min 3 max 100 chars'
+    DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Description should be min 3 max 100 chars',
+    TITLE_FIELD_IS_REQUIRED: 'Title field is required',
+    CUSTOMER_TITLE_CONFLICT: 'While using basic import, customers should be unique'
   }
 }

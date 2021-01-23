@@ -53,7 +53,7 @@
                   :disabled="importDisabledForBasic"
                   icon="el-icon-refresh"
                   type="success"
-                  @click="downloadBasicTemplate"
+                  @click="startBasicImport"
                 >
                   {{ $t('dataImportView.startImport') }}
                 </el-button>
@@ -143,7 +143,7 @@
                   :disabled="importDisabledForDetailed"
                   icon="el-icon-refresh"
                   type="success"
-                  @click="downloadBasicTemplate"
+                  @click="startDetailedImport"
                 >
                   {{ $t('dataImportView.startImport') }}
                 </el-button>
@@ -191,6 +191,9 @@ import { Settings } from '@/layout/components'
 import settings from '@/settings'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import * as service from '@/api/data-import/data-import-service'
+import { IBasicImportItem, IBasicImportRequest } from '@/api/data-import/types'
+import { AppModule } from '@/store/modules/app'
+import { defaultCustomer } from '@/api/customers/customer-service'
 
 const { notificationDuration } = settings
 
@@ -273,6 +276,88 @@ export default class extends Vue {
           this.loading = false
         }
       )
+  }
+
+  private startBasicImport() {
+    const array: any[] = this.basicTableData
+    const imports: IBasicImportItem [] = []
+
+    array.forEach(function(value) {
+      const data: IBasicImportItem = {
+        receivable_balance: 0,
+        debt_balance: 0,
+        customer: defaultCustomer
+      }
+
+      let authorized_person_name = ''
+      let title = ''
+      let phone_number = ''
+
+      const keys = Object.keys(value)
+
+      keys.map(function(key, index) {
+        switch (index) {
+          case 0: {
+            title = value[key]
+            break
+          }
+          case 1: {
+            authorized_person_name = value[key]
+            break
+          }
+          case 2: {
+            phone_number = value[key]
+            break
+          }
+          case 3: {
+            data.debt_balance = value[key]
+            break
+          }
+          case 4: {
+            data.receivable_balance = value[key]
+            break
+          }
+          default: {
+            // statements;
+            break
+          }
+        }
+      })
+
+      data.customer = {
+        authorized_person_name: authorized_person_name,
+        title: title,
+        phone_number: phone_number,
+        id: null,
+        created_at: null,
+        remaining_balance: 0,
+        receivable_balance: 0,
+        debt_balance: 0,
+        receivables_amount: 0,
+        debts_amount: 0
+      }
+
+      imports.push(data)
+    })
+
+    const request: IBasicImportRequest = {
+      language: AppModule.language,
+      items: imports
+    }
+    service.importBasic(request)
+      .then(
+        (resp) => {
+          this.loading = false
+        },
+        (err) => {
+          console.error(err)
+          this.loading = false
+        }
+      )
+  }
+
+  private startDetailedImport() {
+    alert('startDetaileImport')
   }
 }
 </script>

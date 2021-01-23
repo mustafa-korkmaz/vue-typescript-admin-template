@@ -395,5 +395,7 @@ export default {
     SECURITY_CODE_EXPIRED: 'Güvenlik kodu zaman aşımına uğradı, lütfen şifrenizi tekrar resetleyiniz',
     SECURITY_ERROR: 'Güvenlik kodu geçersiz, lütfen şifrenizi tekrar resetleyiniz',
     DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Açıklama en az 3 en çok 100 karakter olmalıdır',
+    TITLE_FIELD_IS_REQUIRED: 'Cari alanı zorunludur',
+    CUSTOMER_TITLE_CONFLICT: 'Kolay aktarım listesinde aynı cari icin birden fazla kayit bulunmamalıdır'
   }
 }
