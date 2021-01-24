@@ -44,15 +44,15 @@ Object.keys(filters).forEach(key => {
 Vue.config.productionTip = false
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCWQjn29mR5eJ-PC52zQnJAm3GuBVY1mTg",
-  authDomain: "karakapli-web.firebaseapp.com",
-  databaseURL: "https://karakapli-web.firebaseio.com",
-  projectId: "karakapli-web",
-  storageBucket: "karakapli-web.appspot.com",
-  messagingSenderId: "315781520643",
-  appId: "1:315781520643:web:a0d83d3e717d8a0a5ddd36",
-  measurementId: "G-GH4EHXVSQK"
-};
+  apiKey: 'AIzaSyCWQjn29mR5eJ-PC52zQnJAm3GuBVY1mTg',
+  authDomain: 'karakapli-web.firebaseapp.com',
+  databaseURL: 'https://karakapli-web.firebaseio.com',
+  projectId: 'karakapli-web',
+  storageBucket: 'karakapli-web.appspot.com',
+  messagingSenderId: '315781520643',
+  appId: '1:315781520643:web:a0d83d3e717d8a0a5ddd36',
+  measurementId: 'G-GH4EHXVSQK'
+}
 
 firebase.default.initializeApp(firebaseConfig)
 

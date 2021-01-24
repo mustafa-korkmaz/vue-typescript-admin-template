@@ -96,10 +96,10 @@ class User extends VuexModule implements IUserState {
   }
 
   @Action
-  public async SocialLogin (token:string) {
+  public async SocialLogin(token: string) {
     setToken(token)
     this.SET_TOKEN(token)
-    
+
     const { data } = await getAccount()
     if (!data) {
       throw Error('Verification failed, please Login again.')

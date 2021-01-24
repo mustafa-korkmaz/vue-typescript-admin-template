@@ -73,7 +73,7 @@ export default {
     settings: 'Ayarlar',
     themePreferences: 'Tema Tercihleri',
     transactionTypes: 'İşlem Tipleri',
-    dataImport:'Veri Aktarımı',
+    dataImport: 'Veri Aktarımı',
     transactionTypesTooltip: 'Hesap hareketleri için yeni bir işlem tipi tanımlayabilir <br/> ya da önceden tanımlı işlem tiplerini düzenleyebilirsin'
   },
   navbar: {
@@ -102,7 +102,7 @@ export default {
     comingSoon: 'Çok yakında!',
     any: 'any',
     capsLockOn: 'Caps lock açık',
-    socialLoginSuccess: 'Sosyal medya hesabı ile başarıyla giriş yapıldı, ana sayfaya yönlediriliyorsunuz.',
+    socialLoginSuccess: 'Sosyal medya hesabı ile başarıyla giriş yapıldı, ana sayfaya yönlediriliyorsunuz.'
   },
   signup: {
     title: 'Kayıt Formu',
@@ -357,28 +357,28 @@ export default {
   paidUserErrorView: {
     title: 'Premium üyelik gerekli!',
     description: 'Bu işlemi gerçekleştirebilmeniz için Premium üye olmanız gerekir',
-    action: 'Premium üye nasıl olurum?',
+    action: 'Premium üye nasıl olurum?'
   },
-  fileUpload:{
-    fileAmountExceeded:'Yalnız 1 dosya yükleyebilirsiniz.',
-    unsupportedFile:'Sadece .xlsx, .xls, .csv uzantili dosyalar desteklenmektedir.'
+  fileUpload: {
+    fileAmountExceeded: 'Yalnız 1 dosya yükleyebilirsiniz.',
+    unsupportedFile: 'Sadece .xlsx, .xls, .csv uzantili dosyalar desteklenmektedir.'
   },
   dataImportView: {
-    startImport:'Aktarımı başlat',
-    basicTemplateName:'kolay-aktarim-sablonu.xlsx',
-    detailedTemplateName:'detayli-aktarim-sablonu.xlsx',
+    startImport: 'Aktarımı başlat',
+    basicTemplateName: 'kolay-aktarim-sablonu.xlsx',
+    detailedTemplateName: 'detayli-aktarim-sablonu.xlsx',
     basicTabTitle: 'Kolay',
     detailedTabTitle: 'Detaylı',
     basic: 'Kolay aktarım',
     detailed: 'Detaylı aktarım',
     downloadTemplate: 'Şablon indir',
-    basicImportTooltip1:'Kolay aktarım ile her bir cariniz için yalnız 1 \'Alacak\' ve 1 \'Borç\' olmak üzere 2 adet hesap hareket kaydı oluşturulur.',
-    basicImportTooltip2:'Tüm hesap hareketlerine detaylı bir şekilde ihtiyacınız yok ise işlem kalabalığından kurtulmak için bu yöntemi tercih edebilirsiniz.',
-    detailedImportTooltip1:'Detaylı aktarım, yüklenen şablondaki her satırı bir hesap hareketi olarak kabul eder.',
-    detailedImportTooltip2:'Carilerinizin tüm hesap hareketlerini aktarmak için bu yöntemi tercih edebilirsiniz.',
-    totalCountToBeImported:'Aktarım yapilacak satır sayısı',
-    importSuccess:'{0} kayıt aktarıldı',
-    importFail:'{0} kayıt içerisinden ilk {1} adedi aktarıldı',
+    basicImportTooltip1: 'Kolay aktarım ile her bir cariniz için yalnız 1 \'Alacak\' ve 1 \'Borç\' olmak üzere 2 adet hesap hareket kaydı oluşturulur.',
+    basicImportTooltip2: 'Tüm hesap hareketlerine detaylı bir şekilde ihtiyacınız yok ise işlem kalabalığından kurtulmak için bu yöntemi tercih edebilirsiniz.',
+    detailedImportTooltip1: 'Detaylı aktarım, yüklenen şablondaki her satırı bir hesap hareketi olarak kabul eder.',
+    detailedImportTooltip2: 'Carilerinizin tüm hesap hareketlerini aktarmak için bu yöntemi tercih edebilirsiniz.',
+    totalCountToBeImported: 'Aktarım yapilacak satır sayısı',
+    importSuccess: '{0} kayıt aktarıldı',
+    importFail: '{0} kayıt içerisinden ilk {1} adedi aktarıldı'
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz',
@@ -401,7 +401,7 @@ export default {
     TITLE_FIELD_IS_REQUIRED: 'Cari alanı zorunludur',
     CUSTOMER_TITLE_CONFLICT: 'Kolay aktarım listesinde aynı cari icin birden fazla kayıt bulunmamalıdır',
     CUSTOMER_EXISTS: '{0} carisi sistemde mevcut',
-    MaxRowCountExceeded:'Tek seferde en fazla 1000 satır aktarım yapılabilir',
+    MaxRowCountExceeded: 'Tek seferde en fazla 1000 satır aktarım yapılabilir',
     MaxFileSizeExceeded: 'Max 5mb dosya boyutu desteklenmektedir'
   }
 }

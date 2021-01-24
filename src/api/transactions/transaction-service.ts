@@ -50,7 +50,7 @@ export function createTransaction(txn: ITransaction) {
     type_id: txn.type_id,
     amount: txn.amount,
     description: txn.description,
-    attachment_name:txn.attachment_name,
+    attachment_name: txn.attachment_name,
     date_text: txn.date_text
   }
   return httpService.request<any, IApiResponse<number>>({
@@ -65,7 +65,7 @@ export function updateTransaction(txn: ITransaction) {
     type_id: txn.type_id,
     amount: txn.amount,
     description: txn.description,
-    attachment_name:txn.attachment_name,
+    attachment_name: txn.attachment_name,
     date_text: txn.date_text
   }
   return httpService.request<any, IApiResponse<any>>({
@@ -86,13 +86,13 @@ export function downloadAttachment(name: string) {
   return httpService.request<any, any>({
     url: `uploads/${name}`,
     method: 'get',
-    responseType: 'blob',
+    responseType: 'blob'
   })
 }
 
 export function uploadAttachment(file: File) {
-  const formData = new FormData();
+  const formData = new FormData()
 
-  formData.append('file', file, file.name);
-  return httpService.post<any,IApiResponse<string>>('uploads', formData)
+  formData.append('file', file, file.name)
+  return httpService.post<any, IApiResponse<string>>('uploads', formData)
 }

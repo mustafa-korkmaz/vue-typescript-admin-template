@@ -140,8 +140,7 @@ export const formatJson = (filterKeys: any, jsonData: any, lang: string = 'en' |
       return getDatetimeStr(data[key], lang)
     } else if (key.toLowerCase() === 'date') {
       return getDateStr(data[key], lang)
-    }
-    else {
+    } else {
       const depth = key.split('.')
       if (depth.length > 1) {
         return data[depth[0]][depth[1]]

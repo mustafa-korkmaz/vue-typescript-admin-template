@@ -10,7 +10,7 @@ export interface IDetailedImportRequest {
     items: IDetailedImportItem[]
 }
 
-export class IBasicImportItem{
+export class IBasicImportItem {
     receivable_balance: number
     debt_balance: number
     customer: ICustomer

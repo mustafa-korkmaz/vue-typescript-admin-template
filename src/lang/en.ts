@@ -71,7 +71,7 @@ export default {
     transactions: 'Transactions',
     settings: 'Settings',
     transactionTypes: 'Transaction Types',
-    dataImport:'Data import',
+    dataImport: 'Data import',
     themePreferences: 'Theme Preferences',
     transactionTypesTooltip: 'You can set your own types for any kind of transaction'
   },
@@ -101,7 +101,7 @@ export default {
     comingSoon: 'Coming soon!',
     any: 'any',
     capsLockOn: 'Caps lock is On',
-    socialLoginSuccess: 'Social media login succeeded, you are being directed to home page',
+    socialLoginSuccess: 'Social media login succeeded, you are being directed to home page'
   },
   signup: {
     title: 'Register Form',
@@ -264,9 +264,9 @@ export default {
     edit: 'Edit',
     delete: 'Delete'
   },
-  fileUpload:{
-    fileAmountExceeded:'Only 1 file upload is supported.',
-    unsupportedFile:'Only supports upload .xlsx, .xls, .csv suffix files'
+  fileUpload: {
+    fileAmountExceeded: 'Only 1 file upload is supported.',
+    unsupportedFile: 'Only supports upload .xlsx, .xls, .csv suffix files'
   },
   dashboardView: {
     goodMorning: 'Good morning,',
@@ -346,8 +346,8 @@ export default {
     browse: 'Browse',
     browseAnother: 'Browse another file',
     attachment: 'Attachment',
-    fileSizeExceeded:'Max 5mb file size is supported',
-    fileAmountExceeded:'Only 1 file upload is supported. You can try uploading .zip or .rar files for more',
+    fileSizeExceeded: 'Max 5mb file size is supported',
+    fileAmountExceeded: 'Only 1 file upload is supported. You can try uploading .zip or .rar files for more',
     uploadFailed: 'Unexpected problem occured while uploading attachment'
   },
   profileView: {
@@ -361,28 +361,28 @@ export default {
   paidUserErrorView: {
     title: 'Premium subscription is required!',
     description: 'This action requires a Premium account',
-    action: 'How can I claim a Premium account?',
+    action: 'How can I claim a Premium account?'
   },
   dataImportView: {
-    startImport:'Start import',
-    basicTemplateName:'basic-import-template.xlsx',
-    detailedTemplateName:'detailed-import-template.xlsx',
+    startImport: 'Start import',
+    basicTemplateName: 'basic-import-template.xlsx',
+    detailedTemplateName: 'detailed-import-template.xlsx',
     basicTabTitle: 'Basic',
     detailedTabTitle: 'Detailed',
     basic: 'Basic import',
     detailed: 'Detailed import',
     downloadTemplate: 'Download template',
-    basicImportTooltip1:'Basic import creates only 2 transactions for your each customer which are typed as \'Receivable\' and \'Debt\'.',
-    basicImportTooltip2:'If you don\'t need all of the transactions in details for your each customer, you may prefer this method in order to avoid unnecessary paperwork.',
-    detailedImportTooltip1:'In detailed import, every row inside the template is being considered as a transaction.',
-    detailedImportTooltip2:'You may prefer this method when you need all transactions for your each customer.',
-    totalCountToBeImported:'Row count to be imported',
-    importSuccess:'{0} rows are imported',
-    importFail:'First {1} of {0} rows are imported',
+    basicImportTooltip1: 'Basic import creates only 2 transactions for your each customer which are typed as \'Receivable\' and \'Debt\'.',
+    basicImportTooltip2: 'If you don\'t need all of the transactions in details for your each customer, you may prefer this method in order to avoid unnecessary paperwork.',
+    detailedImportTooltip1: 'In detailed import, every row inside the template is being considered as a transaction.',
+    detailedImportTooltip2: 'You may prefer this method when you need all transactions for your each customer.',
+    totalCountToBeImported: 'Row count to be imported',
+    importSuccess: '{0} rows are imported',
+    importFail: 'First {1} of {0} rows are imported'
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page',
-    socialMediaProviderFailure:'Social media login has failed, please try to login with your credentials or try again later',
+    socialMediaProviderFailure: 'Social media login has failed, please try to login with your credentials or try again later',
     USER_NOT_FOUND: 'User not found',
     PHONE_NUMBER_FIELD_SHOULD_BE_MIN_10_MAX_12_CHARS: 'Phone number should contain between 10 and 12 chars',
     AUTHORIZED_PERSON_NAME_FIELD_SHOULD_BE_MIN_3_MAX_50_CHARS: 'Authorized person name should contain between 3 and 50 chars',
@@ -401,7 +401,7 @@ export default {
     TITLE_FIELD_IS_REQUIRED: 'Title field is required',
     CUSTOMER_TITLE_CONFLICT: 'While using basic import, customers should be unique',
     CUSTOMER_EXISTS: 'Customer {0} already exists',
-    MaxRowCountExceeded:'Maximum allowed row count per import operation is 1000',
+    MaxRowCountExceeded: 'Maximum allowed row count per import operation is 1000',
     MaxFileSizeExceeded: 'Max 5mb file size is supported'
   }
 }
