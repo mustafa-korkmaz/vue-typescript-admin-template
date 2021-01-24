@@ -57,6 +57,7 @@ export interface IApiResponse<T> {
   response_code: ResponseCode
   error_code: string
   type_text: string
+  type: number
   data: T
 }
 

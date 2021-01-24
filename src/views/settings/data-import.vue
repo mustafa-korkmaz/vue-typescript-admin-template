@@ -5,7 +5,10 @@
         :label="basicTitle"
         name="basic"
       >
-        <el-form id="basicImportForm">
+        <el-form
+          id="basicImportForm"
+          v-loading="loading"
+        >
           <el-row>
             <el-col
               :xs="24"
@@ -62,6 +65,16 @@
             <el-col
               :xs="24"
               :sm="24"
+              :md="8"
+              :lg="8"
+            >
+              <el-form-item>
+                <span>{{ $t('dataImportView.totalCountToBeImported') }}: {{ basicTableData.length }}</span>
+              </el-form-item>
+            </el-col>
+            <el-col
+              :xs="24"
+              :sm="24"
               :md="24"
               :lg="24"
             >
@@ -95,7 +108,10 @@
         :label="detailedTitle"
         name="detailed"
       >
-        <el-form id="detailedImportForm">
+        <el-form
+          id="detailedImportForm"
+          v-loading="loading"
+        >
           <el-row>
             <el-col
               :xs="24"
@@ -197,6 +213,16 @@ import { defaultCustomer } from '@/api/customers/customer-service'
 
 const { notificationDuration } = settings
 
+interface IImportTracker {
+  total: number
+  success: number
+}
+
+const defaultImportTracker: IImportTracker = {
+  total: 0,
+  success: 0
+}
+
 @Component({
   name: 'DataImport',
   components: {
@@ -217,6 +243,7 @@ export default class extends Vue {
   private basicTableHeader: string[] = []
   private importDisabledForBasic = true
   private importDisabledForDetailed = true
+  private importTracker = Object.assign({}, defaultImportTracker)
 
   created() {
     this.detailedTitle = this.$t('dataImportView.detailedTabTitle').toString()
@@ -229,7 +256,7 @@ export default class extends Vue {
       return true
     }
     this.$message({
-      message: 'Please do not upload files larger than 5m in size.',
+      message: this.$t('errorMessages.MaxFileSizeExceeded').toString(),
       type: 'warning'
     })
     return false
@@ -278,7 +305,7 @@ export default class extends Vue {
       )
   }
 
-  private startBasicImport() {
+  private async startBasicImport() {
     const array: any[] = this.basicTableData
     const imports: IBasicImportItem [] = []
 
@@ -318,7 +345,7 @@ export default class extends Vue {
             break
           }
           default: {
-            // statements;
+          // statements;
             break
           }
         }
@@ -340,24 +367,101 @@ export default class extends Vue {
       imports.push(data)
     })
 
-    const request: IBasicImportRequest = {
-      language: AppModule.language,
-      items: imports
+    this.importTracker = Object.assign({}, defaultImportTracker)
+    this.importTracker.total = imports.length
+
+    const validationResult = this.validateImportData()
+
+    if (validationResult !== null) {
+      this.$message({
+        message: this.$t(validationResult).toString(),
+        type: 'warning'
+      })
+      return
     }
-    service.importBasic(request)
-      .then(
-        (resp) => {
-          this.loading = false
-        },
-        (err) => {
-          console.error(err)
-          this.loading = false
+
+    const chunks = this.splitImportData(imports)
+    this.loading = true
+
+    for (let i = 0; i < chunks.length; i++) {
+      const request: IBasicImportRequest = {
+        language: AppModule.language,
+        items: chunks[i]
+      }
+
+      try {
+        const response = await service.importBasic(request)
+        if (response.type === -2) {
+          // validation error
+          let msg = ''
+          const arr = response.error_code.split(' ')
+          if (arr.length > 1) {
+            const index = response.error_code.indexOf(' ')
+            const errorData = response.error_code.substring(index)
+            msg = this.$t('errorMessages.' + arr[0], [errorData]).toString()
+          } else {
+            msg = this.$t('errorMessages.' + arr[0]).toString()
+          }
+          this.$message({
+            message: msg,
+            type: 'error'
+          })
+          break
         }
-      )
+        this.importTracker.success += response.data
+      } catch (err) {
+        console.error(err)
+        break
+      }
+    }
+
+    setTimeout(() => {
+      this.loading = false
+      this.showStatusMessage()
+    }, notificationDuration)
+  }
+
+  private showStatusMessage() {
+    if (this.importTracker.total === this.importTracker.success) {
+      const msg = this.$t('dataImportView.importSuccess', [this.importTracker.success])
+      this.$notify({
+        title: this.$t('messages.success').toString(),
+        message: msg.toString(),
+        type: 'success',
+        duration: notificationDuration
+      })
+    } else {
+      const msg = this.$t('dataImportView.importFail', [this.importTracker.total, this.importTracker.success])
+      this.$message({
+        message: msg.toString(),
+        type: 'error'
+      })
+    }
   }
 
   private startDetailedImport() {
     alert('startDetaileImport')
+  }
+
+  private validateImportData(): string|null{
+    if (this.importTracker.total > 1000) {
+      return 'errorMessages.MaxRowCountExceeded'
+    }
+    return null
+  }
+
+  private splitImportData(imports: IBasicImportItem[]): IBasicImportItem[][] {
+    let i = 0
+    let j = 0
+    const chunkSize = 10
+    const chunkArray: any = []
+
+    for (i = 0, j = imports.length; i < j; i += chunkSize) {
+      const chunk = imports.slice(i, i + chunkSize)
+      chunkArray.push(chunk)
+    }
+
+    return chunkArray
   }
 }
 </script>

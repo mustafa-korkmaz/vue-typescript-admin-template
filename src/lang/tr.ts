@@ -375,7 +375,10 @@ export default {
     basicImportTooltip1:'Kolay aktarım ile her bir cariniz için yalnız 1 \'Alacak\' ve 1 \'Borç\' olmak üzere 2 adet hesap hareket kaydı oluşturulur.',
     basicImportTooltip2:'Tüm hesap hareketlerine detaylı bir şekilde ihtiyacınız yok ise işlem kalabalığından kurtulmak için bu yöntemi tercih edebilirsiniz.',
     detailedImportTooltip1:'Detaylı aktarım, yüklenen şablondaki her satırı bir hesap hareketi olarak kabul eder.',
-    detailedImportTooltip2:'Carilerinizin tüm hesap hareketlerini aktarmak için bu yöntemi tercih edebilirsiniz.'
+    detailedImportTooltip2:'Carilerinizin tüm hesap hareketlerini aktarmak için bu yöntemi tercih edebilirsiniz.',
+    totalCountToBeImported:'Aktarım yapilacak satır sayısı',
+    importSuccess:'{0} kayıt aktarıldı',
+    importFail:'{0} kayıt içerisinden ilk {1} adedi aktarıldı',
   },
   errorMessages: {
     sessionTimeOut: 'Oturumunuz sona erdi. Giriş sayfasına yönlediriliyorsunuz',
@@ -396,6 +399,9 @@ export default {
     SECURITY_ERROR: 'Güvenlik kodu geçersiz, lütfen şifrenizi tekrar resetleyiniz',
     DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Açıklama en az 3 en çok 100 karakter olmalıdır',
     TITLE_FIELD_IS_REQUIRED: 'Cari alanı zorunludur',
-    CUSTOMER_TITLE_CONFLICT: 'Kolay aktarım listesinde aynı cari icin birden fazla kayit bulunmamalıdır'
+    CUSTOMER_TITLE_CONFLICT: 'Kolay aktarım listesinde aynı cari icin birden fazla kayıt bulunmamalıdır',
+    CUSTOMER_EXISTS: '{0} carisi sistemde mevcut',
+    MaxRowCountExceeded:'Tek seferde en fazla 1000 satır aktarım yapılabilir',
+    MaxFileSizeExceeded: 'Max 5mb dosya boyutu desteklenmektedir'
   }
 }

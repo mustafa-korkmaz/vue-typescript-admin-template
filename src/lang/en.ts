@@ -375,7 +375,10 @@ export default {
     basicImportTooltip1:'Basic import creates only 2 transactions for your each customer which are typed as \'Receivable\' and \'Debt\'.',
     basicImportTooltip2:'If you don\'t need all of the transactions in details for your each customer, you may prefer this method in order to avoid unnecessary paperwork.',
     detailedImportTooltip1:'In detailed import, every row inside the template is being considered as a transaction.',
-    detailedImportTooltip2:'You may prefer this method when you need all transactions for your each customer.'
+    detailedImportTooltip2:'You may prefer this method when you need all transactions for your each customer.',
+    totalCountToBeImported:'Row count to be imported',
+    importSuccess:'{0} rows are imported',
+    importFail:'First {1} of {0} rows are imported',
   },
   errorMessages: {
     sessionTimeOut: 'Your session has expired. You are being redirected to login page',
@@ -396,6 +399,9 @@ export default {
     SECURITY_ERROR: 'Security code is invalid, please try to reset your password again',
     DESCRIPTION_FIELD_SHOULD_BE_MIN_3_MAX_250_CHARS: 'Description should be min 3 max 100 chars',
     TITLE_FIELD_IS_REQUIRED: 'Title field is required',
-    CUSTOMER_TITLE_CONFLICT: 'While using basic import, customers should be unique'
+    CUSTOMER_TITLE_CONFLICT: 'While using basic import, customers should be unique',
+    CUSTOMER_EXISTS: 'Customer {0} already exists',
+    MaxRowCountExceeded:'Maximum allowed row count per import operation is 1000',
+    MaxFileSizeExceeded: 'Max 5mb file size is supported'
   }
 }
