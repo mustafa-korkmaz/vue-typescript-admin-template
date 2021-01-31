@@ -4,7 +4,7 @@ import { IBasicImportRequest, IDetailedImportItem, IDetailedImportRequest } from
 
 export function downloadTemplate(name: string) {
   return httpService.request<any, any>({
-    url: `templates/${name}`,
+    url: `Templates/${name}`,
     method: 'get',
     responseType: 'blob'
   })
