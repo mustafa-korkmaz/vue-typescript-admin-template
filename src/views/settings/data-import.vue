@@ -316,9 +316,9 @@ export default class extends Vue {
         customer: defaultCustomer
       }
 
-      let authorized_person_name = ''
+      let authorizedPersonName = ''
       let title = ''
-      let phone_number = ''
+      let phoneNumber = ''
 
       const keys = Object.keys(value)
 
@@ -329,11 +329,11 @@ export default class extends Vue {
             break
           }
           case 1: {
-            authorized_person_name = value[key]
+            authorizedPersonName = value[key]
             break
           }
           case 2: {
-            phone_number = value[key]
+            phoneNumber = value[key]
             break
           }
           case 3: {
@@ -352,9 +352,9 @@ export default class extends Vue {
       })
 
       data.customer = {
-        authorized_person_name: authorized_person_name,
+        authorized_person_name: authorizedPersonName,
         title: title,
-        phone_number: phone_number,
+        phone_number: phoneNumber,
         id: null,
         created_at: null,
         remaining_balance: 0,
@@ -440,10 +440,14 @@ export default class extends Vue {
   }
 
   private startDetailedImport() {
-    alert('startDetaileImport')
+    const msg = this.$t('login.comingSoon', [this.importTracker.total, this.importTracker.success])
+    this.$message({
+      message: msg.toString(),
+      type: 'info'
+    })
   }
 
-  private validateImportData(): string|null{
+  private validateImportData(): string|null {
     if (this.importTracker.total > 1000) {
       return 'errorMessages.MaxRowCountExceeded'
     }

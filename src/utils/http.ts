@@ -36,7 +36,7 @@ httpService.interceptors.response.use(
     if (error.response.status === 401) {
       Message({
         message: i18n.t('errorMessages.sessionTimeOut').toString(),
-        type: 'warning',
+        type: 'info',
         duration: notificationDuration
       })
       setTimeout(() => {
